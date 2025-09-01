@@ -159,6 +159,27 @@ body {
     .next-piece {
         width: 80px;
     }
+
+    .on-screen-controls {
+    flex-shrink: 0;
+    /* Reduced padding to bring controls closer to the game */
+    padding: 0.5rem 1rem 1rem 1rem; 
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    }
+
+    .on-screen-controls .btn-control {
+        padding: 0; /* Override any Tailwind padding */
+        /* Smaller button dimensions */
+        width: 56px;
+        height: 56px;
+    }
+
+    .on-screen-controls .material-icons {
+        /* Smaller icon size */
+        font-size: 28px;
+    }
 }
 
 .back-button {
