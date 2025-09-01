@@ -3,47 +3,65 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Modern Tetris</title>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <title>Tetris</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
 </head>
 <body>
-
-    <a href="/" id="back-button">
-        <span class="material-symbols-outlined">arrow_back</span>
+    <a href="/" class="back-button">
+        <span class="material-icons">arrow_back</span>
     </a>
-    <div id="game-container">
-        <main id="game-board">
-            <div id="tetris-grid">
-                </div>
-            <div id="pause-overlay" class="hidden">PAUSED</div>
-        </main>
 
-        <aside id="game-sidebar">
-            <h1 id="game-title">TETRIS</h1>
+    <main class="game-wrapper">
+        <header class="game-header">
+            <h1 class="text-4xl md:text-5xl font-bold text-glow uppercase tracking-widest">Tetris</h1>
+        </header>
 
-            <div class="info-panel">
-                <h3>SCORE</h3>
-                <p id="score-display">0</p>
-            </div>
-            <div class="info-panel">
-                <h3>LINES</h3>
-                <p id="lines-display">0</p>
-            </div>
-            <div class="info-panel">
-                <h3>NEXT</h3>
-                <div id="next-piece-grid">
+        <div class="game-layout">
+            <div id="game-board-container" class="flex justify-center items-center">
+                <div id="game-board" class="game-board rounded-lg">
                     </div>
             </div>
-            <button id="pause-btn" class="utility-button">
-                <span class="material-symbols-outlined">pause</span> Pause
-            </button>
-        </aside>
-    </div>
 
-    <footer id="mobile-controls">
+            <aside class="sidebar">
+                <div>
+                    <h2 class="text-lg uppercase text-glow mb-2 text-center">Next</h2>
+                    <div id="next-piece-grid" class="next-piece rounded-lg mx-auto">
+                        </div>
+                </div>
+                <div>
+                    <h2 class="text-lg uppercase text-glow mb-2 text-center">Score</h2>
+                    <div id="score-display" class="score-box rounded-lg p-3 text-center text-3xl font-bold w-full text-glow">0</div>
+                </div>
+                <div class="flex flex-col space-y-3">
+                    <button id="pause-btn" class="btn-control text-white font-bold py-2 px-4 rounded-lg shadow-lg text-sm uppercase">Pause</button>
+                    <button id="restart-btn" class="btn-control text-white font-bold py-2 px-4 rounded-lg shadow-lg text-sm uppercase">Restart</button>
+                </div>
+            </aside>
+        </div>
+
+        <footer class="on-screen-controls">
+            <div class="flex justify-between items-center w-full">
+                <div class="flex gap-4">
+                    <button id="left-btn" class="btn-control text-white font-bold p-5 rounded-full shadow-lg">
+                        <span class="material-icons text-4xl">arrow_back</span>
+                    </button>
+                    <button id="down-btn" class="btn-control text-white font-bold p-5 rounded-full shadow-lg">
+                        <span class="material-icons text-4xl">arrow_downward</span>
+                    </button>
+                    <button id="right-btn" class="btn-control text-white font-bold p-5 rounded-full shadow-lg">
+                        <span class="material-icons text-4xl">arrow_forward</span>
+                    </button>
+                </div>
+                <button id="rotate-btn" class="btn-control text-white font-bold p-5 rounded-full shadow-lg">
+                    <span class="material-icons text-4xl">rotate_90_degrees_ccw</span>
+                </button>
+            </div>
         </footer>
+    </main>
 
-    <script src="script.js" defer></script>
 </body>
 </html>
