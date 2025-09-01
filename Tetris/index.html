@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern Tetris</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <a href="/" id="back-button">
+        <span class="material-symbols-outlined">arrow_back</span>
+    </a>
+    <div id="game-container">
+        <main id="game-board">
+            <div id="tetris-grid">
+                </div>
+            <div id="pause-overlay" class="hidden">PAUSED</div>
+        </main>
+
+        <aside id="game-sidebar">
+            <h1 id="game-title">TETRIS</h1>
+
+            <div class="info-panel">
+                <h3>SCORE</h3>
+                <p id="score-display">0</p>
+            </div>
+            <div class="info-panel">
+                <h3>LINES</h3>
+                <p id="lines-display">0</p>
+            </div>
+            <div class="info-panel">
+                <h3>NEXT</h3>
+                <div id="next-piece-grid">
+                    </div>
+            </div>
+            <button id="pause-btn" class="utility-button">
+                <span class="material-symbols-outlined">pause</span> Pause
+            </button>
+        </aside>
+    </div>
+
+    <footer id="mobile-controls">
+        </footer>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
