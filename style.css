@@ -1,176 +1,33 @@
-/* style.css (FINAL - Sidebar on Mobile) */
+/* style.css */
 
-/* --- Basic Setup & Fonts --- */
-:root {
-    --bg-color: #1a1a2e;
-    --grid-bg: #0D0D1A;
-    --border-color: #4A90E2;
-    --text-color: #E0E0FF;
-    --text-muted: #8A8A9E;
-    --panel-bg: rgba(42, 42, 74, 0.6);
-    --overlay-bg: rgba(13, 13, 26, 0.85);
+/* Pre-loader styles */
+.loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #111122;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap');
-
-body {
-    background-color: var(--bg-color);
-    font-family: 'Inter', sans-serif;
-    color: var(--text-color);
-    margin: 0;
-    padding: 1rem;
-    box-sizing: border-box;
-    height: 100vh;
-    height: 100dvh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+.loader {
+  border: 5px solid #232348;
+  border-top: 5px solid #9292c9;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
 }
 
-/* --- Main Layout --- */
-#game-container {
-    display: flex;
-    gap: 1.5rem;
-    align-items: flex-start;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    max-height: 900px; /* Prevents extreme stretching on tall monitors */
-    max-width: 650px;
-}
-
-#game-board {
-    flex-grow: 1;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    height: 100%;
-    min-width: 0; /* Important for flex shrinking */
-}
-
-#game-sidebar {
-    width: 150px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-/* --- Game Title --- */
-#game-title {
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    font-size: 2.5rem;
-    text-align: center;
-    margin: 0 0 1rem 0;
-    color: #fff;
-    text-shadow: 0 0 10px var(--border-color);
-}
-
-
-/* --- Tetris Grid & Pause Overlay --- */
-#tetris-grid {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(20, 1fr);
-    aspect-ratio: 10 / 20;
-    border: 3px solid var(--border-color);
-    border-radius: 10px;
-    box-shadow: 0 0 25px rgba(74, 144, 226, 0.5);
-    height: 100%;
-    width: auto;
-}
-
-#pause-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--overlay-bg); border-radius: 10px; color: white; font-size: 2rem; font-weight: bold; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(5px); z-index: 10; }
-.hidden { display: none !important; }
-
-/* --- Block & Cell Styles --- */
-.tetris-cell { background-color: transparent; }
-.tetris-cell.filled { border-radius: 2px; border: 1px solid rgba(0, 0, 0, 0.25); }
-.tetris-cell.i { background-color: #00c8c8; }
-.tetris-cell.o { background-color: #c8c800; }
-.tetris-cell.t { background-color: #9600c8; }
-.tetris-cell.l { background-color: #c88200; }
-.tetris-cell.j { background-color: #0000c8; }
-.tetris-cell.s { background-color: #00c800; }
-.tetris-cell.z { background-color: #c80000; }
-
-/* --- Info Panels --- */
-.info-panel { background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; text-align: center; backdrop-filter: blur(10px); }
-.info-panel h3 { margin: 0 0 0.5rem 0; font-size: 0.9rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; }
-.info-panel p { margin: 0; font-size: 1.8rem; font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
-#next-piece-grid { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0.5rem auto 0; width: 80px; height: 80px; }
-
-/* --- Buttons --- */
-#back-button { position: absolute; top: 1rem; left: 1rem; z-index: 20; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: rgba(34, 34, 68, 0.7); color: #E0E0FF; text-decoration: none; border-radius: 50%; backdrop-filter: blur(5px); transition: background-color 0.2s ease; }
-#back-button:hover { background-color: rgba(68, 68, 102, 0.9); }
-#back-button .material-symbols-outlined { font-size: 24px; }
-#mobile-controls { display: none; }
-.utility-button { 
-    background: var(--panel-bg);
-    border: 1px solid var(--border-color);
-    color: var(--text-color);
-    border-radius: 8px;
-    padding: 0.75rem;
-    font-size: 1rem;
-    font-family: 'Inter', sans-serif;
-    gap: 0.5rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/*
-============================================
-=== RESPONSIVE FIXES FOR MOBILE DEVICES ====
-============================================
-*/
-@media (max-width: 640px) {
-    body {
-        padding: 0.5rem;
-    }
-    #game-container {
-        gap: 0.75rem; /* Reduce gap between board and sidebar */
-    }
-
-    #game-sidebar {
-        width: 100px; /* Make sidebar narrower on mobile */
-        gap: 0.75rem;
-    }
-
-    #game-title {
-        font-size: 1.5rem; /* Smaller title */
-        margin-bottom: 0;
-    }
-
-    .info-panel {
-        padding: 0.5rem;
-    }
-
-    .info-panel h3 {
-        font-size: 0.6rem;
-    }
-    .info-panel p {
-        font-size: 1.1rem;
-    }
-
-    #next-piece-grid {
-        width: 60px;
-        height: 60px;
-    }
-
-    .utility-button {
-        padding: 0.5rem;
-        font-size: 0.8rem;
-    }
-
-    /* Hide text on pause button to save space */
-    .utility-button .material-symbols-outlined { 
-        margin-right: 0; 
-    }
-    .utility-button span:not(.material-symbols-outlined) {
-        display: none;
-    }
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
