@@ -7,12 +7,7 @@
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
-    <link
-      rel="stylesheet"
-      as="style"
-      onload="this.rel='stylesheet'"
-      href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&family=Space+Grotesk%3Awght%40400%3B500%3B700"
-    />
+    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&family=Space+Grotesk%3Awght%40400%3B500%3B700" />
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
@@ -21,217 +16,114 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div
-      id="app"
-      class="relative flex size-full min-h-screen flex-col bg-[#111122] dark justify-between group/design-root overflow-x-hidden"
-      style="font-family: 'Space Grotesk', 'Noto Sans', sans-serif"
-    >
+    <div id="app" class="relative flex size-full min-h-screen flex-col bg-[#111122] dark justify-between group/design-root overflow-x-hidden" style='font-family: "Space Grotesk", "Noto Sans", sans-serif;'>
       <div v-if="isLoading" class="loader-wrapper">
         <div class="loader"></div>
       </div>
 
       <div v-else>
-        <header
-          class="flex items-center bg-[#111122] p-4 pb-2 justify-between sticky top-0 z-10"
-        >
+        <header class="flex items-center bg-[#111122] p-4 pb-2 justify-between sticky top-0 z-10">
           <div class="w-12"></div>
-          <h1
-            class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center"
-          >
-            Arcadia
-          </h1>
+          <h1 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Arcadia</h1>
           <div class="flex w-12 items-center justify-end"></div>
         </header>
 
         <div class="px-4 py-3">
           <label class="flex flex-col min-w-40 h-12 w-full">
             <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
-              <div
-                class="text-[#9292c9] flex border-none bg-[#232348] items-center justify-center pl-4 rounded-l-lg border-r-0"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24px"
-                  height="24px"
-                  fill="currentColor"
-                  viewBox="0 0 256 256"
-                >
-                  <path
-                    d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"
-                  ></path>
+              <div class="text-[#9292c9] flex border-none bg-[#232348] items-center justify-center pl-4 rounded-l-lg border-r-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                  <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
                 </svg>
               </div>
-              <input
-                placeholder="Search for games"
-                v-model="searchQuery"
-                @input="selectedCategory = 'All'"
-                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border-none bg-[#232348] focus:border-none h-full placeholder:text-[#9292c9] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
-              />
+              <input placeholder="Search for games" v-model="searchQuery" @input="selectedCategory = 'All'" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-0 border-none bg-[#232348] focus:border-none h-full placeholder:text-[#9292c9] px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" />
             </div>
           </label>
         </div>
 
-        <div
-          class="flex overflow-y-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        >
+        <div class="flex overflow-y-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <div class="flex items-stretch p-4 gap-3">
-            <a
-              v-for="game in featuredGames"
-              :key="game.id"
-              :href="game.url"
-              class="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-60"
-            >
-              <div
-                class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg"
-                :style="{ backgroundImage: 'url(' + game.imageUrl + ')' }"
-              ></div>
+            <a v-for="game in featuredGames" :key="game.id" :href="game.url" class="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-60">
+              <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg" :style="{ backgroundImage: 'url(' + game.imageUrl + ')' }"></div>
               <div>
-                <p class="text-white text-base font-medium leading-normal">
-                  {{ game.title }}
-                </p>
-                <p
-                  class="text-[#9292c9] text-sm font-normal leading-normal truncate"
-                >
-                  {{ game.description }}
-                </p>
+                <p class="text-white text-base font-medium leading-normal">{{ game.title }}</p>
+                <p class="text-[#9292c9] text-sm font-normal leading-normal truncate">{{ game.description }}</p>
               </div>
             </a>
           </div>
         </div>
 
-        <h2
-          class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5"
-        >
-          Categories
-        </h2>
-        <div
-          class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4"
-        >
-          <div
-            v-for="category in categories"
-            :key="category.name"
-            @click="selectCategory(category.name)"
-            class="flex flex-col gap-3 pb-3 cursor-pointer"
-          >
-            <div
-              class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg transform transition-transform duration-300 hover:scale-105"
-              :class="{'ring-2 ring-white': selectedCategory === category.name}"
-              :style="{ backgroundImage: 'url(' + category.imageUrl + ')' }"
-            ></div>
-            <p
-              class="text-white text-base font-medium leading-normal text-center"
-            >
-              {{ category.name }}
-            </p>
+        <h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Categories</h2>
+        <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-3 p-4">
+          <div v-for="category in categories" :key="category.name" @click="selectCategory(category.name)" class="flex flex-col gap-3 pb-3 cursor-pointer">
+            <div class="w-full bg-center bg-no-repeat aspect-square bg-cover rounded-lg transform transition-transform duration-300 hover:scale-105" :class="{'ring-2 ring-white': selectedCategory === category.name}" :style="{ backgroundImage: 'url(' + category.imageUrl + ')' }"></div>
+            <p class="text-white text-base font-medium leading-normal text-center">{{ category.name }}</p>
           </div>
         </div>
+        
+    <h2 class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">
+    {{ selectedCategory }} Games
+    </h2>
 
-        <h2
-          class="text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5"
-        >
-          {{ selectedCategory }} Games
-        </h2>
-
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-4 p-4">
+    <!-- Game Cards -->
+    <a
+        v-for="game in filteredGames"
+        :key="game.id"
+        :href="game.url"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex flex-col gap-3 pb-3 transform transition-transform duration-300 hover:scale-105"
+    >
+        <!-- Game Thumbnail -->
         <div
-          class="grid grid-cols-[repeat(auto-fit,minmax(158px,1fr))] gap-4 p-4"
+        class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg shadow-md"
+        :style="{ backgroundImage: 'url(' + game.imageUrl + ')' }"
+        ></div>
+
+        <!-- Game Title -->
+        <p class="text-white text-base font-medium leading-normal truncate">
+        {{ game.title }}
+        </p>
+
+        <!-- Optional Category Badge -->
+        <span
+        v-if="game.category"
+        class="text-xs px-2 py-1 rounded-md bg-[#2d2d55] text-[#b0b0ff] w-fit"
         >
-          <!-- Game Cards -->
-          <a
-            v-for="game in filteredGames"
-            :key="game.id"
-            :href="game.url"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="flex flex-col gap-3 pb-3 transform transition-transform duration-300 hover:scale-105"
-          >
-            <!-- Game Thumbnail -->
-            <div
-              class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-lg shadow-md"
-              :style="{ backgroundImage: 'url(' + game.imageUrl + ')' }"
-            ></div>
+        {{ game.category }}
+        </span>
+    </a>
 
-            <!-- Game Title -->
-            <p class="text-white text-base font-medium leading-normal truncate">
-              {{ game.title }}
-            </p>
+    <!-- Empty State -->
+    <p
+        v-if="filteredGames.length === 0"
+        class="text-[#9292c9] col-span-full text-center"
+    >
+        No games found.
+    </p>
+    </div>
 
-            <!-- Optional Category Badge -->
-            <span
-              v-if="game.category"
-              class="text-xs px-2 py-1 rounded-md bg-[#2d2d55] text-[#b0b0ff] w-fit"
-            >
-              {{ game.category }}
-            </span>
-          </a>
 
-          <!-- Empty State -->
-          <p
-            v-if="filteredGames.length === 0"
-            class="text-[#9292c9] col-span-full text-center"
-          >
-            No games found.
-          </p>
-        </div>
       </div>
 
       <div class="sticky bottom-0">
-        <div
-          class="flex gap-2 border-t border-[#232348] bg-[#191933] px-4 pb-3 pt-2"
-        >
-          <a
-            class="flex flex-1 flex-col items-center justify-end gap-1 rounded-full text-white"
-            href="#"
-          >
+        <div class="flex gap-2 border-t border-[#232348] bg-[#191933] px-4 pb-3 pt-2">
+          <a class="flex flex-1 flex-col items-center justify-end gap-1 rounded-full text-white" href="#">
             <div class="text-white flex h-8 items-center justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24px"
-                height="24px"
-                fill="currentColor"
-                viewBox="0 0 256 256"
-              >
-                <path
-                  d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"
-                ></path>
-              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"></path></svg>
             </div>
             <span class="text-xs">Home</span>
           </a>
-          <a
-            class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9292c9]"
-            href="#"
-          >
+          <a class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9292c9]" href="#">
             <div class="text-[#9292c9] flex h-8 items-center justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24px"
-                height="24px"
-                fill="currentColor"
-                viewBox="0 0 256 256"
-              >
-                <path
-                  d="M176,112H152a8,8,0,0,1,0-16h24a8,8,0,0,1,0,16ZM104,96H96V88a8,8,0,0,0-16,0v8H72a8,8,0,0,0,0,16h8v8a8,8,0,0,0,16,0v-8h8a8,8,0,0,0,0-16ZM241.48,200.65a36,36,0,0,1-54.94,4.81c-.12-.12-.24-.24-.35-.37L146.48,160h-37L69.81,205.09l-.35.37A36.08,36.08,0,0,1,44,216,36,36,0,0,1,8.56,173.75a.68.68,0,0,1,0-.14L24.93,89.52A59.88,59.88,0,0,1,83.89,40H172a60.08,60.08,0,0,1,59,49.25c0,.06,0,.12,0,.18l16.37,84.17a.68.68,0,0,1,0,.14A35.74,35.74,0,0,1,241.48,200.65ZM172,144a44,44,0,0,0,0-88H83.89A43.9,43.9,0,0,0,40.68,92.37l0,.13L24.3,176.59A20,20,0,0,0,58,194.3l41.92-47.59a8,8,0,0,1,6-2.71Zm59.7,32.59-8.74-45A60,60,0,0,1,172,160h-4.2L198,194.31a20.09,20.09,0,0,0,17.46,5.39,20,20,0,0,0,16.23-23.11Z"
-                ></path>
-              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M176,112H152a8,8,0,0,1,0-16h24a8,8,0,0,1,0,16ZM104,96H96V88a8,8,0,0,0-16,0v8H72a8,8,0,0,0,0,16h8v8a8,8,0,0,0,16,0v-8h8a8,8,0,0,0,0-16ZM241.48,200.65a36,36,0,0,1-54.94,4.81c-.12-.12-.24-.24-.35-.37L146.48,160h-37L69.81,205.09l-.35.37A36.08,36.08,0,0,1,44,216,36,36,0,0,1,8.56,173.75a.68.68,0,0,1,0-.14L24.93,89.52A59.88,59.88,0,0,1,83.89,40H172a60.08,60.08,0,0,1,59,49.25c0,.06,0,.12,0,.18l16.37,84.17a.68.68,0,0,1,0,.14A35.74,35.74,0,0,1,241.48,200.65ZM172,144a44,44,0,0,0,0-88H83.89A43.9,43.9,0,0,0,40.68,92.37l0,.13L24.3,176.59A20,20,0,0,0,58,194.3l41.92-47.59a8,8,0,0,1,6-2.71Zm59.7,32.59-8.74-45A60,60,0,0,1,172,160h-4.2L198,194.31a20.09,20.09,0,0,0,17.46,5.39,20,20,0,0,0,16.23-23.11Z"></path></svg>
             </div>
             <span class="text-xs">Games</span>
           </a>
-          <a
-            class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9292c9]"
-            href="#"
-          >
+          <a class="flex flex-1 flex-col items-center justify-end gap-1 text-[#9292c9]" href="#">
             <div class="text-[#9292c9] flex h-8 items-center justify-center">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24px"
-                height="24px"
-                fill="currentColor"
-                viewBox="0 0 256 256"
-              >
-                <path
-                  d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.25,8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.25-10.87,8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,73.89,34.51a8,8,0,0,0-3.93,6L67.32,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.25,8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.25,8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.25,10.87,8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.25-10.88,8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.25,8,8,0,0,0-1.49-7.06Zm-16.1-6.5a73.93,73.93,0,0,1,0,8.68,8,8,0,0,0,1.74,5.48l14.19,17.73a91.57,91.57,0,0,1-6.23,15L187,173.11a8,8,0,0,0-5.1,2.64,74.11,74.11,0,0,1-6.14,6.14,8,8,0,0,0-2.64,5.1l-2.51,22.58a91.32,91.32,0,0,1-15,6.23l-17.74-14.19a8,8,0,0,0-5-1.75h-.48a73.93,73.93,0,0,1-8.68,0,8,8,0,0,0-5.48,1.74L100.45,215.8a91.57,91.57,0,0,1-15-6.23L82.89,187a8,8,0,0,0-2.64-5.1,74.11,74.11,0,0,1-6.14-6.14,8,8,0,0,0-5.1-2.64L46.43,170.6a91.32,91.32,0,0,1-6.23-15l14.19-17.74a8,8,0,0,0,1.74-5.48,73.93,73.93,0,0,1,0-8.68,8,8,0,0,0-1.74-5.48L40.2,100.45a91.57,91.57,0,0,1,6.23-15L69,82.89a8,8,0,0,0,5.1-2.64,74.11,74.11,0,0,1,6.14-6.14A8,8,0,0,0,82.89,69L85.4,46.43a91.32,91.32,0,0,1,15-6.23l17.74,14.19a8,8,0,0,0,5.48,1.74,73.93,73.93,0,0,1,8.68,0,8,8,0,0,0,5.48-1.74L155.55,40.2a91.57,91.57,0,0,1,15,6.23L173.11,69a8,8,0,0,0,2.64,5.1,74.11,74.11,0,0,1,6.14,6.14,8,8,0,0,0,5.1,2.64l22.58,2.51a91.32,91.32,0,0,1,6.23,15l-14.19,17.74A8,8,0,0,0,199.87,123.66Z"
-                ></path>
-              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm88-29.84q.06-2.16,0-4.32l14.92-18.64a8,8,0,0,0,1.48-7.06,107.21,107.21,0,0,0-10.88-26.25,8,8,0,0,0-6-3.93l-23.72-2.64q-1.48-1.56-3-3L186,40.54a8,8,0,0,0-3.94-6,107.71,107.71,0,0,0-26.25-10.87,8,8,0,0,0-7.06,1.49L130.16,40Q128,40,125.84,40L107.2,25.11a8,8,0,0,0-7.06-1.48A107.6,107.6,0,0,0,73.89,34.51a8,8,0,0,0-3.93,6L67.32,64.27q-1.56,1.49-3,3L40.54,70a8,8,0,0,0-6,3.94,107.71,107.71,0,0,0-10.87,26.25,8,8,0,0,0,1.49,7.06L40,125.84Q40,128,40,130.16L25.11,148.8a8,8,0,0,0-1.48,7.06,107.21,107.21,0,0,0,10.88,26.25,8,8,0,0,0,6,3.93l23.72,2.64q1.49,1.56,3,3L70,215.46a8,8,0,0,0,3.94,6,107.71,107.71,0,0,0,26.25,10.87,8,8,0,0,0,7.06-1.49L125.84,216q2.16.06,4.32,0l18.64,14.92a8,8,0,0,0,7.06,1.48,107.21,107.21,0,0,0,26.25-10.88,8,8,0,0,0,3.93-6l2.64-23.72q1.56-1.48,3-3L215.46,186a8,8,0,0,0,6-3.94,107.71,107.71,0,0,0,10.87-26.25,8,8,0,0,0-1.49-7.06Zm-16.1-6.5a73.93,73.93,0,0,1,0,8.68,8,8,0,0,0,1.74,5.48l14.19,17.73a91.57,91.57,0,0,1-6.23,15L187,173.11a8,8,0,0,0-5.1,2.64,74.11,74.11,0,0,1-6.14,6.14,8,8,0,0,0-2.64,5.1l-2.51,22.58a91.32,91.32,0,0,1-15,6.23l-17.74-14.19a8,8,0,0,0-5-1.75h-.48a73.93,73.93,0,0,1-8.68,0,8,8,0,0,0-5.48,1.74L100.45,215.8a91.57,91.57,0,0,1-15-6.23L82.89,187a8,8,0,0,0-2.64-5.1,74.11,74.11,0,0,1-6.14-6.14,8,8,0,0,0-5.1-2.64L46.43,170.6a91.32,91.32,0,0,1-6.23-15l14.19-17.74a8,8,0,0,0,1.74-5.48,73.93,73.93,0,0,1,0-8.68,8,8,0,0,0-1.74-5.48L40.2,100.45a91.57,91.57,0,0,1,6.23-15L69,82.89a8,8,0,0,0,5.1-2.64,74.11,74.11,0,0,1,6.14-6.14A8,8,0,0,0,82.89,69L85.4,46.43a91.32,91.32,0,0,1,15-6.23l17.74,14.19a8,8,0,0,0,5.48,1.74,73.93,73.93,0,0,1,8.68,0,8,8,0,0,0,5.48-1.74L155.55,40.2a91.57,91.57,0,0,1,15,6.23L173.11,69a8,8,0,0,0,2.64,5.1,74.11,74.11,0,0,1,6.14,6.14,8,8,0,0,0,5.1,2.64l22.58,2.51a91.32,91.32,0,0,1,6.23,15l-14.19,17.74A8,8,0,0,0,199.87,123.66Z"></path></svg>
             </div>
             <span class="text-xs">Settings</span>
           </a>

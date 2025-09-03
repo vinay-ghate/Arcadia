@@ -1,60 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Snake Game</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
-    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-background text-text-primary overflow-hidden h-screen w-screen flex items-center justify-center">
+<body class="bg-slate-900 text-slate-200 flex items-center justify-center h-screen w-screen overflow-hidden font-mono">
 
-    <main class="w-full h-full max-w-md max-h-screen p-4 flex flex-col items-center justify-start gap-4">
-        <header class="w-full text-center flex-shrink-0">
-            <h1 class="text-3xl md:text-4xl font-bold text-primary text-center">SNAKE</h1>
-            <div class="flex justify-around text-center text-base md:text-lg mt-2 text-text-secondary">
-                <div>SCORE: <span id="score" class="font-bold text-text-primary">0</span></div>
-                <div>HI-SCORE: <span id="high-score" class="font-bold text-text-primary">0</span></div>
+    <div id="mobile-overlay" class="fixed inset-0 bg-slate-900 z-50 flex-col items-center justify-center text-center p-4 hidden">
+        <div id="fullscreen-prompt">
+            <span class="material-symbols-outlined text-7xl text-cyan-400 mb-4">fullscreen</span>
+            <h2 class="text-2xl font-bold">Tap to Enter Full Screen</h2>
+        </div>
+        <div id="orientation-lock" class="hidden">
+            <span class="material-symbols-outlined text-7xl text-cyan-400 mb-4">screen_rotation</span>
+            <h2 class="text-2xl font-bold">Please rotate your device</h2>
+            <p class="text-slate-400 mt-2">This game must be played in landscape mode.</p>
+        </div>
+    </div>
+
+    <main class="w-full h-full p-2 md:p-4 flex gap-2 md:gap-4">
+
+        <div class="w-28 md:w-48 flex-shrink-0 flex flex-col justify-between">
+            <div class="w-full">
+                <button class="p-2 rounded-full hover:bg-slate-700 transition-colors">
+                    <a href="../index.html">
+                    <span class="material-symbols-outlined text-3xl md:text-4xl">arrow_back</span>
+                    </a>
+                </button>
+                <div class="mt-4 md:mt-8">
+                    <p class="text-sm text-slate-400">SCORE</p>
+                    <p id="score" class="text-3xl md:text-4xl font-bold text-cyan-400">0</p>
+                </div>
+                 <div class="mt-2 md:mt-4">
+                    <p class="text-sm text-slate-400 hidden">HI-SCORE</p>
+                    <p id="high-score" class="text-xl md:text-2xl font-bold">0</p>
+                </div>
             </div>
-        </header>
+            <div class="w-full space-y-4 md:space-y-6">
+                <div>
+                    <label for="speed-slider" class="text-sm text-slate-400">SPEED</label>
+                    <input id="speed-slider" type="range" min="50" max="250" value="150" step="25" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-400">
+                </div>
+                <button id="pause-button" class="w-full bg-slate-700 hover:bg-slate-600 transition-colors py-2 md:py-3 rounded-lg text-base md:text-lg font-bold">PAUSE</button>
+            </div>
+        </div>
 
-        <div class="w-full flex-grow min-h-0 flex items-center justify-center">
-            <div id="game-board" class="bg-gray-900 border-2 border-primary rounded-md aspect-square w-full max-w-sm mx-auto relative overflow-hidden shadow-[0_0_20px_var(--primary-color)] max-h-full">
-                <div id="game-over-screen" class="absolute inset-0 bg-black bg-opacity-70 flex-col items-center justify-center hidden">
-                    <h2 class="text-4xl font-bold text-red-500">GAME OVER</h2>
-                    <p class="text-lg mt-2">Press START to play again</p>
+        <div class="flex-grow h-full flex items-center justify-center">
+            <div class="relative aspect-square h-full bg-black bg-opacity-30 border-2 border-cyan-500 rounded-lg shadow-[0_0_20px_rgba(34,211,238,0.4)]">
+                <div id="game-board" class="w-full h-full grid"></div>
+
+                <div id="start-text" class="absolute inset-0 flex flex-col items-center justify-center text-center p-4 z-10">
+                    <p class="text-xl md:text-2xl font-bold text-slate-300">Press an arrow key to start</p>
+                    <p class="text-base md:text-lg text-slate-400 mt-2">Use keyboard or on-screen controls</p>
+                </div>
+                <div id="game-over-text" class="absolute inset-0 flex flex-col items-center justify-center text-center p-4 bg-black bg-opacity-75 z-10 hidden">
+                    <p class="text-5xl font-bold text-red-500">GAME OVER</p>
+                    <p class="text-xl mt-4">Final Score: <span id="final-score" class="font-bold text-white">0</span></p>
+                    <p class="text-slate-400 mt-8 text-lg animate-pulse">Tap board to Restart</p>
                 </div>
             </div>
         </div>
 
-        <footer class="w-full flex-shrink-0 footer-scroller">
-            <div class="max-w-xs mx-auto mb-2">
-                <label for="speed-slider" class="block text-center text-sm text-text-secondary mb-1">SPEED</label>
-                <input id="speed-slider" type="range" min="5" max="15" value="8" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer">
+        <div class="w-28 md:w-48 flex-shrink-0 flex flex-col items-center justify-between">
+            <h1 class="text-4xl md:text-5xl font-bold tracking-widest [writing-mode:vertical-rl] text-cyan-400 rotate-180">SNAKE</h1>
+            <div id="controls" class="grid grid-cols-3 grid-rows-3 gap-2 w-full max-w-[180px]">
+                <button data-key="ArrowUp"    class="col-start-2 row-start-1 w-full aspect-square bg-slate-800 text-slate-200 rounded-lg flex items-center justify-center text-3xl font-bold border-2 border-slate-700 transition-colors active:bg-cyan-500">↑</button>
+                <button data-key="ArrowLeft"  class="col-start-1 row-start-2 w-full aspect-square bg-slate-800 text-slate-200 rounded-lg flex items-center justify-center text-3xl font-bold border-2 border-slate-700 transition-colors active:bg-cyan-500">←</button>
+                <button data-key="ArrowRight" class="col-start-3 row-start-2 w-full aspect-square bg-slate-800 text-slate-200 rounded-lg flex items-center justify-center text-3xl font-bold border-2 border-slate-700 transition-colors active:bg-cyan-500">→</button>
+                <button data-key="ArrowDown"  class="col-start-2 row-start-3 w-full aspect-square bg-slate-800 text-slate-200 rounded-lg flex items-center justify-center text-3xl font-bold border-2 border-slate-700 transition-colors active:bg-cyan-500">↓</button>
             </div>
-
-            <div class="flex justify-center items-center gap-4 mb-2">
-                <button id="start-btn" class="control-btn bg-primary text-black py-2 px-6 rounded-md hover:bg-accent focus:outline-none text-lg font-bold">START</button>
-                <button id="pause-btn" class="control-btn bg-gray-700 text-text-primary py-2 px-6 rounded-md hover:bg-gray-600 focus:outline-none text-lg font-bold">PAUSE</button>
-            </div>
-            <div class="grid grid-cols-3 grid-rows-2 gap-2 max-w-xs mx-auto">
-                <div class="col-start-2 row-start-1">
-                    <button id="up-btn" class="arrow-btn w-full h-14 bg-gray-800 rounded-md flex items-center justify-center">↑</button>
-                </div>
-                <div class="col-start-1 row-start-2">
-                    <button id="left-btn" class="arrow-btn w-full h-14 bg-gray-800 rounded-md flex items-center justify-center">←</button>
-                </div>
-                <div class="col-start-2 row-start-2">
-                    <button id="down-btn" class="arrow-btn w-full h-14 bg-gray-800 rounded-md flex items-center justify-center">↓</button>
-                </div>
-                <div class="col-start-3 row-start-2">
-                    <button id="right-btn" class="arrow-btn w-full h-14 bg-gray-800 rounded-md flex items-center justify-center">→</button>
-                </div>
-            </div>
-        </footer>
+        </div>
     </main>
     
     <script src="script.js"></script>
