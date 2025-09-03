@@ -10,9 +10,9 @@
   },
   {
     "id": 2,
-    "title": "Tetris",
-    "description": "The classic block-stacking puzzle game. Clear lines and score big!",
-    "url": "Tetris/index.html",
+    "title": "Snake",
+    "description": "The classic Snake game. eat points and score big!",
+    "url": "Snake/index.html",
     "imageUrl": "https://logosandtypes.com/wp-content/uploads/2024/08/Tetris.png",
     "category": "Action",
     "featured": false

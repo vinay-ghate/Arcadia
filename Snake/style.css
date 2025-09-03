@@ -1,0 +1,67 @@
+:root {
+    --primary-color: #38e07b;
+    --secondary-color: #2c9e5a;
+    --background-color: #1a1a1a;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --accent-color: #5ce68f;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.text-primary { color: var(--primary-color); }
+.bg-primary { background-color: var(--primary-color); }
+.border-primary { border-color: var(--primary-color); }
+.bg-background { background-color: var(--background-color); }
+.text-text-primary { color: var(--text-primary); }
+.text-text-secondary { color: var(--text-secondary); }
+.bg-accent { background-color: var(--accent-color); }
+
+.control-btn, .arrow-btn {
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease, opacity 0.2s ease;
+}
+
+.arrow-btn {
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: 2px solid #4a5568;
+}
+
+.arrow-btn:hover {
+    background-color: #4a5568;
+}
+
+.control-btn:active, .arrow-btn:active {
+    transform: scale(0.95);
+}
+
+.control-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#game-over-screen.show {
+    display: flex;
+}
+
+input[type="range"] {
+    accent-color: var(--primary-color);
+}
+
+.footer-scroller {
+    overflow-y: auto;
+    padding-bottom: 8px;
+}

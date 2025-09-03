@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snake Game</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-background text-text-primary overflow-hidden h-screen w-screen flex items-center justify-center">
+
+    <main class="w-full h-full max-w-md max-h-screen p-4 flex flex-col items-center justify-start gap-4">
+        <header class="w-full text-center flex-shrink-0">
+            <h1 class="text-3xl md:text-4xl font-bold text-primary text-center">SNAKE</h1>
+            <div class="flex justify-around text-center text-base md:text-lg mt-2 text-text-secondary">
+                <div>SCORE: <span id="score" class="font-bold text-text-primary">0</span></div>
+                <div>HI-SCORE: <span id="high-score" class="font-bold text-text-primary">0</span></div>
+            </div>
+        </header>
+
+        <div class="w-full flex-grow min-h-0 flex items-center justify-center">
+            <div id="game-board" class="bg-gray-900 border-2 border-primary rounded-md aspect-square w-full max-w-sm mx-auto relative overflow-hidden shadow-[0_0_20px_var(--primary-color)] max-h-full">
+                <div id="game-over-screen" class="absolute inset-0 bg-black bg-opacity-70 flex-col items-center justify-center hidden">
+                    <h2 class="text-4xl font-bold text-red-500">GAME OVER</h2>
+                    <p class="text-lg mt-2">Press START to play again</p>
+                </div>
+            </div>
+        </div>
+
+        <footer class="w-full flex-shrink-0 footer-scroller">
+            <div class="max-w-xs mx-auto mb-2">
+                <label for="speed-slider" class="block text-center text-sm text-text-secondary mb-1">SPEED</label>
+                <input id="speed-slider" type="range" min="5" max="15" value="8" class="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer">
+            </div>
+
+            <div class="flex justify-center items-center gap-4 mb-2">
+                <button id="start-btn" class="control-btn bg-primary text-black py-2 px-6 rounded-md hover:bg-accent focus:outline-none text-lg font-bold">START</button>
+                <button id="pause-btn" class="control-btn bg-gray-700 text-text-primary py-2 px-6 rounded-md hover:bg-gray-600 focus:outline-none text-lg font-bold">PAUSE</button>
+            </div>
+            <div class="grid grid-cols-3 grid-rows-2 gap-2 max-w-xs mx-auto">
+                <div class="col-start-2 row-start-1">
+                    <button id="up-btn" class="arrow-btn w-full h-14 bg-gray-800 rounded-md flex items-center justify-center">↑</button>
+                </div>
+                <div class="col-start-1 row-start-2">
+                    <button id="left-btn" class="arrow-btn w-full h-14 bg-gray-800 rounded-md flex items-center justify-center">←</button>
+                </div>
+                <div class="col-start-2 row-start-2">
+                    <button id="down-btn" class="arrow-btn w-full h-14 bg-gray-800 rounded-md flex items-center justify-center">↓</button>
+                </div>
+                <div class="col-start-3 row-start-2">
+                    <button id="right-btn" class="arrow-btn w-full h-14 bg-gray-800 rounded-md flex items-center justify-center">→</button>
+                </div>
+            </div>
+        </footer>
+    </main>
+    
+    <script src="script.js"></script>
+</body>
+</html>
