@@ -13,6 +13,61 @@ Once games are added, you'll be able to click on any game from the list above to
 
 This is a Open project, and we would be thrilled to have you add your game! If you've built a cool little game using just HTML, CSS, and JS, we want to see it.
 
+## 🎮 50 Games You Can Build with HTML, CSS & JS You Can Add
+
+1. Tic-Tac-Toe
+2. Rock-Paper-Scissors
+3. Guess the Number
+4. Memory Match (Card Flip)
+5. Quiz Game
+6. Whack-a-Mole
+7. Dice Roll Game
+8. Reaction Timer
+9. Hangman
+10. Typing Speed Test
+11. Snake Game ✔️
+12. Pong
+13. Breakout (Brick Breaker)
+14. 2048
+15. Connect Four
+16. Simon Game
+17. Minesweeper
+18. Flappy Bird Clone
+19. Sliding Puzzle (15 Puzzle)
+20. Platformer Mini-Game
+21. Chess (2-player or simple AI)
+22. Sudoku
+23. Checkers
+24. Tower Defense (basic)
+25. Wordle Clone
+26. Conway’s Game of Life
+27. Space Invaders
+28. Racing Game (Top-down 2D)
+29. Tetris ✔️
+30. Pac-Man
+31. Frogger Clone
+32. Brick Stacker Game
+33. Balloon Popping Game
+34. Color Matching Game
+35. Catch the Falling Objects
+36. Dodge the Blocks (Avoider Game)
+37. Pinball (Simplified)
+38. Connect the Dots Puzzle
+39. Path Finder Maze (Auto/Manual)
+40. Memory Sequence Challenge
+41. Sliding Numbers Puzzle
+42. Matching Word Pairs
+43. Battleship (Grid-based)
+44. Othello (Reversi)
+45. Bingo
+46. Ludo (Simplified)
+47. Domino Matching Game
+48. Coin Flip Prediction Game
+49. Crossword Puzzle (Static with JS validation)
+50. Jigsaw Puzzle (Image-based drag & drop)
+
+
+
 To contribute, please create a **Pull Request** to help us grow our collection. Here’s how:
 
 1.  **Fork the Repository**
