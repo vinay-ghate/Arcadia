@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         gameStarted: false,
         timerInterval: null,
         startTime: 0,
-        highlightingEnabled: true,
+        highlightingEnabled: false,
     };
 
     // --- Core Game Logic ---
@@ -56,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
             gridContainer.appendChild(cell);
         }
     };
-    
     const handleCellClick = (event) => {
         const clickedNumber = parseInt(event.target.dataset.number);
 
