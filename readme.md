@@ -65,6 +65,7 @@ This is a Open project, and we would be thrilled to have you add your game! If y
 48. Coin Flip Prediction Game
 49. Crossword Puzzle (Static with JS validation)
 50. Jigsaw Puzzle (Image-based drag & drop)
+51. Schultetable ✔️
 
 
 

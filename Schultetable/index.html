@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schulte Table Game</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Schulte Table 🧠</h1>
+            <p>Find numbers in order. Click '1' to start the timer.</p>
+        </header>
+        <a href="../index.html" class="back-button">
+            <span class="material-icons">arrow_back</span>
+        </a>
+
+        <div class="game-wrapper">
+            <aside class="sidebar desktop-only" id="level-selector-desktop">
+                <nav>
+                    <ul>
+                        <li><strong>Choose Level</strong></li>
+                    </ul>
+                    <ul>
+                        <li><a href="#" class="level-btn" data-size="3">3 x 3</a></li>
+                        <li><a href="#" class="level-btn" data-size="4">4 x 4</a></li>
+                        <li><a href="#" class="level-btn active" data-size="5">5 x 5</a></li>
+                        <li><a href="#" class="level-btn" data-size="6">6 x 6</a></li>
+                        <li><a href="#" class="level-btn" data-size="7">7 x 7</a></li>
+                        <li><a href="#" class="level-btn" data-size="8">8 x 8</a></li>
+                        <li><a href="#" class="level-btn" data-size="9">9 x 9</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main id="game-area">
+                <select id="level-selector-mobile" class="mobile-only">
+                    <option value="3">Level: 3 x 3</option>
+                    <option value="4">Level: 4 x 4</option>
+                    <option value="5" selected>Level: 5 x 5</option>
+                    <option value="6">Level: 6 x 6</option>
+                    <option value="7">Level: 7 x 7</option>
+                    <option value="8">Level: 8 x 8</option>
+                    <option value="9">Level: 9 x 9</option>
+                </select>
+                
+                <div id="grid-container"></div>
+                <div id="next-number-hint">1</div>
+            </main>
+
+            <aside class="sidebar" id="game-info">
+                <div class="info-box">
+                    <h3>Time</h3>
+                    <h2 id="timer">0.00</h2>
+                </div>
+                <div class="info-box">
+                    <h3>Next</h3>
+                    <h2 id="next-number">1</h2>
+                </div>
+                <button id="reset-btn" class="secondary">Reset</button>
+                <button id="toggle-highlight-btn" class="secondary" data-enabled="true">Highlight: On</button>
+            </aside>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

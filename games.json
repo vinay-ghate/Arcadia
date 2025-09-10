@@ -15,6 +15,15 @@
     "url": "Snake/index.html",
     "imageUrl": "https://play-lh.googleusercontent.com/-H9hAy6YoUxu79BgspjH4ZenS5bD5d9LYddl7njEvxGmOtxtRqIXpo0kKUZCtA3pYQ",
     "category": "Action",
-    "featured": false
+    "featured": true
+  },
+  {
+    "id": 3,
+    "title": "Schulte table",
+    "description": "The classic Table game.For smart people!",
+    "url": "Schultetable/index.html",
+    "imageUrl": "https://schultetable.ru/icon_big.png",
+    "category": "Puzzle",
+    "featured": true
   }
 ]

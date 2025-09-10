@@ -1,0 +1,145 @@
+/* Use CSS variables for easy theme changes */
+:root {
+    --grid-gap: 0.5rem;
+    --cell-bg: var(--pico-card-background-color);
+    --cell-found-bg: var(--pico-primary-background);
+    --cell-found-color: var(--pico-primary-inverse);
+    --cell-error-bg: var(--pico-critical-background);
+}
+
+body {
+    user-select: none; /* Prevent text selection during gameplay */
+}
+
+.container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.game-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr; /* Three-column layout */
+    gap: 2rem;
+    align-items: start;
+}
+
+#game-area {
+    position: relative; /* Needed for positioning the hint */
+}
+
+/* The Schulte Table Grid */
+#grid-container {
+    display: grid;
+    gap: var(--grid-gap);
+    aspect-ratio: 1 / 1; /* Keep it a perfect square */
+    margin-bottom: 1rem; /* Space for mobile dropdown */
+}
+
+.grid-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--cell-bg);
+    border-radius: var(--pico-border-radius);
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.1s ease, background-color 0.2s;
+}
+
+.grid-cell:hover {
+    transform: scale(1.05);
+}
+
+/* Cell states */
+.grid-cell.found {
+    background-color: var(--cell-found-bg);
+    color: var(--cell-found-color);
+    transform: scale(0.95);
+}
+
+.grid-cell.error {
+    animation: shake 0.3s;
+    background-color: var(--cell-error-bg);
+}
+
+/* Highlight toggle logic */
+#grid-container.highlight-off .grid-cell.found {
+    background-color: var(--cell-bg);
+    color: var(--pico-color);
+    opacity: 0.6;
+}
+
+/* Next number hint below the grid */
+#next-number-hint {
+    position: absolute;
+    bottom: var(--grid-gap);
+    right: var(--grid-gap);
+    background: var(--pico-primary-background);
+    color: var(--pico-primary-inverse);
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--pico-border-radius);
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+#next-number-hint.visible {
+    opacity: 1;
+}
+
+/* Sidebar for controls and info */
+.sidebar {
+    position: sticky;
+    top: 2rem;
+}
+#game-info {
+    text-align: center;
+}
+#level-selector-desktop a.active {
+    background-color: var(--pico-primary);
+    color: var(--pico-primary-inverse);
+}
+#toggle-highlight-btn {
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+
+/* --- Mobile Responsiveness --- */
+.mobile-only { display: none; }
+
+@media (max-width: 768px) {
+    .desktop-only { display: none; }
+    .mobile-only { display: block; }
+
+    .game-wrapper {
+        grid-template-columns: 1fr; /* Stack everything vertically */
+    }
+
+    .sidebar { position: static; }
+
+    #game-info {
+        order: 3; /* Move info panel to the bottom */
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        text-align: center;
+    }
+    #game-info .info-box { grid-column: span 1; }
+    #reset-btn, #toggle-highlight-btn { grid-column: span 1; }
+    
+    .grid-cell { font-size: 1rem; }
+}
+
+/* Animation for incorrect clicks */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
