@@ -25,5 +25,14 @@
     "imageUrl": "https://schultetable.ru/icon_big.png",
     "category": "Puzzle",
     "featured": true
+  },
+  {
+    "id": 4,
+    "title": "Chain Reaction",
+    "description": "Simple game to play with friends",
+    "url": "ChainReaction/index.html",
+    "imageUrl": "https://play-lh.googleusercontent.com/xUefJ0Wrh0pyUuRnCAkRggnJbCGcMoKzARwxtGN1rZEK8cUvwHCLh7DPZbUv059aoA",
+    "category": "Puzzle",
+    "featured": true
   }
 ]

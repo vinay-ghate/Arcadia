@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Chain Reaction</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="setup-screen" class="screen">
+        <h1>Chain Reaction</h1>
+        <p>Select the number of players to begin.</p>
+        <div class="player-selection">
+            <label for="player-count">Players:</label>
+            <select id="player-count">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+        </div>
+        <button id="start-game-btn" class="btn">Start Game</button>
+    </div>
+
+    <div id="game-container" class="hidden">
+        <div id="game-board"></div>
+        <div id="side-panel">
+            <div id="scores"></div>
+            <div id="controls">
+                <a href="../index.html"><button id="back-btn" class="btn">Back to Menu</button></a>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-over-screen" class="screen hidden">
+        <h1 id="winner-message"></h1>
+        <p>Thanks for playing!</p>
+        <button id="replay-btn" class="btn">Play Again</button>
+    </div>
+
+    <div id="orientation-lock">
+        <h2>Please Rotate Your Device</h2>
+        <p>This game is best played in portrait mode.</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
