@@ -122,3 +122,16 @@ footer {
     color: var(--text-muted-color);
     border-top: 1px solid var(--primary-accent-color);
 }
+
+footer a {
+  color: var(--secondary-accent-color); /* Uses the vibrant red from your theme */
+  text-decoration: none; /* Removes the default underline */
+  font-weight: 600; /* Makes the name slightly bolder */
+  transition: color 0.3s ease; /* Smooth transition for the hover effect */
+}
+
+/* Style for when you hover over the link */
+footer a:hover {
+  color: var(--text-color); /* Changes color to white on hover */
+  text-decoration: underline; /* Adds the underline back on hover */
+}
