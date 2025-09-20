@@ -1,0 +1,80 @@
+/* Prevents scrolling on mobile while swiping, which improves game feel */
+body {
+    touch-action: none;
+}
+
+/* Base style for an empty cell on the grid */
+.cell {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 0.25rem;
+}
+
+/* Style for a tile with a number */
+.tile {
+    /* --r and --c are set by JavaScript to indicate row and column */
+    --grid-size: 4;
+    --gap: 8px; /* Corresponds to Tailwind's gap-2 */
+    --cell-with-gap: calc((100% - (var(--grid-size) - 1) * var(--gap)) / var(--grid-size));
+
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    border-radius: 0.25rem;
+    
+    width: var(--cell-with-gap);
+    height: var(--cell-with-gap);
+    top: calc(var(--r) * (var(--cell-with-gap) + var(--gap)));
+    left: calc(var(--c) * (var(--cell-with-gap) + var(--gap)));
+
+    /* Smooth transition for sliding animation */
+    transition: top 300ms ease-in-out, left 300ms ease-in-out;
+}
+
+/* Animation for new tiles appearing */
+.tile-new {
+    animation: tile-new 300ms ease-in-out;
+}
+@keyframes tile-new {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+
+/* Animation for when two tiles merge */
+.tile-merged {
+    animation: tile-merged 150ms ease-in-out;
+}
+@keyframes tile-merged {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Color scheme for tiles based on their value */
+.tile[data-value="2"]    { background-color: #eee4da; color: #776e65; }
+.tile[data-value="4"]    { background-color: #ede0c8; color: #776e65; }
+.tile[data-value="8"]    { background-color: #f2b179; color: #f9f6f2; }
+.tile[data-value="16"]   { background-color: #f59563; color: #f9f6f2; }
+.tile[data-value="32"]   { background-color: #f67c5f; color: #f9f6f2; }
+.tile[data-value="64"]   { background-color: #f65e3b; color: #f9f6f2; }
+.tile[data-value="128"]  { background-color: #edcf72; color: #f9f6f2; }
+.tile[data-value="256"]  { background-color: #edcc61; color: #f9f6f2; }
+.tile[data-value="512"]  { background-color: #edc850; color: #f9f6f2; }
+.tile[data-value="1024"] { background-color: #edc53f; color: #f9f6f2; }
+.tile[data-value="2048"] { background-color: #edc22e; color: #f9f6f2; }
+.tile[data-value="4096"] { background-color: #3c3a32; color: #f9f6f2; }
+
+/* Adjust font size for larger numbers to fit inside the tile */
+.tile[data-value="128"],
+.tile[data-value="256"],
+.tile[data-value="512"] {
+    font-size: 2.25rem;
+}
+
+.tile[data-value="1024"],
+.tile[data-value="2048"],
+.tile[data-value="4096"] {
+    font-size: 1.8rem;
+}

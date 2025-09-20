@@ -13,7 +13,7 @@ Once games are added, you'll be able to click on any game from the list above to
 
 This is a Open project, and we would be thrilled to have you add your game! If you've built a cool little game using just HTML, CSS, and JS, we want to see it.
 
-## 🎮 50 Games You Can Build with HTML, CSS & JS You Can Add
+## 🎮 Games You Can Build with HTML, CSS & JS You Can Add
 
 1. Tic-Tac-Toe
 2. Rock-Paper-Scissors
@@ -28,7 +28,7 @@ This is a Open project, and we would be thrilled to have you add your game! If y
 11. Snake Game ✔️
 12. Pong
 13. Breakout (Brick Breaker)
-14. 2048
+14. 2048 ✔️
 15. Connect Four
 16. Simon Game
 17. Minesweeper
@@ -66,6 +66,8 @@ This is a Open project, and we would be thrilled to have you add your game! If y
 49. Crossword Puzzle (Static with JS validation)
 50. Jigsaw Puzzle (Image-based drag & drop)
 51. Schultetable ✔️
+52. Chain Reaction ✔️
+
 
 
 

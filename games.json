@@ -34,5 +34,15 @@
     "imageUrl": "https://play-lh.googleusercontent.com/xUefJ0Wrh0pyUuRnCAkRggnJbCGcMoKzARwxtGN1rZEK8cUvwHCLh7DPZbUv059aoA",
     "category": "Puzzle",
     "featured": true
+  },
+  {
+    "id": 5,
+    "title": "2048",
+    "description": "2048 is a single-player sliding tile puzzle video game.",
+    "url": "2048/index.html",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/18/2048_logo.svg",
+    "category": "Puzzle",
+    "featured": true
   }
+
 ]
