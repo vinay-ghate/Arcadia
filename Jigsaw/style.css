@@ -1,0 +1,237 @@
+:root {
+    --main-bg: #1a1a2e;
+    --card-bg: #16213e;
+    --secondary-text: #A0A0A0;
+    --primary-text: #e94560;
+    --accent-color: #0f3460;
+    --border-color: #e94560;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    background-color: var(--main-bg);
+    color: var(--secondary-text);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.game-container {
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+header {
+    margin-bottom: 20px;
+    position: relative; /* Needed for positioning the back button */
+    padding: 20px 0;
+}
+
+/* STYLES FOR THE NEW BUTTON */
+.back-button {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background-color: var(--accent-color);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.back-button:hover {
+    background-color: #e94560;
+    box-shadow: 0 0 8px var(--border-color);
+}
+
+
+header h1 {
+    font-size: 3rem;
+    color: var(--primary-text);
+    text-shadow: 0 0 10px var(--primary-text);
+}
+
+.controls {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+select, button {
+    font-family: 'Orbitron', sans-serif;
+    background-color: var(--accent-color);
+    color: white;
+    border: 1px solid var(--border-color);
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+button:hover {
+    background-color: #e94560;
+}
+
+.game-area {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.container {
+    background-color: var(--card-bg);
+    border-radius: 10px;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+}
+
+#pieces-container {
+    width: 300px;
+    flex-shrink: 0;
+}
+
+#pieces-container h2 {
+    color: var(--primary-text);
+    margin-bottom: 15px;
+}
+
+#piece-pool {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+    min-height: 100px;
+    align-content: flex-start;
+    border: 2px dashed var(--accent-color);
+    padding: 10px;
+    border-radius: 5px;
+    height: 500px;
+    overflow-y: auto;
+}
+
+.puzzle-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.board-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#board-container {
+    display: grid;
+    border: 2px solid var(--primary-text);
+    box-shadow: 0 0 15px var(--primary-text);
+    background-color: var(--accent-color);
+    min-height: 300px; /* Give it a minimum height */
+}
+
+.board-slot {
+    border: 1px solid var(--main-bg);
+    transition: background-color 0.2s;
+}
+
+.drag-over-highlight {
+    background-color: rgba(233, 69, 96, 0.3);
+}
+
+.puzzle-piece {
+    background-size: cover;
+    background-repeat: no-repeat;
+    cursor: grab;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #fff;
+}
+
+/* Modal styles */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none; justify-content: center; align-items: center; z-index: 1000;
+}
+.modal-content {
+    background-color: var(--card-bg); padding: 40px; border-radius: 15px;
+    border: 2px solid var(--border-color); text-align: center;
+    box-shadow: 0 0 20px var(--border-color);
+}
+.modal-content h2 { color: var(--primary-text); font-size: 2.5rem; margin-bottom: 15px; }
+#play-again-button { margin-top: 20px; padding: 12px 25px; font-size: 1.1rem; }
+
+/* Loading Spinner */
+.loading-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(22, 33, 62, 0.8);
+    display: none; justify-content: center; align-items: center; z-index: 5;
+    border-radius: 10px;
+}
+.spinner {
+    width: 50px; height: 50px;
+    border: 5px solid var(--accent-color);
+    border-top: 5px solid var(--primary-text);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+/* Mobile Responsive Layout */
+@media (max-width: 950px) {
+    .game-area {
+        flex-direction: column;
+        align-items: center;
+    }
+    #pieces-container {
+        width: 100%;
+        max-width: 500px;
+    }
+    #piece-pool {
+        flex-direction: row;
+        height: auto;
+        max-height: 250px;
+    }
+    .puzzle-wrapper {
+        width: 100%;
+    }
+    .board-wrapper {
+        max-width: 100%;
+    }
+}
+
+/* === FIX IS HERE === */
+/* This rule forces pieces to fill their grid slot on the board, overriding the inline style from JS. */
+.board-slot > .puzzle-piece {
+    width: 100% !important;
+    height: 100% !important;
+}

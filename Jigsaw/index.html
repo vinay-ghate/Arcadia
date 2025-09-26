@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jigsaw Puzzle</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="game-container">
+        <header>
+            <a href="../index.html" class="back-button">← Back</a>
+            <h1>Jigsaw Puzzle</h1>
+            <p class="theme-name">Classical Jigsaw puzzle</p>
+        </header>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="image-select">Choose Image:</label>
+                <select id="image-select">
+                    <option value="./images/puzzle1.jpg">Niji</option>
+                    <option value="./images/puzzle2.jpg">Mob</option>
+                    <option value="./images/puzzle3.jpg">Zoro</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="difficulty-select">Difficulty:</label>
+                <select id="difficulty-select">
+                    <option value="3">Easy (3x3)</option>
+                    <option value="4" selected>Medium (4x4)</option>
+                    <option value="5">Hard (5x5)</option>
+                    <option value="8">Expert (8x8)</option>
+                </select>
+            </div>
+            <button id="start-button">Start Game</button>
+        </div>
+
+        <div class="game-area">
+            <div id="pieces-container" class="container">
+                <h2>Pieces</h2>
+                <div id="piece-pool"></div>
+            </div>
+
+            <div class="puzzle-wrapper">
+                <div class="stats">
+                    <div>Moves: <span id="move-counter">0</span></div>
+                    <div>Time: <span id="timer">00:00</span></div>
+                </div>
+                <div class="board-wrapper">
+                    <div id="board-container">
+                        </div>
+                    <div id="loading-overlay" class="loading-overlay">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="win-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>You Won! 🎉</h2>
+            <p>Congratulations, you solved the puzzle!</p>
+            <p>Your time: <span id="win-time"></span></p>
+            <p>Total moves: <span id="win-moves"></span></p>
+            <button id="play-again-button">Play Again</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

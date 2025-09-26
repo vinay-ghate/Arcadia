@@ -43,6 +43,15 @@
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/18/2048_logo.svg",
     "category": "Puzzle",
     "featured": true
+  },
+    {
+    "id": 6,
+    "title": "Jigsaw",
+    "description": "Classical jigsaw puzzle",
+    "url": "Jigsaw/index.html",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Jigsaw.svg/1200px-Jigsaw.svg.png",
+    "category": "Puzzle",
+    "featured": true
   }
 
 ]
