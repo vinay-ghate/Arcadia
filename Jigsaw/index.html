@@ -2,21 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jigsaw Puzzle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Sliding Puzzle</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <div class="game-container">
         <header>
-            <a href="../index.html" class="back-button">← Back</a>
-            <h1>Jigsaw Puzzle</h1>
-            <p class="theme-name">Classical Jigsaw puzzle</p>
+            <h1>Sliding Puzzle</h1>
+            <p class="theme-name">Unscramble the Image</p>
         </header>
+
+        <div class="actions-bar">
+            <a href="../index.html" class="action-button">← Back</a>
+            <button id="fullscreen-button" class="action-button">Fullscreen</button>
+        </div>
 
         <div class="controls">
             <div class="control-group">
@@ -33,18 +36,12 @@
                     <option value="3">Easy (3x3)</option>
                     <option value="4" selected>Medium (4x4)</option>
                     <option value="5">Hard (5x5)</option>
-                    <option value="8">Expert (8x8)</option>
                 </select>
             </div>
-            <button id="start-button">Start Game</button>
+            <button id="start-button">Scramble</button>
         </div>
 
         <div class="game-area">
-            <div id="pieces-container" class="container">
-                <h2>Pieces</h2>
-                <div id="piece-pool"></div>
-            </div>
-
             <div class="puzzle-wrapper">
                 <div class="stats">
                     <div>Moves: <span id="move-counter">0</span></div>
