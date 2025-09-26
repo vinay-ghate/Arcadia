@@ -51,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
             requestAnimationFrame(() => {
                 setupBoardAndPieces(image);
                 scrambleBoard();
-                startTimer();
                 isGameActive = true;
                 loadingOverlay.style.display = 'none';
             });
@@ -169,7 +168,15 @@ document.addEventListener('DOMContentLoaded', () => {
         drawBoard();
     }
 
-    function startTimer() { /* Unchanged */ }
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            seconds++;
+            const min = String(Math.floor(seconds / 60)).padStart(2, '0');
+            const sec = String(seconds % 60).padStart(2, '0');
+            timerDisplay.textContent = `${min}:${sec}`;
+        }, 1000);
+    }
+    
     
     function checkWinCondition() {
         const isWin = pieces.every(p => p.currentRow === p.correctRow && p.currentCol === p.correctCol);
