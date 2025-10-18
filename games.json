@@ -52,6 +52,15 @@
     "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Jigsaw.svg/1200px-Jigsaw.svg.png",
     "category": "Puzzle",
     "featured": true
+  },
+  {
+    "id": 7,
+    "title": "Tower Block",
+    "description": "Stack blocks as high as you can in this 3D tower building game!",
+    "url": "TowerBlock/",
+    "imageUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=400&fit=crop&crop=center",
+    "category": "Action",
+    "featured": true
   }
 
 ]

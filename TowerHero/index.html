@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Tower Builder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sky-top: #87CEEB;
+            --sky-bottom: #E0F6FF;
+            --text-color: #ffffff;
+            --text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: linear-gradient(to bottom, var(--sky-top), var(--sky-bottom));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #game-canvas {
+            display: block;
+            background-color: transparent;
+        }
+        #ui-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            pointer-events: none;
+            color: var(--text-color);
+            text-shadow: var(--text-shadow);
+        }
+        .score-display { font-size: 2rem; font-weight: 600; }
+        .best-score-display { font-size: 1rem; opacity: 0.8; }
+        .message-display {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.5rem;
+            font-weight: 600;
+            text-align: center;
+            line-height: 1.2;
+        }
+        .message-display small { font-size: 1rem; font-weight: 400; display: block; margin-top: 10px; }
+        .perfect-text {
+            position: absolute;
+            font-size: 1.5rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            transform: translate(-50%, 20px);
+        }
+        .perfect-text.show { opacity: 1; transform: translate(-50%, 0); }
+    </style>
+</head>
+<body>
+    
+    <div id="ui-container">
+        <div class="score-container">
+            <div class="score-display">Score: <span id="score">0</span></div>
+            <div class="best-score-display">Best: <span id="best-score">0</span></div>
+        </div>
+        <div class="message-display" id="message">
+            Tower Builder
+            <small>Click to Start</small>
+        </div>
+        <div id="perfect-indicator" class="perfect-text">Perfect!</div>
+    </div>
+    
+    <canvas id="game-canvas"></canvas>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('game-canvas');
+            const ctx = canvas.getContext('2d');
+            const scoreEl = document.getElementById('score');
+            const bestScoreEl = document.getElementById('best-score');
+            const messageEl = document.getElementById('message');
+            const perfectIndicatorEl = document.getElementById('perfect-indicator');
+
+            const BLOCK_HEIGHT = 25;
+            const INITIAL_BLOCK_WIDTH = 150;
+            const PERFECT_THRESHOLD = 2;
+
+            let tower, activeBlock, droppedPiece;
+            let score, bestScore;
+            let gameState;
+            let cameraY;
+            let craneSpeed, cranePhase;
+            let animationFrameId = null;
+
+            const blockColors = ['#f8b195', '#f67280', '#c06c84', '#6c5b7b', '#355c7d'];
+
+            function init() {
+                // FIX: Cancel any existing animation loop to ensure a clean restart.
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                }
+
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+
+                bestScore = parseInt(localStorage.getItem('towerBuilderBestScore')) || 0;
+                bestScoreEl.textContent = bestScore;
+
+                score = 0;
+                cameraY = 0;
+                gameState = 'waiting';
+                craneSpeed = 0.03; 
+                cranePhase = Math.random() * Math.PI * 2;
+
+                const baseBlock = {
+                    x: (canvas.width / 2) - (INITIAL_BLOCK_WIDTH / 2),
+                    y: canvas.height - BLOCK_HEIGHT * 3,
+                    width: INITIAL_BLOCK_WIDTH,
+                    height: BLOCK_HEIGHT * 3,
+                    color: '#34495e'
+                };
+                tower = [baseBlock];
+
+                spawnNewBlock();
+                
+                scoreEl.textContent = '0';
+                messageEl.innerHTML = 'Tower Builder<small>Click to Start</small>';
+                messageEl.style.display = 'block';
+
+                gameLoop(); // Start the game loop
+            }
+
+            function gameLoop() {
+                update();
+                draw();
+                animationFrameId = requestAnimationFrame(gameLoop);
+            }
+
+            function update() {
+                // FIX: Allow crane to swing in 'waiting' state for better visual feedback.
+                if (gameState === 'gameOver') return;
+
+                // Move the active block (crane)
+                if (!activeBlock.isFalling) {
+                    cranePhase += craneSpeed;
+                    const swingRange = canvas.width / 2 - activeBlock.width / 2 - 20;
+                    activeBlock.x = canvas.width / 2 - activeBlock.width / 2 + Math.sin(cranePhase) * swingRange;
+                }
+
+                // Move the falling block only when playing
+                if (activeBlock.isFalling && gameState === 'playing') {
+                    activeBlock.y += 5; // Gravity
+                    
+                    const topBlock = tower[tower.length - 1];
+                    if (activeBlock.y >= topBlock.y - BLOCK_HEIGHT) {
+                        placeBlock();
+                    }
+                }
+
+                if (droppedPiece) {
+                    droppedPiece.y += 5;
+                    droppedPiece.rotation += droppedPiece.rotationSpeed;
+                    if (droppedPiece.y > canvas.height + cameraY) {
+                        droppedPiece = null;
+                    }
+                }
+
+                const targetCameraY = tower.length * BLOCK_HEIGHT - canvas.height / 1.5;
+                cameraY += (targetCameraY - cameraY) * 0.1;
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.save();
+                ctx.translate(0, -cameraY);
+
+                tower.forEach(block => {
+                    ctx.fillStyle = block.color;
+                    ctx.fillRect(block.x, block.y, block.width, block.height);
+                });
+
+                if (gameState !== 'gameOver') {
+                    ctx.fillStyle = activeBlock.color;
+                    ctx.fillRect(activeBlock.x, activeBlock.y, activeBlock.width, activeBlock.height);
+                }
+
+                if (droppedPiece) {
+                    ctx.save();
+                    ctx.translate(droppedPiece.x + droppedPiece.width / 2, droppedPiece.y + droppedPiece.height / 2);
+                    ctx.rotate(droppedPiece.rotation);
+                    ctx.fillStyle = droppedPiece.color;
+                    ctx.fillRect(-droppedPiece.width / 2, -droppedPiece.height / 2, droppedPiece.width, droppedPiece.height);
+                    ctx.restore();
+                }
+
+                ctx.restore();
+            }
+
+            function spawnNewBlock() {
+                const topBlock = tower[tower.length - 1];
+                const newY = topBlock.y - canvas.height / 2.5;
+
+                activeBlock = {
+                    x: canvas.width / 2,
+                    y: Math.min(newY, topBlock.y - BLOCK_HEIGHT * 5),
+                    width: topBlock.width,
+                    height: BLOCK_HEIGHT,
+                    isFalling: false,
+                    color: blockColors[(tower.length - 1) % blockColors.length]
+                };
+            }
+
+            function placeBlock() {
+                const topBlock = tower[tower.length - 1];
+                const newBlock = activeBlock;
+
+                const overlap = Math.max(0, Math.min(newBlock.x + newBlock.width, topBlock.x + topBlock.width) - Math.max(newBlock.x, topBlock.x));
+                
+                if (overlap <= 0) {
+                    gameOver();
+                    return;
+                }
+
+                const overhang = newBlock.width - overlap;
+                if (overhang < PERFECT_THRESHOLD) {
+                    newBlock.x = topBlock.x;
+                    newBlock.width = topBlock.width;
+                    showPerfectText();
+                } else {
+                    const newWidth = overlap;
+                    const newX = Math.max(newBlock.x, topBlock.x);
+                    
+                    const droppedWidth = newBlock.width - overlap;
+                    const droppedX = newBlock.x < topBlock.x ? newBlock.x : newX + overlap;
+                    droppedPiece = {
+                        x: droppedX,
+                        y: topBlock.y - BLOCK_HEIGHT,
+                        width: droppedWidth,
+                        height: BLOCK_HEIGHT,
+                        color: newBlock.color,
+                        rotation: 0,
+                        rotationSpeed: newBlock.x < topBlock.x ? -0.1 : 0.1
+                    };
+                    
+                    newBlock.width = newWidth;
+                    newBlock.x = newX;
+                }
+
+                newBlock.y = topBlock.y - BLOCK_HEIGHT;
+                
+                tower.push(newBlock);
+                updateScore(1);
+                spawnNewBlock();
+            }
+
+            function dropBlock() {
+                if (gameState === 'playing' && !activeBlock.isFalling) {
+                    activeBlock.isFalling = true;
+                }
+            }
+
+            function updateScore(points) {
+                score += points;
+                scoreEl.textContent = score;
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestScoreEl.textContent = bestScore;
+                    localStorage.setItem('towerBuilderBestScore', bestScore);
+                }
+            }
+            
+            function showPerfectText() {
+                const topBlock = tower[tower.length - 1];
+                // FIX: Use transform to perfectly center the text indicator
+                perfectIndicatorEl.style.left = `${topBlock.x + topBlock.width / 2}px`;
+                perfectIndicatorEl.style.top = `${topBlock.y - cameraY - 40}px`;
+                perfectIndicatorEl.classList.add('show');
+                setTimeout(() => {
+                    perfectIndicatorEl.classList.remove('show');
+                }, 500);
+            }
+
+            function gameOver() {
+                gameState = 'gameOver';
+                messageEl.innerHTML = 'Game Over<small>Click to Restart</small>';
+                messageEl.style.display = 'block';
+            }
+
+            function handleInput() {
+                switch (gameState) {
+                    case 'waiting':
+                        gameState = 'playing';
+                        messageEl.style.display = 'none';
+                        dropBlock(); // Drop the block on the first click
+                        break;
+                    case 'playing':
+                        dropBlock();
+                        break;
+                    case 'gameOver':
+                        init();
+                        break;
+                }
+            }
+            
+            window.addEventListener('resize', init);
+            canvas.addEventListener('mousedown', handleInput);
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                handleInput();
+            });
+
+            init();
+        });
+    </script>
+</body>
+</html>

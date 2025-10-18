@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Tower Block - Arcadia</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r83/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+    
+    <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Back button -->
+    <a href="../" class="back-button">Back to Menu</a>
+    
+    <!-- Score display -->
+    <div class="score-display">
+        <div class="label">Score</div>
+        <div id="score" class="value">0</div>
+    </div>
+    
+    <!-- Game container -->
+    <div id="container">
+        <div id="game"></div>
+        
+        <!-- Instructions -->
+        <div id="instructions" class="instructions-overlay">
+            Click or press spacebar to place the block
+        </div>
+        
+        <!-- Game Over overlay -->
+        <div class="game-over game-over-overlay">
+            <h2>Game Over!</h2>
+            <p>Great job building your tower!</p>
+            <div class="final-score">Score: <span id="final-score-value">0</span></div>
+            <p>Click or press spacebar to play again</p>
+            <button class="game-button" onclick="game.restartGame()">Play Again</button>
+        </div>
+        
+        <!-- Start screen -->
+        <div class="game-ready start-screen-overlay">
+            <h1>Tower Block</h1>
+            <p class="subtitle">Stack blocks as high as you can!</p>
+            <button id="start-button" class="game-button">Start Game</button>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <!-- <div class="game-footer">
+        Part of Arcadia Games
+    </div> -->
+    
+    <script src="app.js"></script>
+</body>
+</html>
