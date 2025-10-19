@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a1a2e">
+    <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="./app.css">
+    <title>Tic-Tac-Toe 2 Player - Arcadia</title>
+</head>
+
+<body>
+    <a href="../" class="back-button">Back to Menu</a>
+    <div class="app-wrapper">
+        <div class="game-container hidden">
+            <div class="header-section">
+                <img src="./assets/logo.svg" alt="game">
+                <div data-active-player="" class="player-display">
+                    <div class="symbol-icon"></div>
+                    <span>Move</span>
+                </div>
+                <button class="restart-btn"></button>
+            </div>
+
+            <div class="play-grid">
+                <button class="grid-cell" data-pos="0">
+                    <div class="cell-state" data-mark="" data-turn=""></div>
+                </button>
+                <button class="grid-cell" data-pos="1">
+                    <div class="cell-state" data-mark="" data-turn=""></div>
+                </button>
+                <button class="grid-cell" data-pos="2">
+                    <div class="cell-state" data-mark="" data-turn=""></div>
+                </button>
+                <button class="grid-cell" data-pos="3">
+                    <div class="cell-state" data-mark="" data-turn=""></div>
+                </button>
+                <button class="grid-cell" data-pos="4">
+                    <div class="cell-state" data-mark="" data-turn=""></div>
+                </button>
+                <button class="grid-cell" data-pos="5">
+                    <div class="cell-state" data-mark="" data-turn=""></div>
+                </button>
+                <button class="grid-cell" data-pos="6">
+                    <div class="cell-state" data-mark="" data-turn=""></div>
+                </button>
+                <button class="grid-cell" data-pos="7">
+                    <div class="cell-state" data-mark="" data-turn=""></div>
+                </button>
+                <button class="grid-cell" data-pos="8">
+                    <div class="cell-state" data-mark="" data-turn=""></div>
+                </button>
+            </div>
+
+            <div class="stats-panel">
+                <div class="stat-box">
+                    <span class="stat-label">X Wins</span>
+                    <div class="stat-value">0</div>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Draws</span>
+                    <div class="stat-value">0</div>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">O Wins</span>
+                    <div class="stat-value">0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="setup-screen">
+            <img src="./assets/logo.svg" alt="logo">
+            <div class="player-setup">
+                <h3 class="setup-title">Choose First Player Symbol</h3>
+                <div class="symbol-picker">
+                    <input type="radio" name="player-symbol" id="pick-x" class="symbol-input">
+                    <input type="radio" name="player-symbol" id="pick-o" class="symbol-input" checked>
+                    <label for="pick-x" class="symbol-option symbol-x-btn"></label>
+                    <label for="pick-o" class="symbol-option symbol-o-btn"></label>
+                </div>
+                <p class="setup-note">X Always Goes First</p>
+            </div>
+            <button class="start-btn">Begin Game</button>
+        </div>
+
+        <div class="result-modal hidden">
+            <p class="result-text">Round Complete!</p>
+            <h2 data-winner="" class="winner-display">
+                <div class="winner-symbol"></div>
+                <span>Wins Round</span>
+            </h2>
+            <div class="modal-actions">
+                <button class="quit-btn">Exit</button>
+                <button class="next-btn">Continue</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./app.js"></script>
+</body>
+
+</html>

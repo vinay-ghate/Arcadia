@@ -61,6 +61,24 @@
     "imageUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=400&fit=crop&crop=center",
     "category": "Action",
     "featured": true
+  },
+  {
+    "id": 8,
+    "title": "Tic-Tac-Toe (1 Player)",
+    "description": "Classic Tic-Tac-Toe against AI with multiple difficulty levels!",
+    "url": "TicTacToe-1p/",
+    "imageUrl": "https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=400&h=400&fit=crop&crop=center",
+    "category": "Strategy",
+    "featured": true
+  },
+  {
+    "id": 9,
+    "title": "Tic-Tac-Toe (2 Players)",
+    "description": "Classic Tic-Tac-Toe for two players on the same device!",
+    "url": "TicTacToe-2p/",
+    "imageUrl": "https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=400&h=400&fit=crop&crop=center",
+    "category": "Strategy",
+    "featured": true
   }
 
 ]

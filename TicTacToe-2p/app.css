@@ -1,0 +1,397 @@
+@font-face {
+    font-family: "GameFont";
+    src: url("./fonts/outfit.ttf");
+}
+
+:root {
+    /* Use Arcadia theme colors for main background and key elements */
+    --bg-primary: var(--bg-color, #1a1a2e);
+    --bg-secondary: var(--primary-accent-color, #0f3460);
+    --text-light: var(--text-muted-color, #a7a9be);
+    --accent-cyan: #4ECDC4;
+    --accent-yellow: var(--secondary-accent-color, #e94560);
+    --shadow-dark: rgba(0, 0, 0, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+button, input, select {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
+    user-select: none;
+    outline: none;
+    border: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+body {
+    font-family: 'GameFont', sans-serif;
+    text-transform: uppercase;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.1em;
+    background: var(--bg-primary);
+    color: var(--bg-primary);
+    padding: 1rem;
+}
+
+.app-wrapper {
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    gap: 1rem;
+}
+
+.player-display {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: var(--bg-secondary);
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    color: var(--text-light);
+    font-size: 1.1rem;
+    box-shadow: 0 4px 8px var(--shadow-dark);
+}
+
+.symbol-icon {
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+[data-active-player='player-x'] .symbol-icon {
+    background-image: url(./assets/icon-x-gray.svg);
+}
+
+[data-active-player='player-o'] .symbol-icon {
+    background-image: url(./assets/icon-o-gray.svg);
+}
+
+.restart-btn {
+    width: 48px;
+    height: 48px;
+    background: url(./assets/icon-restart.svg) center/50% no-repeat, var(--text-light);
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
+}
+
+.play-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1.2rem;
+    width: 100%;
+    max-width: 350px;
+    aspect-ratio: 1;
+}
+
+.grid-cell {
+    background: var(--bg-secondary);
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 12px var(--shadow-dark);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.cell-state {
+    width: 100%;
+    height: 100%;
+    background-size: 60%;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 0.3s ease;
+}
+
+.grid-cell:hover .cell-state[data-turn='turn-x'][data-mark=''] {
+    background-image: url(./assets/icon-x-outline.svg);
+}
+
+.grid-cell:hover .cell-state[data-turn='turn-o'][data-mark=''] {
+    background-image: url(./assets/icon-o-outline.svg);
+}
+
+[data-mark='placed-x'] {
+    background-image: url(./assets/icon-x.svg) !important;
+}
+
+[data-mark='placed-o'] {
+    background-image: url(./assets/icon-o.svg) !important;
+}
+
+.winning-x {
+    background: var(--accent-cyan) !important;
+}
+
+.winning-o {
+    background: var(--accent-yellow) !important;
+}
+
+.winning-x .cell-state[data-mark='placed-x'] {
+    background-image: url(./assets/icon-x-transparent.svg) !important;
+}
+
+.winning-o .cell-state[data-mark='placed-o'] {
+    background-image: url(./assets/icon-o-transparent.svg) !important;
+}
+
+.stats-panel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.stat-box {
+    background: var(--text-light);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.stat-box:first-child {
+    background: var(--accent-cyan);
+}
+
+.stat-box:nth-child(2) {
+    background: var(--text-light);
+}
+
+.stat-box:last-child {
+    background: var(--accent-yellow);
+}
+
+.stat-label {
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.setup-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    padding: 2rem;
+    min-height: 100vh;
+    justify-content: center;
+}
+
+.player-setup {
+    background: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px var(--shadow-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    color: var(--text-light);
+    width: 100%;
+    max-width: 350px;
+}
+
+.setup-title {
+    font-size: 1rem;
+    text-align: center;
+}
+
+.symbol-picker {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: var(--bg-primary);
+    border-radius: 12px;
+    padding: 0.8rem;
+    gap: 0.5rem;
+    width: 100%;
+    position: relative;
+}
+
+.symbol-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.symbol-option {
+    padding: 2.2rem;
+    border-radius: 8px;
+    background-size: 30%;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: block;
+}
+
+.symbol-x-btn {
+    background-image: url(./assets/icon-x-gray.svg);
+    background-color: var(--bg-primary);
+}
+
+.symbol-o-btn {
+    background-image: url(./assets/icon-o-gray.svg);
+    background-color: var(--bg-primary);
+}
+
+#pick-x:checked ~ .symbol-x-btn {
+    background-color: var(--text-light);
+    background-image: url(./assets/icon-x-transparent.svg);
+}
+
+#pick-o:checked ~ .symbol-o-btn {
+    background-color: var(--text-light);
+    background-image: url(./assets/icon-o-transparent.svg);
+}
+
+.setup-note {
+    font-size: 0.8rem;
+    opacity: 0.6;
+    text-align: center;
+}
+
+.start-btn, .next-btn, .quit-btn {
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-family: inherit;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.3);
+}
+
+.start-btn, .next-btn {
+    background: var(--accent-yellow);
+    color: var(--bg-primary);
+}
+
+.quit-btn {
+    background: var(--text-light);
+    color: var(--bg-primary);
+}
+
+.result-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    z-index: 1000;
+}
+
+.result-modal > * {
+    background: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    color: var(--text-light);
+    box-shadow: 0 8px 16px var(--shadow-dark);
+}
+
+.winner-display {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.5rem;
+    color: var(--accent-cyan);
+}
+
+.winner-display.draw-style {
+    color: var(--text-light);
+}
+
+.winner-symbol {
+    width: 32px;
+    height: 32px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+[data-winner='player-x'] .winner-symbol {
+    background-image: url(./assets/icon-x.svg);
+}
+
+[data-winner='player-o'] .winner-symbol {
+    background-image: url(./assets/icon-o.svg);
+}
+
+[data-winner=''] .winner-symbol {
+    display: none;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    background: transparent !important;
+    padding: 0 !important;
+}
+
+.pressed {
+    transform: scale(0.95) translateY(2px);
+    box-shadow: 0 2px 4px var(--shadow-dark);
+}
+
+@media (min-width: 600px) {
+    .play-grid {
+        max-width: 420px;
+        gap: 1.5rem;
+    }
+    
+    .header-section {
+        max-width: 480px;
+    }
+    
+    .stats-panel {
+        max-width: 480px;
+    }
+}

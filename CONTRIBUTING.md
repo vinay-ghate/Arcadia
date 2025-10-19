@@ -27,11 +27,13 @@ YourGameName/
 
 ### 2. Game Requirements
 
-- **Theme Consistency**: Use our common CSS variables and components
-- **Back Button**: Always include a way to return to the main menu
+- **Theme Consistency**: Use our common CSS variables for main background and key UI elements
+- **Back Button**: Always include `<a href="../" class="back-button">Back to Menu</a>` in your HTML
+- **Common CSS**: Include `<link rel="stylesheet" href="../common.css">` before your game's CSS
 - **Responsive Design**: Games should work on both desktop and mobile
 - **Performance**: Keep it lightweight and fast
 - **Accessibility**: Consider users with different abilities
+- **External Assets**: External fonts, icons, images, and libraries are welcome! Just ensure the main background uses our theme variables
 
 ### 3. Using Common Components
 
@@ -57,19 +59,49 @@ We provide `common.css` with reusable components:
 </div>
 ```
 
-### 4. CSS Variables
+### 4. CSS Variables & Theming
 
-Use our theme variables for consistency:
+Use our theme variables for main background and key UI elements:
 
 ```css
 :root {
-    --bg-color: #1a1a2e;
+    --bg-color: #1a1a2e;           /* Main background - MUST use this */
     --primary-accent-color: #0f3460;
     --secondary-accent-color: #e94560;
     --text-color: #ffffff;
     --text-muted-color: #a7a9be;
     --border-radius: 16px;
+    --block-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     /* ... more variables in common.css */
+}
+```
+
+**Theming Guidelines**:
+- **REQUIRED**: Main background must use `background-color: var(--bg-color)`
+- **RECOMMENDED**: Use our accent colors for primary UI elements
+- **FLEXIBLE**: Game-specific colors, fonts, icons, and images are encouraged!
+- **EXAMPLE**: A Tetris game can have colorful blocks but should use our dark background
+
+**How to integrate**:
+```css
+/* In your game's CSS file */
+:root {
+    /* Use Arcadia theme for main elements */
+    --game-bg: var(--bg-color, #1a1a2e);
+    --game-ui: var(--primary-accent-color, #0f3460);
+    
+    /* Your custom game colors */
+    --tetris-red: #ff4444;
+    --tetris-blue: #4444ff;
+    /* etc... */
+}
+
+body {
+    background-color: var(--game-bg); /* Uses Arcadia theme */
+}
+
+.game-piece {
+    background-color: var(--tetris-red); /* Your custom color */
 }
 ```
 
