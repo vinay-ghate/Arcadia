@@ -58,7 +58,7 @@
     "title": "Tower Block",
     "description": "Stack blocks as high as you can in this 3D tower building game!",
     "url": "TowerBlock/",
-    "imageUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=400&fit=crop&crop=center",
+    "imageUrl": "https://img.poki-cdn.com/cdn-cgi/image/q=78,scq=50,width=1200,height=1200,fit=cover,f=png/6433b0212d58c0d3f733f3cb20d6f63c/tower-blocks.jfif",
     "category": "Action",
     "featured": true
   },
@@ -67,7 +67,7 @@
     "title": "Tic-Tac-Toe (1 Player)",
     "description": "Classic Tic-Tac-Toe against AI with multiple difficulty levels!",
     "url": "TicTacToe-1p/",
-    "imageUrl": "https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?w=400&h=400&fit=crop&crop=center",
+    "imageUrl": "https://img.poki-cdn.com/cdn-cgi/image/q=78,scq=50,width=1200,height=1200,fit=cover,f=png/591a911d9b73482c052270a8fe4cfc95/tic-tac-toe.png",
     "category": "Strategy",
     "featured": true
   },
@@ -76,7 +76,7 @@
     "title": "Tic-Tac-Toe (2 Players)",
     "description": "Classic Tic-Tac-Toe for two players on the same device!",
     "url": "TicTacToe-2p/",
-    "imageUrl": "https://images.unsplash.com/photo-1611996575749-79a3a250f948?w=400&h=400&fit=crop&crop=center",
+    "imageUrl": "https://www.researchgate.net/publication/309775540/figure/fig1/AS:876185475112962@1585910304745/Tic-tac-toe-Game-Board.ppm",
     "category": "Strategy",
     "featured": true
   }
