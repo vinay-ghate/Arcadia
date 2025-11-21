@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess The Number - Free Number Guessing Game | Arcadia Games</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Play Guess The Number! Try to guess a random number between 1 and 100. Track your attempts and improve your strategy. Fun and educational!">
+    <meta name="keywords"
+        content="guess the number, number game, guessing game, logic game, educational game, math game, free game, browser game, kids game">
+    <meta name="author" content="Arcadia Games">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Guess The Number - Free Number Guessing Game">
+    <meta property="og:description"
+        content="Test your logic! Guess a number between 1 and 100 with hints. Fun for all ages!">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Arcadia Games">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Guess The Number - Free Number Guessing Game">
+    <meta name="twitter:description" content="Test your logic! Guess a number between 1 and 100 with hints.">
+
+    <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="game-container">
+        <div class="header">
+            <h1>Guess The Number</h1>
+            <p>I'm thinking of a number between 1 and 100.</p>
+        </div>
+
+        <div class="game-area">
+            <input type="number" id="guess-input" placeholder="Enter your guess" min="1" max="100">
+            <button class="game-button" id="guess-btn">Guess</button>
+        </div>
+
+        <div class="message-area">
+            <p id="message">Start guessing!</p>
+            <p id="attempts">Attempts: 0</p>
+        </div>
+
+        <div class="history">
+            <h3>Previous Guesses:</h3>
+            <div id="guess-history"></div>
+        </div>
+    </div>
+
+    <script src="../game-manager.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

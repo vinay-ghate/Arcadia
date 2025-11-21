@@ -1,20 +1,20 @@
 :root {
-    /* Use Arcadia theme colors for main background and key elements */
-    --primary-dark: var(--bg-color, #1a1a2e);
-    --secondary-dark: var(--primary-accent-color, #0f3460);
-    --neutral-light: #a8bfc9;
-    --neutral-hover: #dbe8ed;
-    --accent-cyan: #31c3bd;
-    --accent-cyan-hover: #65e9e4;
-    --accent-orange: var(--secondary-accent-color, #e94560);
-    --accent-orange-hover: #ffc860;
+    /* Modern purple and gold theme */
+    --primary-dark: #0a0e27;
+    --secondary-dark: #1a1f3a;
+    --neutral-light: #b4a7d6;
+    --neutral-hover: #d4c8f7;
+    --accent-purple: #9333ea;
+    --accent-purple-hover: #a855f7;
+    --accent-gold: #fbbf24;
+    --accent-gold-hover: #fcd34d;
 
     --typeface: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     --weight-heavy: 700;
     --weight-normal: 500;
 
-    --elevation-light: var(--block-shadow, 0px 4px 0px rgba(0, 0, 0, 0.25));
-    --elevation-heavy: 0px 8px 0px rgba(0, 0, 0, 0.25);
+    --elevation-light: 0px 4px 0px rgba(0, 0, 0, 0.3);
+    --elevation-heavy: 0px 8px 0px rgba(0, 0, 0, 0.3);
 }
 
 *,
@@ -72,11 +72,11 @@ button:active {
 
 .icon-logo {
     font-size: 2.5rem;
-    color: var(--accent-cyan);
+    color: var(--accent-purple);
 }
 
 .icon-logo .bi-circle {
-    color: var(--accent-orange);
+    color: var(--accent-gold);
 }
 
 .hidden {
@@ -91,12 +91,12 @@ button:active {
 }
 
 .btn-yellow {
-    background-color: var(--accent-orange);
+    background-color: var(--accent-gold);
     color: var(--primary-dark);
 }
 
 .btn-yellow:hover {
-    background-color: var(--accent-orange-hover);
+    background-color: var(--accent-gold-hover);
 }
 
 .btn-silver {
@@ -148,7 +148,7 @@ button:active {
 }
 
 .picker-toggle button:not(.active):hover {
-    background-color: rgba(168, 191, 201, 0.1);
+    background-color: rgba(180, 167, 214, 0.1);
 }
 
 .difficulty-buttons {
@@ -248,11 +248,11 @@ button:active {
 }
 
 .board-cell.x i {
-    color: var(--accent-cyan);
+    color: var(--accent-purple);
 }
 
 .board-cell.o i {
-    color: var(--accent-orange);
+    color: var(--accent-gold);
 }
 
 .board-cell.show i {
@@ -261,25 +261,25 @@ button:active {
 }
 
 .board-cell.x-hover:not(.x):not(.o):hover {
-    background-image: url("data:image/svg+xml,%3csvg width='64' height='64' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M15.002 1.147 32 18.145 48.998 1.147a3 3 0 0 1 4.243 0l9.612 9.612a3 3 0 0 1 0 4.243L45.855 32l16.998 16.998a3 3 0 0 1 0 4.243l-9.612 9.612a3 3 0 0 1-4.243 0L32 45.855 15.002 62.853a3 3 0 0 1-4.243 0L1.147 53.24a3 3 0 0 1 0-4.243L18.145 32 1.147 15.002a3 3 0 0 1 0-4.243l9.612-9.612a3 3 0 0 1 4.243 0Z' fill='%2331c3bd' fill-rule='evenodd' opacity='0.25'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg width='64' height='64' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M15.002 1.147 32 18.145 48.998 1.147a3 3 0 0 1 4.243 0l9.612 9.612a3 3 0 0 1 0 4.243L45.855 32l16.998 16.998a3 3 0 0 1 0 4.243l-9.612 9.612a3 3 0 0 1-4.243 0L32 45.855 15.002 62.853a3 3 0 0 1-4.243 0L1.147 53.24a3 3 0 0 1 0-4.243L18.145 32 1.147 15.002a3 3 0 0 1 0-4.243l9.612-9.612a3 3 0 0 1 4.243 0Z' fill='%239333ea' fill-rule='evenodd' opacity='0.25'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 40%;
 }
 
 .board-cell.o-hover:not(.x):not(.o):hover {
-    background-image: url("data:image/svg+xml,%3csvg width='64' height='64' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32 0 14.327 14.327 0 32 0Zm0 18.286c-7.564 0-13.714 6.15-13.714 13.714 0 7.564 6.15 13.714 13.714 13.714 7.564 0 13.714-6.15 13.714-13.714 0-7.564-6.15-13.714-13.714-13.714zm0 22.857c-5.043 0-9.143-4.1-9.143-9.143s4.1-9.143 9.143-9.143 9.143 4.1 9.143 9.143-4.1 9.143-9.143 9.143z' fill='%23f2b137' fill-rule='evenodd' opacity='0.25'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg width='64' height='64' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M32 0c17.673 0 32 14.327 32 32 0 17.673-14.327 32-32 32C14.327 64 0 49.673 0 32 0 14.327 14.327 0 32 0Zm0 18.286c-7.564 0-13.714 6.15-13.714 13.714 0 7.564 6.15 13.714 13.714 13.714 7.564 0 13.714-6.15 13.714-13.714 0-7.564-6.15-13.714-13.714-13.714zm0 22.857c-5.043 0-9.143-4.1-9.143-9.143s4.1-9.143 9.143-9.143 9.143 4.1 9.143 9.143-4.1 9.143-9.143 9.143z' fill='%23fbbf24' fill-rule='evenodd' opacity='0.25'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 40%;
 }
 
 .win-line.x {
-    background-color: var(--accent-cyan);
+    background-color: var(--accent-purple);
 }
 
 .win-line.o {
-    background-color: var(--accent-orange);
+    background-color: var(--accent-gold);
 }
 
 .win-line.x i,
@@ -309,7 +309,7 @@ button:active {
 }
 
 #player-score-card {
-    background-color: var(--accent-cyan);
+    background-color: var(--accent-purple);
 }
 
 #tie-score-card {
@@ -317,7 +317,7 @@ button:active {
 }
 
 #cpu-score-card {
-    background-color: var(--accent-orange);
+    background-color: var(--accent-gold);
 }
 
 .modal-overlay {
@@ -367,11 +367,11 @@ button:active {
 }
 
 .modal-winner-announcement h2.x-win-color {
-    color: var(--accent-cyan);
+    color: var(--accent-purple);
 }
 
 .modal-winner-announcement h2.o-win-color {
-    color: var(--accent-orange);
+    color: var(--accent-gold);
 }
 
 .modal-winner-announcement h2.tie-color {
@@ -379,7 +379,7 @@ button:active {
 }
 
 [role="gridcell"]:focus-visible {
-    outline: 3px solid var(--accent-orange);
+    outline: 3px solid var(--accent-gold);
     outline-offset: 4px;
 }
 

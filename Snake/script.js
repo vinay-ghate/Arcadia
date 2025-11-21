@@ -1,20 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- DOM Elements ---
     const board = document.getElementById('game-board');
-    const scoreDisplay = document.getElementById('score');
-    const highScoreDisplay = document.getElementById('high-score');
     const startText = document.getElementById('start-text');
-    const gameOverText = document.getElementById('game-over-text');
-    const finalScoreDisplay = document.getElementById('final-score');
     const pauseButton = document.getElementById('pause-button');
     const speedSlider = document.getElementById('speed-slider');
     const mobileOverlay = document.getElementById('mobile-overlay');
     const fullscreenPrompt = document.getElementById('fullscreen-prompt');
     const orientationLock = document.getElementById('orientation-lock');
-    
+
     // --- Game Settings ---
     const GRID_SIZE = 21;
-    let gameSpeed = 150; 
+    let gameSpeed = 150;
     let gameInterval;
 
     // --- Game State ---
@@ -22,27 +18,24 @@ document.addEventListener('DOMContentLoaded', () => {
     let food = generateFood();
     let direction = { x: 0, y: 0 };
     let nextDirection = { x: 0, y: 0 };
-    let score = 0;
-    let highScore = localStorage.getItem('snakeHighScore') || 0;
     let isGameOver = false;
     let isGameStarted = false;
     let isPaused = false;
-    
-    highScoreDisplay.textContent = highScore;
+
+    // --- GameManager Initialization ---
+    const gameManager = new GameManager({
+        gameId: 'snake',
+        title: 'Snake',
+        onRestart: resetGame
+    });
+
     board.style.gridTemplateRows = `repeat(${GRID_SIZE}, 1fr)`;
     board.style.gridTemplateColumns = `repeat(${GRID_SIZE}, 1fr)`;
 
     function main() {
         if (isGameOver) {
             clearInterval(gameInterval);
-            finalScoreDisplay.textContent = score;
-            gameOverText.classList.remove('hidden');
-            
-            if (score > highScore) {
-                highScore = score;
-                localStorage.setItem('snakeHighScore', highScore);
-                highScoreDisplay.textContent = highScore;
-            }
+            gameManager.showGameOver();
             return;
         }
         update();
@@ -52,9 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function update() {
         if (isPaused) return;
 
-        // *** THIS IS THE FIX ***
-        // The snake's direction is now updated at the START of the game tick.
-        // This removes the one-frame input lag.
         direction = nextDirection;
 
         if (direction.x === 0 && direction.y === 0) return;
@@ -67,12 +57,11 @@ document.addEventListener('DOMContentLoaded', () => {
             isGameOver = true;
             return;
         }
-        
+
         snake.unshift(head);
 
         if (head.x === food.x && head.y === food.y) {
-            score++;
-            scoreDisplay.textContent = score;
+            gameManager.addScore(1);
             food = generateFood();
         } else {
             snake.pop();
@@ -80,15 +69,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function draw() {
-        board.innerHTML = ''; 
+        board.innerHTML = '';
         drawSnake();
         drawFood();
     }
-    
+
     function drawSnake() {
         snake.forEach((segment, index) => {
             const snakeElement = createGameElement('div', 'snake');
-            if(index === 0) snakeElement.classList.add('head');
+            if (index === 0) snakeElement.classList.add('head');
             setPosition(snakeElement, segment);
             board.appendChild(snakeElement);
         });
@@ -99,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setPosition(foodElement, food);
         board.appendChild(foodElement);
     }
-    
+
     function createGameElement(tag, className) {
         const element = document.createElement(tag);
         element.className = className;
@@ -110,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
         element.style.gridColumnStart = position.x;
         element.style.gridRowStart = position.y;
     }
-    
+
     function generateFood() {
         let newFoodPosition;
         while (newFoodPosition == null || onSnake(newFoodPosition)) {
@@ -121,11 +110,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return newFoodPosition;
     }
-    
+
     function onSnake(position) {
         return snake.some(segment => segment.x === position.x && segment.y === position.y);
     }
-    
+
     function isCollision(head) {
         if (head.x < 1 || head.x > GRID_SIZE || head.y < 1 || head.y > GRID_SIZE) return true;
         for (let i = 1; i < snake.length; i++) {
@@ -133,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return false;
     }
-    
+
     function startGame() {
         if (isGameStarted && !isGameOver) return;
         if (isGameOver) {
@@ -147,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(gameInterval);
         gameInterval = setInterval(main, gameSpeed);
     }
-    
+
     function togglePause() {
         if (!isGameStarted || isGameOver) return;
         isPaused = !isPaused;
@@ -159,15 +148,13 @@ document.addEventListener('DOMContentLoaded', () => {
         food = generateFood();
         direction = { x: 0, y: 0 };
         nextDirection = { x: 0, y: 0 };
-        score = 0;
-        scoreDisplay.textContent = score;
+        gameManager.resetScore();
         isGameOver = false;
         isGameStarted = false;
         isPaused = false;
-        gameOverText.classList.add('hidden');
         startText.style.display = 'flex';
         pauseButton.textContent = 'PAUSE';
-        draw(); 
+        draw();
     }
 
     // --- Event Listeners ---
@@ -186,13 +173,13 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'ArrowRight': newDirection = { x: 1, y: 0 }; break;
             default: return;
         }
-        // This check correctly uses the 'direction' from the previous frame to prevent 180-degree turns.
+
         if (isGameStarted && (newDirection.x === -direction.x && newDirection.y === -direction.y)) return;
-        
+
         nextDirection = newDirection;
-        
+
         if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
-            e.preventDefault(); 
+            e.preventDefault();
             startGame();
         }
     });
@@ -203,11 +190,9 @@ document.addEventListener('DOMContentLoaded', () => {
             document.dispatchEvent(new KeyboardEvent('keydown', { 'key': button.dataset.key }));
         }
     });
-    
-    gameOverText.addEventListener('click', resetGame);
 
     pauseButton.addEventListener('click', togglePause);
-    
+
     speedSlider.addEventListener('input', (e) => {
         gameSpeed = 300 - e.target.value;
         if (isGameStarted && !isPaused) {
@@ -228,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     function checkOrientation() {
         if (!isMobile) return;
-        
+
         if (window.innerHeight > window.innerWidth) { // Portrait
             mobileOverlay.style.display = 'flex';
             fullscreenPrompt.style.display = 'none';
@@ -241,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileOverlay.style.display = 'flex';
         fullscreenPrompt.style.display = 'block';
         orientationLock.style.display = 'none';
-        
+
         fullscreenPrompt.addEventListener('click', () => {
             enterFullScreen();
             checkOrientation();

@@ -1,139 +1,180 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // DOM Elements
+    // --- DOM Elements ---
     const gridContainer = document.getElementById('grid-container');
-    const timerElement = document.getElementById('timer');
     const nextNumberElement = document.getElementById('next-number');
-    const nextNumberHint = document.getElementById('next-number-hint');
     const levelSelectorDesktop = document.getElementById('level-selector-desktop');
     const levelSelectorMobile = document.getElementById('level-selector-mobile');
     const resetBtn = document.getElementById('reset-btn');
     const toggleHighlightBtn = document.getElementById('toggle-highlight-btn');
-    const colors = ['#E53935', '#1E88E5', '#43A047', '#FDD835', '#8E24AA', '#3949AB'];
 
-
-    // Game State
-    let state = {
+    // --- Game State ---
+    const state = {
         gridSize: 5,
-        numbers: [],
         currentNumber: 1,
-        gameStarted: false,
+        startTime: null,
         timerInterval: null,
-        startTime: 0,
-        highlightingEnabled: false,
+        highlightingEnabled: true,
+        isGameActive: false
     };
 
+    // --- GameManager Init ---
+    const gameManager = new GameManager({
+        gameId: 'schulte-table',
+        title: 'Schulte Table',
+        scoreType: 'time', // Lower is better
+        showBestScore: true,
+        onRestart: () => {
+            resetGame();
+        }
+    });
+
     // --- Core Game Logic ---
-
-    const createGrid = () => {
-        stopTimer();
-        state.currentNumber = 1;
-        state.gameStarted = false;
-        
+    function createGrid() {
         gridContainer.innerHTML = '';
-        timerElement.textContent = '0.00';
-        updateNextNumbers(state.currentNumber);
-        nextNumberHint.classList.remove('visible');
-
-        gridContainer.classList.toggle('highlight-off', !state.highlightingEnabled);
+        gridContainer.style.gridTemplateColumns = `repeat(${state.gridSize}, 1fr)`;
+        gridContainer.style.gridTemplateRows = `repeat(${state.gridSize}, 1fr)`;
 
         const totalCells = state.gridSize * state.gridSize;
-        state.numbers = Array.from({ length: totalCells }, (_, i) => i + 1);
-        shuffleArray(state.numbers);
+        const numbers = Array.from({ length: totalCells }, (_, i) => i + 1);
+        shuffleArray(numbers);
 
-        gridContainer.style.gridTemplateColumns = `repeat(${state.gridSize}, 1fr)`;
-        for (const number of state.numbers) {
+        numbers.forEach(number => {
             const cell = document.createElement('div');
             cell.classList.add('grid-cell');
             cell.textContent = number;
             cell.dataset.number = number;
-            
-            // --- New Line Added ---
-            // Assign a random color to the number's text
-            cell.style.color = colors[Math.floor(Math.random() * colors.length)];
-            // ----------------------
 
-            cell.addEventListener('click', handleCellClick);
+            // Random colors for difficulty
+            const hue = Math.floor(Math.random() * 360);
+            const saturation = 70 + Math.random() * 30; // 70-100%
+            const lightness = 40 + Math.random() * 20; // 40-60%
+            cell.style.color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+            cell.style.borderColor = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+            cell.style.textShadow = `0 0 10px hsl(${hue}, ${saturation}%, ${lightness}%, 0.5)`;
+
+            cell.addEventListener('click', () => handleCellClick(cell, number));
             gridContainer.appendChild(cell);
+        });
+
+        resetState();
+    }
+
+    function handleCellClick(cell, number) {
+        if (!state.isGameActive) {
+            if (number === 1) {
+                startGame();
+            } else {
+                return; // Ignore clicks before start unless it's 1
+            }
         }
-    };
-    const handleCellClick = (event) => {
-        const clickedNumber = parseInt(event.target.dataset.number);
 
-        if (!state.gameStarted && clickedNumber === 1) {
-            state.gameStarted = true;
-            nextNumberHint.classList.add('visible');
-            startTimer();
-        }
+        if (number === state.currentNumber) {
+            // Correct click
+            cell.classList.add('found');
+            if (!state.highlightingEnabled) {
+                cell.style.opacity = '0.3'; // Dim if highlighting is off
+            }
 
-        if (!state.gameStarted) return;
-
-        if (clickedNumber === state.currentNumber) {
-            event.target.classList.add('found');
             state.currentNumber++;
-            updateNextNumbers(state.currentNumber);
+            nextNumberElement.textContent = state.currentNumber;
 
+            // Check Win
             if (state.currentNumber > state.gridSize * state.gridSize) {
-                stopTimer();
-                nextNumberElement.textContent = '🎉';
-                nextNumberHint.classList.remove('visible');
+                endGame();
             }
         } else {
-            event.target.classList.add('error');
-            setTimeout(() => event.target.classList.remove('error'), 300);
+            // Incorrect click
+            cell.classList.add('error');
+            setTimeout(() => cell.classList.remove('error'), 400);
         }
-    };
-    
-    const updateNextNumbers = (number) => {
-        nextNumberElement.textContent = number;
-        nextNumberHint.textContent = number;
-    };
+    }
 
-    // --- Timer Functions ---
-    const startTimer = () => {
+    function startGame() {
+        state.isGameActive = true;
         state.startTime = Date.now();
-        state.timerInterval = setInterval(() => {
-            const elapsedTime = Date.now() - state.startTime;
-            timerElement.textContent = (elapsedTime / 1000).toFixed(2);
-        }, 10);
-    };
+        state.timerInterval = setInterval(updateTimer, 100);
+        gameManager.updateScore(0); // Reset score display
+    }
 
-    const stopTimer = () => clearInterval(state.timerInterval);
+    function updateTimer() {
+        const elapsed = (Date.now() - state.startTime) / 1000;
+        gameManager.updateScore(elapsed.toFixed(1) + 's');
+    }
 
-    // --- Event Handlers ---
-    const setLevel = (size) => {
-        state.gridSize = parseInt(size);
-        // Sync both selectors
-        levelSelectorMobile.value = size;
-        document.querySelector('#level-selector-desktop .active').classList.remove('active');
-        document.querySelector(`#level-selector-desktop [data-size='${size}']`).classList.add('active');
+    function endGame() {
+        clearInterval(state.timerInterval);
+        state.isGameActive = false;
+        const finalTime = (Date.now() - state.startTime) / 1000;
+        gameManager.updateScore(finalTime); // Save raw number for best score comparison
+        gameManager.showGameOver();
+    }
+
+    function resetGame() {
+        clearInterval(state.timerInterval);
+        state.isGameActive = false;
+        state.currentNumber = 1;
+        nextNumberElement.textContent = '1';
+        gameManager.hideGameOver();
         createGrid();
-    };
+    }
+
+    function resetState() {
+        clearInterval(state.timerInterval);
+        state.isGameActive = false;
+        state.currentNumber = 1;
+        nextNumberElement.textContent = '1';
+        gameManager.updateScore(0);
+    }
+
+    // --- Event Listeners ---
+    function setLevel(size) {
+        state.gridSize = parseInt(size);
+
+        // Update UI
+        levelSelectorMobile.value = size;
+
+        // Update Desktop UI
+        const desktopBtns = levelSelectorDesktop.querySelectorAll('.level-btn');
+        desktopBtns.forEach(btn => {
+            if (btn.dataset.size == size) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+
+        resetGame();
+    }
 
     levelSelectorDesktop.addEventListener('click', (e) => {
-        if (e.target.matches('.level-btn')) {
+        if (e.target.classList.contains('level-btn')) {
             e.preventDefault();
             setLevel(e.target.dataset.size);
         }
     });
-    
-    levelSelectorMobile.addEventListener('change', (e) => setLevel(e.target.value));
 
-    resetBtn.addEventListener('click', createGrid);
+    levelSelectorMobile.addEventListener('change', (e) => {
+        setLevel(e.target.value);
+    });
+
+    resetBtn.addEventListener('click', resetGame);
 
     toggleHighlightBtn.addEventListener('click', () => {
         state.highlightingEnabled = !state.highlightingEnabled;
-        gridContainer.classList.toggle('highlight-off', !state.highlightingEnabled);
         toggleHighlightBtn.textContent = `Highlight: ${state.highlightingEnabled ? 'On' : 'Off'}`;
+
+        // Update existing found cells
+        const foundCells = document.querySelectorAll('.grid-cell.found');
+        foundCells.forEach(cell => {
+            cell.style.opacity = state.highlightingEnabled ? '1' : '0.3';
+        });
     });
 
-    // --- Utility Functions ---
-    const shuffleArray = (array) => {
+    // --- Utility ---
+    function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [array[i], array[j]] = [array[j], array[i]];
         }
-    };
-    
-    // --- Initial Load ---
+    }
+
+    // --- Init ---
     createGrid();
 });

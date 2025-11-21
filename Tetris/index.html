@@ -1,104 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tetris</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <script src="script.js"></script>
-  </head>
-  <body>
-    <a href="../" class="back-button">
-      <span class="material-icons">arrow_back</span>
-    </a>
 
-    <main class="game-wrapper">
-      <header class="game-header">
-        <h1
-          class="text-4xl md:text-5xl font-bold text-glow uppercase tracking-widest"
-        >
-          Tetris
-        </h1>
-      </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tetris - Classic Block Puzzle Game | Arcadia Games</title>
 
-      <div class="game-layout">
-        <div id="game-board-container" class="flex justify-center items-center">
-          <div id="game-board" class="game-board rounded-lg"></div>
-        </div>
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Play the classic Tetris game online! Rotate and stack falling blocks to clear lines. Retro gameplay with modern graphics. Free browser game!" />
+  <meta name="keywords"
+    content="tetris, block game, puzzle game, classic game, retro game, falling blocks, arcade game, free game, browser game" />
+  <meta name="author" content="Arcadia Games" />
+  <meta name="robots" content="index, follow" />
 
-        <aside class="sidebar">
-          <div>
-            <h2 class="text-lg uppercase text-glow mb-2 text-center">Next</h2>
-            <div
-              id="next-piece-grid"
-              class="next-piece rounded-lg mx-auto"
-            ></div>
-          </div>
-          <div>
-            <h2 class="text-lg uppercase text-glow mb-2 text-center">Score</h2>
-            <div
-              id="score-display"
-              class="score-box rounded-lg p-3 text-center text-3xl font-bold w-full text-glow"
-            >
-              0
-            </div>
-          </div>
-          <div class="flex flex-col space-y-3">
-            <button
-              id="pause-btn"
-              class="btn-control text-white font-bold py-2 px-4 rounded-lg shadow-lg text-sm uppercase"
-            >
-              Pause
-            </button>
-            <button
-              id="restart-btn"
-              class="btn-control text-white font-bold py-2 px-4 rounded-lg shadow-lg text-sm uppercase"
-            >
-              Restart
-            </button>
-          </div>
-        </aside>
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Tetris - Classic Block Puzzle Game" />
+  <meta property="og:description"
+    content="Play the legendary Tetris game! Stack blocks, clear lines, and beat your high score." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Arcadia Games" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Tetris - Classic Block Puzzle Game" />
+  <meta name="twitter:description"
+    content="Play the legendary Tetris game! Stack blocks, clear lines, and beat your high score." />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="stylesheet" href="../common.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="../game-manager.js"></script>
+  <script src="script.js"></script>
+</head>
+
+<body>
+  <!-- Back button handled by GameManager -->
+
+  <main class="game-wrapper">
+    <header class="game-header">
+      <h1 class="text-4xl md:text-5xl font-bold text-glow uppercase tracking-widest">
+        Tetris
+      </h1>
+    </header>
+
+    <div class="game-layout">
+      <div id="game-board-container" class="flex justify-center items-center">
+        <div id="game-board" class="game-board rounded-lg"></div>
       </div>
 
-      <footer class="on-screen-controls">
-        <div class="flex justify-between items-center w-full">
-          <div class="flex gap-4">
-            <button
-              id="left-btn"
-              class="btn-control text-white font-bold p-5 rounded-full shadow-lg"
-            >
-              <span class="material-icons text-4xl">arrow_back</span>
-            </button>
-            <button
-              id="down-btn"
-              class="btn-control text-white font-bold p-5 rounded-full shadow-lg"
-            >
-              <span class="material-icons text-4xl">arrow_downward</span>
-            </button>
-            <button
-              id="right-btn"
-              class="btn-control text-white font-bold p-5 rounded-full shadow-lg"
-            >
-              <span class="material-icons text-4xl">arrow_forward</span>
-            </button>
-            <button
-              id="rotate-btn"
-              class="btn-control text-white font-bold p-5 rounded-full shadow-lg"
-            >
-              <span class="material-icons text-4xl">rotate_90_degrees_ccw</span>
-            </button>
-          </div>
+      <aside class="sidebar">
+        <div>
+          <h2 class="text-lg uppercase text-glow mb-2 text-center">Next</h2>
+          <div id="next-piece-grid" class="next-piece rounded-lg mx-auto"></div>
         </div>
-      </footer>
-    </main>
-  </body>
+        <!-- Score handled by GameManager -->
+        <div class="flex flex-col space-y-3">
+          <button id="pause-btn"
+            class="btn-control text-white font-bold py-2 px-4 rounded-lg shadow-lg text-sm uppercase">
+            Pause
+          </button>
+          <button id="restart-btn"
+            class="btn-control text-white font-bold py-2 px-4 rounded-lg shadow-lg text-sm uppercase">
+            Restart
+          </button>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="on-screen-controls">
+      <div class="flex justify-between items-center w-full">
+        <div class="flex gap-4">
+          <button id="left-btn" class="btn-control text-white font-bold p-5 rounded-full shadow-lg">
+            <span class="material-icons text-4xl">arrow_back</span>
+          </button>
+          <button id="down-btn" class="btn-control text-white font-bold p-5 rounded-full shadow-lg">
+            <span class="material-icons text-4xl">arrow_downward</span>
+          </button>
+          <button id="right-btn" class="btn-control text-white font-bold p-5 rounded-full shadow-lg">
+            <span class="material-icons text-4xl">arrow_forward</span>
+          </button>
+          <button id="rotate-btn" class="btn-control text-white font-bold p-5 rounded-full shadow-lg">
+            <span class="material-icons text-4xl">rotate_90_degrees_ccw</span>
+          </button>
+        </div>
+      </div>
+    </footer>
+  </main>
+</body>
+
 </html>

@@ -1,0 +1,110 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.game-container {
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+}
+
+.header h1 {
+    font-size: 3rem;
+    color: var(--secondary-accent-color);
+    margin-bottom: 0.5rem;
+}
+
+.header p {
+    color: var(--text-muted-color);
+    margin-bottom: 2rem;
+}
+
+.choices {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.choice-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid transparent;
+    border-radius: 16px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 120px;
+}
+
+.choice-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+    border-color: var(--secondary-accent-color);
+}
+
+.choice-btn .emoji {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.choice-btn .label {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.result-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.result-area.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.player-choice,
+.computer-choice {
+    text-align: center;
+}
+
+.player-choice span,
+.computer-choice span {
+    font-size: 4rem;
+    display: block;
+}
+
+.vs {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text-muted-color);
+}
+
+.message {
+    font-size: 1.5rem;
+    font-weight: 700;
+    min-height: 2rem;
+}
+
+.win {
+    color: #4ade80;
+}
+
+.lose {
+    color: #f87171;
+}
+
+.draw {
+    color: #fbbf24;
+}

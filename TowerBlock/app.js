@@ -179,10 +179,21 @@ var Game = /** @class */ (function () {
         this.state = this.STATES.LOADING;
         this.stage = new Stage();
         this.mainContainer = document.getElementById('container');
-        this.scoreContainer = document.getElementById('score');
+        // this.scoreContainer = document.getElementById('score'); // Removed
         this.startButton = document.getElementById('start-button');
         this.instructions = document.getElementById('instructions');
-        this.scoreContainer.innerHTML = '0';
+        // this.scoreContainer.innerHTML = '0'; // Removed
+
+        // --- GameManager Init ---
+        this.gameManager = new GameManager({
+            gameId: 'tower-block',
+            title: 'Tower Block',
+            scoreType: 'points',
+            onRestart: function () {
+                _this.restartGame();
+            }
+        });
+
         this.newBlocks = new THREE.Group();
         this.placedBlocks = new THREE.Group();
         this.choppedBlocks = new THREE.Group();
@@ -221,13 +232,17 @@ var Game = /** @class */ (function () {
                 this.placeBlock();
                 break;
             case this.STATES.ENDED:
-                this.restartGame();
+                // Restart handled by GameManager button, but if they click/space, we can also restart?
+                // GameManager shows a modal. Clicking outside or on button restarts.
+                // Let's disable click-to-restart on the game area to avoid conflict with GameManager modal.
+                // this.restartGame(); 
                 break;
         }
     };
     Game.prototype.startGame = function () {
         if (this.state != this.STATES.PLAYING) {
-            this.scoreContainer.innerHTML = '0';
+            // this.scoreContainer.innerHTML = '0'; // Removed
+            this.gameManager.updateScore(0);
             this.updateState(this.STATES.PLAYING);
             this.addBlock();
         }
@@ -235,6 +250,7 @@ var Game = /** @class */ (function () {
     Game.prototype.restartGame = function () {
         var _this = this;
         this.updateState(this.STATES.RESETTING);
+        this.gameManager.hideGameOver(); // Ensure modal is hidden
         var oldBlocks = this.placedBlocks.children;
         var removeSpeed = 0.2;
         var delayAmount = 0.02;
@@ -248,7 +264,12 @@ var Game = /** @class */ (function () {
         var cameraMoveSpeed = removeSpeed * 2 + (oldBlocks.length * delayAmount);
         this.stage.setCamera(2, cameraMoveSpeed);
         var countdown = { value: this.blocks.length - 1 };
-        TweenLite.to(countdown, cameraMoveSpeed, { value: 0, onUpdate: function () { _this.scoreContainer.innerHTML = String(Math.round(countdown.value)); } });
+        TweenLite.to(countdown, cameraMoveSpeed, {
+            value: 0, onUpdate: function () {
+                // _this.scoreContainer.innerHTML = String(Math.round(countdown.value)); 
+                _this.gameManager.updateScore(Math.round(countdown.value));
+            }
+        });
         this.blocks = this.blocks.slice(0, 1);
         setTimeout(function () {
             _this.startGame();
@@ -287,7 +308,8 @@ var Game = /** @class */ (function () {
         if (lastBlock && lastBlock.state == lastBlock.STATES.MISSED) {
             return this.endGame();
         }
-        this.scoreContainer.innerHTML = String(this.blocks.length - 1);
+        // this.scoreContainer.innerHTML = String(this.blocks.length - 1); // Removed
+        this.gameManager.updateScore(this.blocks.length - 1);
         var newKidOnTheBlock = new Block(lastBlock);
         this.newBlocks.add(newKidOnTheBlock.mesh);
         this.blocks.push(newKidOnTheBlock);
@@ -297,11 +319,12 @@ var Game = /** @class */ (function () {
     };
     Game.prototype.endGame = function () {
         // Update final score display
-        var finalScoreElement = document.getElementById('final-score-value');
-        if (finalScoreElement) {
-            finalScoreElement.textContent = String(this.blocks.length - 1);
-        }
+        // var finalScoreElement = document.getElementById('final-score-value'); // Removed
+        // if (finalScoreElement) {
+        //     finalScoreElement.textContent = String(this.blocks.length - 1);
+        // }
         this.updateState(this.STATES.ENDED);
+        this.gameManager.showGameOver();
     };
     Game.prototype.tick = function () {
         var _this = this;

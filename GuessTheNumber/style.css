@@ -1,0 +1,100 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.game-container {
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--block-shadow);
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    color: var(--secondary-accent-color);
+    margin-bottom: 0.5rem;
+}
+
+.header p {
+    color: var(--text-muted-color);
+    margin-bottom: 2rem;
+}
+
+.game-area {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+#guess-input {
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid var(--primary-accent-color);
+    background: rgba(0, 0, 0, 0.2);
+    color: white;
+    font-size: 1.2rem;
+    width: 150px;
+    text-align: center;
+}
+
+#guess-input:focus {
+    outline: none;
+    border-color: var(--secondary-accent-color);
+}
+
+.message-area {
+    margin-bottom: 2rem;
+}
+
+#message {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    min-height: 1.8rem;
+}
+
+.high {
+    color: #fbbf24;
+}
+
+.low {
+    color: #60a5fa;
+}
+
+.correct {
+    color: #4ade80;
+}
+
+#attempts {
+    color: var(--text-muted-color);
+}
+
+.history h3 {
+    font-size: 1rem;
+    color: var(--text-muted-color);
+    margin-bottom: 0.5rem;
+}
+
+#guess-history {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.history-chip {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}

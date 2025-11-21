@@ -1,29 +1,27 @@
-/* style.css (SCROLL-FREE VERSION) */
-
 :root {
-  --background: #1a1a1a;
-  --game-board-bg: #0a0a0a;
-  --cell-border: rgba(255, 255, 255, 0.05);
-  --text-glow-color: rgba(0, 225, 255, 0.7);
-  --button-bg-start: #3d3d3d;
-  --button-bg-end: #2a2a2a;
-  --button-border: #111;
-  --button-shadow: rgba(0, 0, 0, 0.7);
-  --button-inset-shadow: rgba(255, 255, 255, 0.15);
+  --background: #0f0f1a;
+  --game-board-bg: rgba(0, 0, 0, 0.8);
+  --cell-border: rgba(255, 255, 255, 0.1);
+  --text-glow-color: #00d4ff;
+  --button-bg-start: #00d4ff;
+  --button-bg-end: #005bea;
+  --button-border: rgba(255, 255, 255, 0.2);
+  --button-shadow: rgba(0, 212, 255, 0.4);
 }
 
 body {
   font-family: "Orbitron", sans-serif;
   background-color: var(--background);
-  color: #e0e0e0;
-
-  /* --- CORE LAYOUT FIX: NO SCROLLING --- */
+  color: #ffffff;
   margin: 0;
-  /* Force body to be exactly the height of the screen */
   height: 100vh;
-  height: 100dvh; /* More accurate for mobile */
-  /* Prevent any content from overflowing */
+  height: 100dvh;
   overflow: hidden;
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.15) 0%, transparent 50%),
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
 }
 
 .game-wrapper {
@@ -31,31 +29,29 @@ body {
   height: 100%;
   padding: 1rem;
   box-sizing: border-box;
-
-  /* Use flexbox to manage vertical space */
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .game-header {
-  flex-shrink: 0; /* Don't shrink the header */
+  flex-shrink: 0;
   text-align: center;
   margin-bottom: 1rem;
 }
 
 .game-layout {
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
   justify-content: center;
-  align-items: center;
-
-  /* Make the game area flexible to fill remaining space */
+  align-items: flex-start;
   flex-grow: 1;
-  min-height: 0; /* Flexbox trick to allow shrinking */
+  min-height: 0;
 }
 
 #game-board-container {
   height: 100%;
+  max-height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,27 +62,24 @@ body {
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(20, 1fr);
   aspect-ratio: 10 / 20;
-
-  /* The board's height is now constrained by its parent container */
   height: 100%;
-  width: auto;
-
+  max-height: 100%;
   background-color: var(--game-board-bg);
-  border: 2px solid #333;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  background-image: linear-gradient(var(--cell-border) 1px, transparent 1px),
+  border: 2px solid rgba(0, 212, 255, 0.5);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.2), inset 0 0 20px rgba(0, 0, 0, 0.8);
+  background-image:
+    linear-gradient(var(--cell-border) 1px, transparent 1px),
     linear-gradient(90deg, var(--cell-border) 1px, transparent 1px);
   background-size: 10% 5%;
+  /* Correct grid size for 10x20 board */
+  border-radius: 4px;
 }
 
 .sidebar {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  max-height: 550px; /* Prevent sidebar from getting too tall */
-  width: 140px;
-  flex-shrink: 0;
+  gap: 2rem;
+  padding-top: 1rem;
 }
 
 .next-piece {
@@ -94,190 +87,118 @@ body {
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
   width: 100px;
-  aspect-ratio: 1 / 1;
-  background-color: var(--game-board-bg);
-  border: 2px solid #333;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  background-image: linear-gradient(var(--cell-border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--cell-border) 1px, transparent 1px);
-  background-size: 25% 25%;
+  height: 100px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  padding: 5px;
 }
 
-.score-box {
-  background: #111;
-  border: 2px solid #333;
-}
-
-.on-screen-controls {
-  flex-shrink: 0; /* Don't shrink the controls */
-  padding-top: 1rem;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-/* --- Block & UI Element Styles --- */
 .cell {
   width: 100%;
   height: 100%;
-}
-.block-i,
-.block-o,
-.block-t,
-.block-l,
-.block-j,
-.block-s,
-.block-z {
-  /* ... same as before ... */
-}
-.btn-control {
-  /* ... same as before ... */
-}
-.text-glow {
-  /* ... same as before ... */
+  border-radius: 2px;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-/*
-====================================
-=== RESPONSIVE LAYOUT FOR MOBILE ====
-====================================
-*/
-@media (max-width: 640px) {
+/* Neon Block Styles */
+.block-i {
+  background: #00f0f0;
+  box-shadow: 0 0 8px #00f0f0, inset 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+.block-o {
+  background: #f0f000;
+  box-shadow: 0 0 8px #f0f000, inset 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+.block-t {
+  background: #a000f0;
+  box-shadow: 0 0 8px #a000f0, inset 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+.block-s {
+  background: #00f000;
+  box-shadow: 0 0 8px #00f000, inset 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+.block-z {
+  background: #f00000;
+  box-shadow: 0 0 8px #f00000, inset 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+.block-j {
+  background: #0000f0;
+  box-shadow: 0 0 8px #0000f0, inset 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+.block-l {
+  background: #f0a000;
+  box-shadow: 0 0 8px #f0a000, inset 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+.text-glow {
+  text-shadow: 0 0 10px var(--text-glow-color), 0 0 20px var(--text-glow-color);
+}
+
+
+.btn-control:active {
+  transform: translateY(1px);
+}
+
+.on-screen-controls {
+  margin-top: auto;
+  padding-bottom: 1rem;
+  width: 100%;
+  max-width: 500px;
+  align-self: center;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
   .game-layout {
     flex-direction: column;
+    align-items: center;
     gap: 1rem;
   }
 
   #game-board-container {
-    width: 100%;
     height: auto;
-    flex-grow: 1; /* Allow board to take up vertical space */
-    min-height: 0;
+    width: 100%;
+    flex-grow: 1;
+    max-height: 60vh;
   }
 
   .game-board {
-    width: auto;
     height: 100%;
-    margin: 0 auto; /* Center the board */
+    width: auto;
   }
 
   .sidebar {
     flex-direction: row;
-    align-items: flex-end;
     width: 100%;
-    height: auto;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 0;
     gap: 1rem;
   }
 
-  .sidebar > div {
-    flex: 1;
-  }
-
   .next-piece {
-    width: 80px;
+    width: 60px;
+    height: 60px;
   }
 
-  .on-screen-controls {
-    flex-shrink: 0;
-    /* Reduced padding to bring controls closer to the game */
-    padding: 0.5rem 1rem 1rem 1rem;
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-
-  .on-screen-controls .btn-control {
-    padding: 0; /* Override any Tailwind padding */
-    /* Smaller button dimensions */
-    width: 56px;
-    height: 56px;
+  .game-header h1 {
+    font-size: 2rem;
   }
 
   .on-screen-controls .material-icons {
-    /* Smaller icon size */
-    font-size: 28px;
+    font-size: 24px;
   }
-}
 
-.back-button {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  z-index: 50; /* High z-index to be on top of everything */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  color: white;
-  text-decoration: none;
-  background: var(--button-bg-end);
-  border: 1px solid var(--button-border);
-  border-radius: 50%;
-  box-shadow: 0 4px 8px var(--button-shadow);
-  transition: all 0.2s ease-in-out;
-}
-.back-button:hover {
-  background: var(--button-bg-start);
-}
-
-/* --- Autogenerated Tailwind classes can be left out, but styles below are for reference --- */
-.block-i {
-  background-color: #00e0e0;
-  border: 1px solid #00c0c0;
-  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.4);
-}
-.block-o {
-  background-color: #e0e000;
-  border: 1px solid #c0c000;
-  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.4);
-}
-.block-t {
-  background-color: #a000e0;
-  border: 1px solid #8000c0;
-  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.4);
-}
-.block-l {
-  background-color: #e0a000;
-  border: 1px solid #c08000;
-  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.4);
-}
-.block-j {
-  background-color: #0000e0;
-  border: 1px solid #0000c0;
-  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.4);
-}
-.block-s {
-  background-color: #00e000;
-  border: 1px solid #00c000;
-  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.4);
-}
-.block-z {
-  background-color: #e00000;
-  border: 1px solid #c00000;
-  box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.4);
-}
-.btn-control {
-  background: linear-gradient(
-    to bottom,
-    var(--button-bg-start),
-    var(--button-bg-end)
-  );
-  border: 1px solid var(--button-border);
-  box-shadow: 0 4px 8px var(--button-shadow),
-    inset 0 1px 1px var(--button-inset-shadow);
-  transition: all 0.2s ease-in-out;
-}
-.btn-control:active {
-  background: linear-gradient(
-    to top,
-    var(--button-bg-start),
-    var(--button-bg-end)
-  );
-  transform: translateY(2px);
-  box-shadow: 0 2px 4px var(--button-shadow),
-    inset 0 1px 1px var(--button-inset-shadow);
-}
-.text-glow {
-  text-shadow: 0 0 8px var(--text-glow-color), 0 0 12px var(--text-glow-color);
+  .on-screen-controls button {
+    padding: 1rem;
+  }
 }

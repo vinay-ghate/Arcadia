@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   // --- DOM Elements ---
   const gameBoard = document.getElementById("game-board");
-  const scoreDisplay = document.getElementById("score-display");
+  // Score display handled by GameManager
   const nextPieceGrid = document.getElementById("next-piece-grid");
   const restartBtn = document.getElementById("restart-btn");
   const pauseBtn = document.getElementById("pause-btn");
@@ -9,6 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const rightBtn = document.getElementById("right-btn");
   const downBtn = document.getElementById("down-btn");
   const rotateBtn = document.getElementById("rotate-btn");
+
+  // --- GameManager Init ---
+  const gameManager = new GameManager({
+    gameId: 'tetris',
+    title: 'Tetris',
+    onRestart: resetGame
+  });
 
   // --- Game Constants ---
   const COLS = 10;
@@ -87,6 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!isValidMove(currentPiece)) {
       isGameOver = true;
+      gameManager.showGameOver();
     }
   }
 
@@ -135,7 +143,9 @@ document.addEventListener("DOMContentLoaded", () => {
       y++;
     }
     if (linesCleared > 0) {
-      score += linesCleared * 10 * linesCleared;
+      const points = linesCleared * 10 * linesCleared;
+      score += points;
+      gameManager.addScore(points);
     }
   }
 
@@ -166,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     });
-    scoreDisplay.textContent = score;
+    // Score handled by GameManager
     drawNextPiece();
   }
 
@@ -225,12 +235,14 @@ document.addEventListener("DOMContentLoaded", () => {
   function resetGame() {
     board = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
     score = 0;
+    gameManager.resetScore();
     isGameOver = false;
     isPaused = false;
     pauseBtn.textContent = "Pause";
     nextPiece = getRandomPiece();
     spawnNewPiece();
     lastTime = 0; // Reset time for the loop
+    gameManager.hideGameOver();
     if (!isGameOver) {
       gameLoop();
     }
@@ -239,7 +251,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Game Loop ---
   function gameLoop(time = 0) {
     if (isGameOver) {
-      alert(`Game Over! Your score: ${score}`);
       return;
     }
     if (isPaused) {
@@ -271,13 +282,47 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.key === "ArrowUp") rotate();
   });
 
-  leftBtn.addEventListener("click", () => !isPaused && move(-1, 0));
-  rightBtn.addEventListener("click", () => !isPaused && move(1, 0));
-  downBtn.addEventListener(
-    "click",
-    () => !isPaused && (dropCounter = dropInterval)
-  );
-  rotateBtn.addEventListener("click", () => !isPaused && rotate());
+  // --- Touch & Mouse Control Logic ---
+  function setupButtonControls(btn, action, isRepeatable = true) {
+    let intervalId = null;
+    let timeoutId = null;
+
+    const startAction = (e) => {
+      e.preventDefault(); // Prevent default touch behaviors
+      if (isGameOver || isPaused) return;
+
+      action(); // Trigger immediately
+
+      if (isRepeatable) {
+        // Delay before repeating starts
+        timeoutId = setTimeout(() => {
+          intervalId = setInterval(action, 100); // Repeat every 100ms
+        }, 200);
+      }
+    };
+
+    const endAction = (e) => {
+      e.preventDefault();
+      clearTimeout(timeoutId);
+      clearInterval(intervalId);
+    };
+
+    // Touch events
+    btn.addEventListener("touchstart", startAction, { passive: false });
+    btn.addEventListener("touchend", endAction);
+    btn.addEventListener("touchcancel", endAction);
+
+    // Mouse events (for desktop testing/compatibility)
+    btn.addEventListener("mousedown", startAction);
+    btn.addEventListener("mouseup", endAction);
+    btn.addEventListener("mouseleave", endAction);
+  }
+
+  setupButtonControls(leftBtn, () => move(-1, 0));
+  setupButtonControls(rightBtn, () => move(1, 0));
+  setupButtonControls(downBtn, () => (dropCounter = dropInterval)); // Fast drop
+  setupButtonControls(rotateBtn, rotate, false); // Rotate usually isn't repeatable by holding
+
   pauseBtn.addEventListener("click", togglePause);
   restartBtn.addEventListener("click", resetGame);
 

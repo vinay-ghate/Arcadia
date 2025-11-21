@@ -1,44 +1,116 @@
-/* Use CSS variables for easy theme changes */
+/* Schulte Table Premium Styles */
 :root {
-    --grid-gap: 0.5rem;
-    --cell-bg: var(--pico-card-background-color);
-    --cell-found-bg: var(--pico-primary-background);
-    --cell-found-color: var(--pico-primary-inverse);
-    --cell-error-bg: var(--pico-critical-background);
-}
-
-body {
-    user-select: none; /* Prevent text selection during gameplay */
+    --grid-gap: 10px;
+    --cell-bg: rgba(255, 255, 255, 0.05);
+    --cell-hover-bg: rgba(255, 255, 255, 0.1);
+    --cell-found-bg: rgba(0, 212, 255, 0.2);
+    --cell-found-color: #00d4ff;
+    --cell-error-bg: rgba(255, 0, 85, 0.3);
 }
 
 .container {
-    max-width: 1100px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+
+header h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-color);
+    text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+    margin-bottom: 10px;
+}
+
+header p {
+    color: var(--text-muted-color);
+    font-size: 1.1rem;
 }
 
 .game-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr; /* Three-column layout */
-    gap: 2rem;
-    align-items: start;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: center;
+    flex-grow: 1;
+    min-height: 0;
 }
 
+/* Sidebar Styles */
+.sidebar {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: var(--glass-border);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    width: 250px;
+    flex-shrink: 0;
+    box-shadow: var(--block-shadow);
+}
+
+.sidebar h3 {
+    color: var(--primary-accent-color);
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+}
+
+.level-btn {
+    display: block;
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    color: var(--text-muted-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.level-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    transform: translateX(5px);
+}
+
+.level-btn.active {
+    background: var(--button-bg);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+}
+
+/* Game Area */
 #game-area {
-    position: relative; /* Needed for positioning the hint */
+    flex-grow: 1;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
 }
 
-/* The Schulte Table Grid */
 #grid-container {
     display: grid;
     gap: var(--grid-gap);
-    aspect-ratio: 1 / 1; /* Keep it a perfect square */
-    margin-bottom: 1rem; /* Space for mobile dropdown */
+    width: 100%;
+    aspect-ratio: 1;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    border: var(--glass-border);
+    box-shadow: var(--block-shadow);
 }
 
 .grid-cell {
@@ -46,100 +118,161 @@ header {
     justify-content: center;
     align-items: center;
     background-color: var(--cell-bg);
-    border-radius: var(--pico-border-radius);
-    font-size: 1.5rem;
-    font-weight: bold;
+    border-radius: 8px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-color);
     cursor: pointer;
-    transition: transform 0.1s ease, background-color 0.2s;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    user-select: none;
 }
 
 .grid-cell:hover {
+    background-color: var(--cell-hover-bg);
     transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    z-index: 1;
 }
 
-/* Cell states */
 .grid-cell.found {
     background-color: var(--cell-found-bg);
     color: var(--cell-found-color);
+    border-color: var(--cell-found-color);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
     transform: scale(0.95);
 }
 
 .grid-cell.error {
-    animation: shake 0.3s;
+    animation: shake 0.4s cubic-bezier(.36, .07, .19, .97) both;
     background-color: var(--cell-error-bg);
+    border-color: #ff0055;
 }
 
-/* Highlight toggle logic */
-#grid-container.highlight-off .grid-cell.found {
-    background-color: var(--cell-bg);
-    color: var(--pico-color);
-    opacity: 0.6;
-}
-
-/* Next number hint below the grid */
-#next-number-hint {
-    position: absolute;
-    bottom: var(--grid-gap);
-    right: var(--grid-gap);
-    background: var(--pico-primary-background);
-    color: var(--pico-primary-inverse);
-    padding: 0.25rem 0.75rem;
-    border-radius: var(--pico-border-radius);
-    font-weight: bold;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-#next-number-hint.visible {
-    opacity: 1;
-}
-
-/* Sidebar for controls and info */
-.sidebar {
-    position: sticky;
-    top: 2rem;
-}
+/* Info Panel */
 #game-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-box {
     text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
-#level-selector-desktop a.active {
-    background-color: var(--pico-primary);
-    color: var(--pico-primary-inverse);
+
+#next-number {
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--primary-accent-color);
+    text-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+    line-height: 1;
+    margin-top: 10px;
 }
-#toggle-highlight-btn {
-    margin-top: 0.5rem;
+
+.game-button {
     width: 100%;
+    margin-bottom: 10px;
 }
 
+/* Mobile Specifics */
+.mobile-only {
+    display: none;
+}
 
-/* --- Mobile Responsiveness --- */
-.mobile-only { display: none; }
-
-@media (max-width: 768px) {
-    .desktop-only { display: none; }
-    .mobile-only { display: block; }
-
+@media (max-width: 900px) {
     .game-wrapper {
-        grid-template-columns: 1fr; /* Stack everything vertically */
+        flex-direction: column;
+        align-items: center;
     }
 
-    .sidebar { position: static; }
+    .sidebar {
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+        overflow-x: auto;
+    }
+
+    .sidebar ul {
+        display: flex;
+        gap: 10px;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+    }
+
+    .level-btn {
+        margin-bottom: 0;
+        white-space: nowrap;
+    }
+
+    #game-area {
+        width: 100%;
+    }
 
     #game-info {
-        order: 3; /* Move info panel to the bottom */
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1rem;
-        text-align: center;
+        flex-direction: row;
+        width: 100%;
+        max-width: 600px;
+        justify-content: space-between;
     }
-    #game-info .info-box { grid-column: span 1; }
-    #reset-btn, #toggle-highlight-btn { grid-column: span 1; }
-    
-    .grid-cell { font-size: 1rem; }
+
+    .info-box {
+        flex-grow: 1;
+    }
 }
 
-/* Animation for incorrect clicks */
+@media (max-width: 600px) {
+    .desktop-only {
+        display: none !important;
+    }
+
+    .mobile-only {
+        display: block;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    #grid-container {
+        gap: 5px;
+        padding: 10px;
+    }
+
+    .grid-cell {
+        font-size: 1.2rem;
+        border-radius: 4px;
+    }
+}
+
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
+
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
 }

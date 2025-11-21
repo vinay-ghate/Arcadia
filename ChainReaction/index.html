@@ -1,50 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Chain Reaction</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chain Reaction - Strategic Multiplayer Board Game | Arcadia Games</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Play Chain Reaction! Strategic atomic explosion game for 2-6 players. Start chain reactions and dominate the board. Multiplayer turn-based strategy game!">
+    <meta name="keywords"
+        content="chain reaction, strategy game, multiplayer game, board game, turn-based game, atomic game, explosion game, tactical game, free game">
+    <meta name="author" content="Arcadia Games">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Chain Reaction - Strategic Multiplayer Game">
+    <meta property="og:description"
+        content="Strategic atomic explosions game for 2-6 players. Outsmart your opponents!">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Arcadia Games">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Chain Reaction - Strategic Multiplayer Game">
+    <meta name="twitter:description"
+        content="Strategic atomic explosions game for 2-6 players. Outsmart your opponents!">
+
+    <link rel="stylesheet" href="../common.css">
     <link rel="stylesheet" href="style.css">
+    <script src="../game-manager.js"></script>
 </head>
+
 <body>
+    <!-- Back button handled by GameManager -->
 
-    <div id="setup-screen" class="screen">
+    <div id="setup-screen" class="start-screen-overlay">
         <h1>Chain Reaction</h1>
-        <p>Select the number of players to begin.</p>
-        <div class="player-selection">
-            <label for="player-count">Players:</label>
-            <select id="player-count">
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-            </select>
-        </div>
-        <button id="start-game-btn" class="btn">Start Game</button>
-    </div>
+        <p class="subtitle">Strategic atomic explosions</p>
 
-    <div id="game-container" class="hidden">
-        <div id="game-board"></div>
-        <div id="side-panel">
-            <div id="scores"></div>
-            <div id="controls">
-                <a href="../"><button id="back-btn" class="btn">Back to Menu</button></a>
+        <div class="setup-controls" style="display: flex; flex-direction: column; gap: 20px; align-items: center;">
+            <div class="control-group">
+                <label for="player-count" style="color: var(--text-muted-color); margin-right: 10px;">Players:</label>
+                <select id="player-count"
+                    style="padding: 8px; border-radius: 8px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2);">
+                    <option value="2">2 Players</option>
+                    <option value="3">3 Players</option>
+                    <option value="4">4 Players</option>
+                    <option value="5">5 Players</option>
+                    <option value="6">6 Players</option>
+                </select>
             </div>
+            <button id="start-game-btn" class="game-button">Start Game</button>
         </div>
     </div>
 
-    <div id="game-over-screen" class="screen hidden">
-        <h1 id="winner-message"></h1>
-        <p>Thanks for playing!</p>
-        <button id="replay-btn" class="btn">Play Again</button>
-    </div>
+    <div id="game-container" class="hidden"
+        style="width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div id="scores"
+            style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center;">
+            <!-- Scores injected by JS -->
+        </div>
 
-    <div id="orientation-lock">
-        <h2>Please Rotate Your Device</h2>
-        <p>This game is best played in portrait mode.</p>
+        <div id="game-board">
+            <!-- Grid injected by JS -->
+        </div>
     </div>
 
     <script src="script.js"></script>
 </body>
+
 </html>

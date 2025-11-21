@@ -6,16 +6,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const startButton = document.getElementById('start-button');
     const boardContainer = document.getElementById('board-container');
     const moveCounter = document.getElementById('move-counter');
-    const timerDisplay = document.getElementById('timer');
-    const winModal = document.getElementById('win-modal');
-    const winTime = document.getElementById('win-time');
-    const winMoves = document.getElementById('win-moves');
-    const playAgainButton = document.getElementById('play-again-button');
     const loadingOverlay = document.getElementById('loading-overlay');
-    
+
     // --- Game State ---
     let difficulty, imageSrc, moves, timerInterval, seconds, isGameActive = false;
     let pieces = [];
+
+    // --- GameManager Init ---
+    const gameManager = new GameManager({
+        gameId: 'jigsaw',
+        title: 'Sliding Puzzle',
+        scoreType: 'time',
+        formatScore: (score) => {
+            const min = String(Math.floor(score / 60)).padStart(2, '0');
+            const sec = String(score % 60).padStart(2, '0');
+            return `${min}:${sec}`;
+        },
+        onRestart: () => {
+            startGame();
+        }
+    });
 
     // --- Fullscreen Logic ---
     function toggleFullscreen() {
@@ -28,20 +38,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('fullscreenchange', () => {
         fullscreenButton.textContent = document.fullscreenElement ? 'Exit' : 'Fullscreen';
     });
-    
+
     // --- Event Listeners ---
     startButton.addEventListener('click', startGame);
-    playAgainButton.addEventListener('click', () => {
-        winModal.style.display = 'none';
-        startGame();
-    });
     fullscreenButton.addEventListener('click', toggleFullscreen);
 
     // --- Game Logic ---
     function startGame() {
         difficulty = parseInt(difficultySelect.value);
         imageSrc = imageSelect.value;
-        
+
         resetGame();
         loadingOverlay.style.display = 'flex';
 
@@ -53,18 +59,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 scrambleBoard();
                 isGameActive = true;
                 loadingOverlay.style.display = 'none';
+                startTimer();
             });
         };
     }
-    
+
     function resetGame() {
         clearInterval(timerInterval);
         isGameActive = false;
         seconds = 0; moves = 0;
-        timerDisplay.textContent = '00:00';
+        gameManager.resetScore();
         moveCounter.textContent = '0';
         boardContainer.innerHTML = '';
-        winModal.style.display = 'none';
+        gameManager.hideGameOver();
         pieces = [];
     }
 
@@ -98,7 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
             pieceElement.style.backgroundImage = `url(${image.src})`;
             pieceElement.style.backgroundSize = `${boardSize}px ${boardSize}px`;
             pieceElement.style.backgroundPosition = `-${p.correctCol * pieceSize}px -${p.correctRow * pieceSize}px`;
-            
+
             pieceElement.addEventListener('click', () => onPieceClick(p));
         });
 
@@ -109,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function drawBoard() {
         boardContainer.innerHTML = '';
         const grid = Array(difficulty * difficulty).fill(null);
-        
+
         pieces.forEach(p => {
             if (p.element) {
                 const index = p.currentRow * difficulty + p.currentCol;
@@ -129,22 +136,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function onPieceClick(clickedPiece) {
         if (!isGameActive) return;
-        
+
         // Find the empty slot
         const emptySlot = pieces.find(p => !p.element);
 
         // Check for adjacency
         const isAdjacent = (clickedPiece.currentRow === emptySlot.currentRow && Math.abs(clickedPiece.currentCol - emptySlot.currentCol) === 1) ||
-                           (clickedPiece.currentCol === emptySlot.currentCol && Math.abs(clickedPiece.currentRow - emptySlot.currentRow) === 1);
+            (clickedPiece.currentCol === emptySlot.currentCol && Math.abs(clickedPiece.currentRow - emptySlot.currentRow) === 1);
 
         if (isAdjacent) {
             // Swap positions
             [emptySlot.currentRow, clickedPiece.currentRow] = [clickedPiece.currentRow, emptySlot.currentRow];
             [emptySlot.currentCol, clickedPiece.currentCol] = [clickedPiece.currentCol, emptySlot.currentCol];
-            
+
             moves++;
             moveCounter.textContent = moves;
-            
+
             drawBoard();
             checkWinCondition();
         }
@@ -152,15 +159,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function scrambleBoard() {
         const emptySlot = pieces.find(p => !p.element);
-        
+
         for (let i = 0; i < difficulty * difficulty * 10; i++) {
             const neighbors = pieces.filter(p => {
                 return (p.currentRow === emptySlot.currentRow && Math.abs(p.currentCol - emptySlot.currentCol) === 1) ||
-                       (p.currentCol === emptySlot.currentCol && Math.abs(p.currentRow - emptySlot.currentRow) === 1);
+                    (p.currentCol === emptySlot.currentCol && Math.abs(p.currentRow - emptySlot.currentRow) === 1);
             });
-            
+
             const randomNeighbor = neighbors[Math.floor(Math.random() * neighbors.length)];
-            
+
             // Swap positions
             [emptySlot.currentRow, randomNeighbor.currentRow] = [randomNeighbor.currentRow, emptySlot.currentRow];
             [emptySlot.currentCol, randomNeighbor.currentCol] = [randomNeighbor.currentCol, emptySlot.currentCol];
@@ -171,29 +178,20 @@ document.addEventListener('DOMContentLoaded', () => {
     function startTimer() {
         timerInterval = setInterval(() => {
             seconds++;
-            const min = String(Math.floor(seconds / 60)).padStart(2, '0');
-            const sec = String(seconds % 60).padStart(2, '0');
-            timerDisplay.textContent = `${min}:${sec}`;
+            gameManager.updateScore(seconds);
         }, 1000);
     }
-    
-    
+
+
     function checkWinCondition() {
         const isWin = pieces.every(p => p.currentRow === p.correctRow && p.currentCol === p.correctCol);
         if (isWin) {
-            // Put the last piece back in place
-            const lastPiece = pieces.find(p => !p.element);
-            const finalPieceElement = lastPiece.element; // This needs to be created on setup
-            // For simplicity, we just declare a win
-            
             isGameActive = false;
             clearInterval(timerInterval);
-            winTime.textContent = timerDisplay.textContent;
-            winMoves.textContent = moves;
-            winModal.style.display = 'flex';
+            gameManager.showGameOver();
         }
     }
-    
+
     // --- Initialize ---
     startGame();
 });

@@ -1,41 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- DOM Elements ---
-    const scoreDisplay = document.getElementById('score');
-    const bestScoreDisplay = document.getElementById('best-score');
-    const gameOverOverlay = document.getElementById('game-over-overlay');
-    const replayBtn = document.getElementById('replay-btn');
     const tileContainer = document.getElementById('tile-container');
 
     // --- Game State ---
     const size = 4;
     let board = [];
-    let score = 0;
-    let bestScore = localStorage.getItem('2048-bestScore') || 0;
     let tileIdCounter = 0;
-    
+
+    // --- GameManager Initialization ---
+    const gameManager = new GameManager({
+        gameId: '2048',
+        title: '2048',
+        onRestart: init
+    });
+
     // --- Game Initialization ---
     function init() {
         board = Array(size).fill(null).map(() => Array(size).fill(0));
-        score = 0;
+        gameManager.resetScore();
         tileIdCounter = 0;
         tileContainer.innerHTML = '';
-        gameOverOverlay.classList.add('hidden');
-        gameOverOverlay.classList.remove('flex');
-        
+
         addRandomTile();
         addRandomTile();
-        updateScores();
     }
 
-    function updateScores() {
-        scoreDisplay.textContent = score;
-        bestScoreDisplay.textContent = bestScore;
-        if (score > bestScore) {
-            bestScore = score;
-            localStorage.setItem('2048-bestScore', bestScore);
-        }
-    }
-    
     // --- Game Logic: Creating and Rendering Tiles ---
     function createTile(tileData) {
         const tile = document.createElement('div');
@@ -70,11 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setTimeout(() => {
             addRandomTile();
-            updateScores();
             if (!canMove()) checkGameOver();
         }, 150);
     }
-    
+
     function addRandomTile() {
         const emptyCells = [];
         for (let r = 0; r < size; r++) for (let c = 0; c < size; c++) if (!board[r][c]) emptyCells.push({ r, c });
@@ -136,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 else board[i][j] = newTile;
             }
         }
-        if (boardChanged) score += totalScoreIncrease;
+        if (boardChanged) gameManager.addScore(totalScoreIncrease);
         updateDOM(tilesToRemove, boardChanged);
     }
 
@@ -152,8 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function checkGameOver() {
-        gameOverOverlay.classList.remove('hidden');
-        gameOverOverlay.classList.add('flex');
+        gameManager.showGameOver();
     }
 
     // --- Input Handling ---
@@ -184,8 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
             else move(deltaY > 0 ? 'down' : 'up');
         }
     });
-    
-    replayBtn.addEventListener('click', init);
-    
+
     init();
 });
