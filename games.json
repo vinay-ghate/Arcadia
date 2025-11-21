@@ -85,7 +85,7 @@
     "title": "Rock Paper Scissors",
     "description": "The classic hand game. Beat the computer!",
     "url": "RockPaperScissors/",
-    "imageUrl": "https://img.icons8.com/dusk/128/rock.png",
+    "imageUrl": "https://cdn-icons-png.flaticon.com/512/5726/5726532.png",
     "category": "Action",
     "featured": true
   },
@@ -94,7 +94,7 @@
     "title": "Guess The Number",
     "description": "Can you guess the number I'm thinking of?",
     "url": "GuessTheNumber/",
-    "imageUrl": "https://img.icons8.com/dusk/128/question-mark.png",
+    "imageUrl": "https://cdn-icons-png.flaticon.com/512/3699/3699516.png",
     "category": "Puzzle",
     "featured": true
   },
@@ -103,7 +103,7 @@
     "title": "Whack-a-Mole",
     "description": "Hit the moles before they hide!",
     "url": "WhackAMole/",
-    "imageUrl": "https://img.icons8.com/dusk/128/mole.png",
+    "imageUrl": "https://cdn-icons-png.flaticon.com/512/2965/2965414.png",
     "category": "Action",
     "featured": true
   }

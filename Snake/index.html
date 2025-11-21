@@ -1,64 +1,103 @@
-<div id="fullscreen-prompt">
-    <span class="material-symbols-outlined text-7xl text-cyan-400 mb-4">fullscreen</span>
-    <h2 class="text-2xl font-bold">Tap to Enter Full Screen</h2>
-</div>
-<div id="orientation-lock" class="hidden">
-    <span class="material-symbols-outlined text-7xl text-cyan-400 mb-4">screen_rotation</span>
-    <h2 class="text-2xl font-bold">Please rotate your device</h2>
-    <p class="text-slate-400 mt-2">This game must be played in landscape mode.</p>
-</div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
 
-<main class="w-full h-full p-2 md:p-4 flex gap-2 md:gap-4">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Snake Game - Classic Retro Arcade | Arcadia Games</title>
 
-    <div class="w-28 md:w-48 flex-shrink-0 flex flex-col justify-between">
-        <div class="w-full">
-            <!-- Back button and score handled by GameManager -->
-            <div class="mt-16 md:mt-24"></div>
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Play the classic Snake game online! Control the snake, eat food, grow longer, and avoid hitting walls. Adjustable speed and modern graphics. Free browser game!">
+    <meta name="keywords"
+        content="snake game, classic snake, retro game, arcade game, online game, browser game, free game, snake online, nostalgic game">
+    <meta name="author" content="Arcadia Games">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Snake Game - Classic Retro Arcade">
+    <meta property="og:description"
+        content="Play the timeless Snake game in your browser. Eat, grow, and survive! Adjustable speed for all skill levels.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Arcadia Games">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Snake Game - Classic Retro Arcade">
+    <meta name="twitter:description" content="Play the timeless Snake game in your browser. Eat, grow, and survive!">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="../common.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-slate-900 text-slate-200 flex items-center justify-center h-screen w-screen overflow-hidden font-mono">
+
+    <div id="mobile-overlay"
+        class="fixed inset-0 bg-slate-900 z-50 flex-col items-center justify-center text-center p-4 hidden">
+        <div id="fullscreen-prompt">
+            <span class="material-symbols-outlined text-7xl text-cyan-400 mb-4">fullscreen</span>
+            <h2 class="text-2xl font-bold">Tap to Enter Full Screen</h2>
         </div>
-        <div class="w-full space-y-4 md:space-y-6">
-            <div>
-                <label for="speed-slider" class="text-sm text-slate-400">SPEED</label>
-                <input id="speed-slider" type="range" min="50" max="250" value="150" step="25"
-                    class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-400">
+        <div id="orientation-lock" class="hidden">
+            <span class="material-symbols-outlined text-7xl text-cyan-400 mb-4">screen_rotation</span>
+            <h2 class="text-2xl font-bold">Please rotate your device</h2>
+            <p class="text-slate-400 mt-2">This game must be played in landscape mode.</p>
+        </div>
+    </div>
+
+    <main class="w-full h-full p-2 md:p-4 flex gap-2 md:gap-4">
+
+        <div class="w-28 md:w-48 flex-shrink-0 flex flex-col justify-between">
+            <div class="w-full">
+                <!-- Back button and score handled by GameManager -->
+                <div class="mt-16 md:mt-24"></div>
             </div>
-            <button id="pause-button"
-                class="w-full bg-slate-700 hover:bg-slate-600 transition-colors py-2 md:py-3 rounded-lg text-base md:text-lg font-bold">PAUSE</button>
-        </div>
-    </div>
-
-    <div class="flex-grow h-full flex items-center justify-center">
-        <div
-            class="relative aspect-square h-full bg-black bg-opacity-30 border-2 border-cyan-500 rounded-lg shadow-[0_0_20px_rgba(34,211,238,0.4)]">
-            <div id="game-board" class="w-full h-full grid"></div>
-
-            <div id="start-text"
-                class="absolute inset-0 flex flex-col items-center justify-center text-center p-4 z-10">
-                <p class="text-xl md:text-2xl font-bold text-slate-300">Press an arrow key to start</p>
-                <p class="text-base md:text-lg text-slate-400 mt-2">Use keyboard or on-screen controls</p>
+            <div class="w-full space-y-4 md:space-y-6">
+                <div>
+                    <label for="speed-slider" class="text-sm text-slate-400">SPEED</label>
+                    <input id="speed-slider" type="range" min="50" max="250" value="150" step="25"
+                        class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-cyan-400">
+                </div>
+                <button id="pause-button"
+                    class="w-full bg-slate-700 hover:bg-slate-600 transition-colors py-2 md:py-3 rounded-lg text-base md:text-lg font-bold">PAUSE</button>
             </div>
-            <!-- Game Over handled by GameManager -->
         </div>
-    </div>
 
-    <div class="w-28 md:w-48 flex-shrink-0 flex flex-col items-center justify-between">
-        <h1 class="text-4xl md:text-5xl font-bold tracking-widest [writing-mode:vertical-rl] text-cyan-400 rotate-180">
-            SNAKE</h1>
-        <div id="controls" class="grid grid-cols-3 grid-rows-3 gap-2 w-full max-w-[180px]">
-            <button data-key="ArrowUp"
-                class="col-start-2 row-start-1 w-full aspect-square bg-slate-800 text-slate-200 rounded-lg flex items-center justify-center text-3xl font-bold border-2 border-slate-700 transition-colors active:bg-cyan-500">↑</button>
-            <button data-key="ArrowLeft"
-                class="col-start-1 row-start-2 w-full aspect-square bg-slate-800 text-slate-200 rounded-lg flex items-center justify-center text-3xl font-bold border-2 border-slate-700 transition-colors active:bg-cyan-500">←</button>
-            <button data-key="ArrowRight"
-                class="col-start-3 row-start-2 w-full aspect-square bg-slate-800 text-slate-200 rounded-lg flex items-center justify-center text-3xl font-bold border-2 border-slate-700 transition-colors active:bg-cyan-500">→</button>
-            <button data-key="ArrowDown"
-                class="col-start-2 row-start-3 w-full aspect-square bg-slate-800 text-slate-200 rounded-lg flex items-center justify-center text-3xl font-bold border-2 border-slate-700 transition-colors active:bg-cyan-500">↓</button>
+        <div class="flex-grow h-full flex items-center justify-center">
+            <div
+                class="relative aspect-square h-full bg-black bg-opacity-30 border-2 border-cyan-500 rounded-lg shadow-[0_0_20px_rgba(34,211,238,0.4)]">
+                <div id="game-board" class="w-full h-full grid"></div>
+
+                <div id="start-text"
+                    class="absolute inset-0 flex flex-col items-center justify-center text-center p-4 z-10">
+                    <p class="text-xl md:text-2xl font-bold text-slate-300">Press an arrow key to start</p>
+                    <p class="text-base md:text-lg text-slate-400 mt-2">Use keyboard or on-screen controls</p>
+                </div>
+                <!-- Game Over handled by GameManager -->
+            </div>
         </div>
-    </div>
-</main>
 
-<script src="../game-manager.js"></script>
-<script src="script.js"></script>
+        <div class="w-28 md:w-48 flex-shrink-0 flex flex-col items-center justify-between">
+            <h1
+                class="text-4xl md:text-5xl font-bold tracking-widest [writing-mode:vertical-rl] text-cyan-400 rotate-180">
+                SNAKE</h1>
+            <div id="controls" class="grid grid-cols-3 grid-rows-3 gap-2 w-full max-w-[180px]">
+                <button data-key="ArrowUp"
+                    class="col-start-2 row-start-1 w-full aspect-square bg-slate-800 text-slate-200 rounded-lg flex items-center justify-center text-3xl font-bold border-2 border-slate-700 transition-colors active:bg-cyan-500">↑</button>
+                <button data-key="ArrowLeft"
+                    class="col-start-1 row-start-2 w-full aspect-square bg-slate-800 text-slate-200 rounded-lg flex items-center justify-center text-3xl font-bold border-2 border-slate-700 transition-colors active:bg-cyan-500">←</button>
+                <button data-key="ArrowRight"
+                    class="col-start-3 row-start-2 w-full aspect-square bg-slate-800 text-slate-200 rounded-lg flex items-center justify-center text-3xl font-bold border-2 border-slate-700 transition-colors active:bg-cyan-500">→</button>
+                <button data-key="ArrowDown"
+                    class="col-start-2 row-start-3 w-full aspect-square bg-slate-800 text-slate-200 rounded-lg flex items-center justify-center text-3xl font-bold border-2 border-slate-700 transition-colors active:bg-cyan-500">↓</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="../game-manager.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

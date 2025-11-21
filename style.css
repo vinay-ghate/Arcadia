@@ -49,23 +49,38 @@ main {
 }
 
 .game-grid {
-    display: grid;
-    /* Responsive grid with a minimum block size of 250px */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+/* Tablet: Increase gap */
+@media (min-width: 641px) {
+    .game-grid {
+        gap: 1.25rem;
+    }
+}
+
+/* Desktop: Increase gap */
+@media (min-width: 1025px) {
+    .game-grid {
+        gap: 2rem;
+    }
 }
 
 /* Individual Game Block Styling */
 .game-block {
-    /* This makes the block a perfect square that scales with the grid */
+    /* Mobile: 2 columns (shows 4 games in 2x2 grid) */
+    flex: 0 0 calc(50% - 0.5rem);
     aspect-ratio: 1 / 1;
     border-radius: var(--border-radius);
     overflow: hidden;
-    position: relative; /* Crucial for the overlay */
+    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* Aligns content to the bottom */
-    
+    justify-content: flex-end;
+
     /* Image styles */
     background-size: cover;
     background-position: center;
@@ -74,6 +89,20 @@ main {
     color: var(--text-color);
     box-shadow: var(--block-shadow);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Tablet: 3 columns */
+@media (min-width: 641px) {
+    .game-block {
+        flex: 0 0 calc(33.333% - 1rem);
+    }
+}
+
+/* Desktop: 4 columns */
+@media (min-width: 1025px) {
+    .game-block {
+        flex: 0 0 calc(25% - 1.5rem);
+    }
 }
 
 .game-block:hover {
@@ -88,22 +117,23 @@ main {
     top: 0;
     left: 0;
     width: 100%;
+    ;
     height: 100%;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 10%, transparent 60%);
-    z-index: 1; /* Sits between the background image and the text */
+    z-index: 1;
 }
 
 .block-content {
     padding: 1rem;
     position: relative;
-    z-index: 2; /* Ensures text is on top of the overlay */
+    z-index: 2;
 }
 
 .block-content h2 {
     font-size: 1.6rem;
     font-weight: 700;
     margin-bottom: 0.2rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .block-content p {
@@ -111,7 +141,7 @@ main {
     color: var(--text-muted-color);
     font-weight: 400;
     line-height: 1.4;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
 }
 
 /* Footer Styling */
@@ -124,14 +154,13 @@ footer {
 }
 
 footer a {
-  color: var(--secondary-accent-color); /* Uses the vibrant red from your theme */
-  text-decoration: none; /* Removes the default underline */
-  font-weight: 600; /* Makes the name slightly bolder */
-  transition: color 0.3s ease; /* Smooth transition for the hover effect */
+    color: var(--secondary-accent-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
 }
 
-/* Style for when you hover over the link */
 footer a:hover {
-  color: var(--text-color); /* Changes color to white on hover */
-  text-decoration: underline; /* Adds the underline back on hover */
+    color: var(--text-color);
+    text-decoration: underline;
 }
