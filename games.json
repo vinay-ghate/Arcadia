@@ -4,7 +4,7 @@
     "title": "Tetris",
     "description": "The classic block-stacking puzzle game. Clear lines and score big!",
     "url": "Tetris/",
-    "imageUrl": "https://store-images.s-microsoft.com/image/apps.43965.14293896566208941.43b748ee-f8d7-499a-a6f3-0f017a95586c.6fd5d254-9eb0-4854-9f97-de2c2ee6ab06",
+    "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/tetris.png",
     "category": "Puzzle",
     "featured": true
   },
@@ -13,7 +13,7 @@
     "title": "Snake",
     "description": "The classic Snake game. eat points and score big!",
     "url": "Snake/",
-    "imageUrl": "https://play-lh.googleusercontent.com/-H9hAy6YoUxu79BgspjH4ZenS5bD5d9LYddl7njEvxGmOtxtRqIXpo0kKUZCtA3pYQ",
+    "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/snake.png",
     "category": "Action",
     "featured": true
   },
@@ -22,7 +22,7 @@
     "title": "Schulte table",
     "description": "The classic Table game.For smart people!",
     "url": "Schultetable/",
-    "imageUrl": "https://schultetable.ru/icon_big.png",
+    "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/schultetable.png",
     "category": "Puzzle",
     "featured": true
   },
@@ -31,7 +31,7 @@
     "title": "Chain Reaction",
     "description": "Simple game to play with friends",
     "url": "ChainReaction/",
-    "imageUrl": "https://play-lh.googleusercontent.com/xUefJ0Wrh0pyUuRnCAkRggnJbCGcMoKzARwxtGN1rZEK8cUvwHCLh7DPZbUv059aoA",
+    "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/chainReaction.png",
     "category": "Puzzle",
     "featured": true
   },
@@ -40,7 +40,7 @@
     "title": "2048",
     "description": "2048 is a single-player sliding tile puzzle video game.",
     "url": "2048/",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/18/2048_logo.svg",
+    "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/2048.png",
     "category": "Puzzle",
     "featured": true
   },
@@ -49,7 +49,7 @@
     "title": "Jigsaw",
     "description": "Classical jigsaw puzzle",
     "url": "Jigsaw/",
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Jigsaw.svg/1200px-Jigsaw.svg.png",
+    "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/jigsaw.jpg",
     "category": "Puzzle",
     "featured": true
   },
@@ -58,7 +58,7 @@
     "title": "Tower Block",
     "description": "Stack blocks as high as you can in this 3D tower building game!",
     "url": "TowerBlock/",
-    "imageUrl": "https://img.poki-cdn.com/cdn-cgi/image/q=78,scq=50,width=1200,height=1200,fit=cover,f=png/6433b0212d58c0d3f733f3cb20d6f63c/tower-blocks.jfif",
+    "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/towerBlocks.jfif",
     "category": "Action",
     "featured": true
   },
@@ -67,7 +67,7 @@
     "title": "Tic-Tac-Toe (1 Player)",
     "description": "Classic Tic-Tac-Toe against AI with multiple difficulty levels!",
     "url": "TicTacToe-1p/",
-    "imageUrl": "https://img.poki-cdn.com/cdn-cgi/image/q=78,scq=50,width=1200,height=1200,fit=cover,f=png/591a911d9b73482c052270a8fe4cfc95/tic-tac-toe.png",
+    "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/ticTacToeOne.jpg",
     "category": "Strategy",
     "featured": true
   },
@@ -76,7 +76,7 @@
     "title": "Tic-Tac-Toe (2 Players)",
     "description": "Classic Tic-Tac-Toe for two players on the same device!",
     "url": "TicTacToe-2p/",
-    "imageUrl": "https://www.researchgate.net/publication/309775540/figure/fig1/AS:876185475112962@1585910304745/Tic-tac-toe-Game-Board.ppm",
+    "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/ticTacToeTwo.jpg",
     "category": "Strategy",
     "featured": true
   },
@@ -85,7 +85,7 @@
     "title": "Rock Paper Scissors",
     "description": "The classic hand game. Beat the computer!",
     "url": "RockPaperScissors/",
-    "imageUrl": "https://cdn-icons-png.flaticon.com/512/5726/5726532.png",
+    "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/rockPaperScissors.jpg",
     "category": "Action",
     "featured": true
   },
@@ -94,7 +94,7 @@
     "title": "Guess The Number",
     "description": "Can you guess the number I'm thinking of?",
     "url": "GuessTheNumber/",
-    "imageUrl": "https://cdn-icons-png.flaticon.com/512/3699/3699516.png",
+    "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/guessNumber.png",
     "category": "Puzzle",
     "featured": true
   },
@@ -103,7 +103,7 @@
     "title": "Whack-a-Mole",
     "description": "Hit the moles before they hide!",
     "url": "WhackAMole/",
-    "imageUrl": "https://cdn-icons-png.flaticon.com/512/2965/2965414.png",
+    "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/whackAMole.jpg",
     "category": "Action",
     "featured": true
   }
