@@ -3,7 +3,7 @@
     "id": 1,
     "title": "Tetris",
     "description": "The classic block-stacking puzzle game. Clear lines and score big!",
-    "url": "Games/Tetris/",
+    "url": "games/Tetris/",
     "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/tetris.png",
     "category": "Puzzle",
     "featured": true
@@ -12,7 +12,7 @@
     "id": 2,
     "title": "Snake",
     "description": "The classic Snake game. eat points and score big!",
-    "url": "Games/Snake/",
+    "url": "games/Snake/",
     "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/snake.png",
     "category": "Action",
     "featured": true
@@ -21,7 +21,7 @@
     "id": 3,
     "title": "Schulte table",
     "description": "The classic Table game.For smart people!",
-    "url": "Games/Schultetable/",
+    "url": "games/Schultetable/",
     "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/schultetable.png",
     "category": "Puzzle",
     "featured": true
@@ -30,7 +30,7 @@
     "id": 4,
     "title": "Chain Reaction",
     "description": "Simple game to play with friends",
-    "url": "Games/ChainReaction/",
+    "url": "games/ChainReaction/",
     "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/chainReaction.png",
     "category": "Puzzle",
     "featured": true
@@ -39,7 +39,7 @@
     "id": 5,
     "title": "2048",
     "description": "2048 is a single-player sliding tile puzzle video game.",
-    "url": "Games/2048/",
+    "url": "games/2048/",
     "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/2048.png",
     "category": "Puzzle",
     "featured": true
@@ -48,7 +48,7 @@
     "id": 6,
     "title": "Jigsaw",
     "description": "Classical jigsaw puzzle",
-    "url": "Games/Jigsaw/",
+    "url": "games/Jigsaw/",
     "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/jigsaw.jpg",
     "category": "Puzzle",
     "featured": true
@@ -57,7 +57,7 @@
     "id": 7,
     "title": "Tower Block",
     "description": "Stack blocks as high as you can in this 3D tower building game!",
-    "url": "Games/TowerBlock/",
+    "url": "games/TowerBlock/",
     "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/towerBlocks.jfif",
     "category": "Action",
     "featured": true
@@ -66,7 +66,7 @@
     "id": 8,
     "title": "Tic-Tac-Toe (1 Player)",
     "description": "Classic Tic-Tac-Toe against AI with multiple difficulty levels!",
-    "url": "Games/TicTacToe-1p/",
+    "url": "games/TicTacToe-1p/",
     "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/ticTacToeOne.jpg",
     "category": "Strategy",
     "featured": true
@@ -75,7 +75,7 @@
     "id": 9,
     "title": "Tic-Tac-Toe (2 Players)",
     "description": "Classic Tic-Tac-Toe for two players on the same device!",
-    "url": "Games/TicTacToe-2p/",
+    "url": "games/TicTacToe-2p/",
     "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/ticTacToeTwo.jpg",
     "category": "Strategy",
     "featured": true
@@ -84,7 +84,7 @@
     "id": 10,
     "title": "Rock Paper Scissors",
     "description": "The classic hand game. Beat the computer!",
-    "url": "Games/RockPaperScissors/",
+    "url": "games/RockPaperScissors/",
     "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/rockPaperScissors.jpg",
     "category": "Action",
     "featured": true
@@ -93,7 +93,7 @@
     "id": 11,
     "title": "Guess The Number",
     "description": "Can you guess the number I'm thinking of?",
-    "url": "Games/GuessTheNumber/",
+    "url": "games/GuessTheNumber/",
     "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/guessNumber.png",
     "category": "Puzzle",
     "featured": true
@@ -102,7 +102,7 @@
     "id": 12,
     "title": "Whack-a-Mole",
     "description": "Hit the moles before they hide!",
-    "url": "Games/WhackAMole/",
+    "url": "games/WhackAMole/",
     "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/whackAMole.jpg",
     "category": "Action",
     "featured": true
