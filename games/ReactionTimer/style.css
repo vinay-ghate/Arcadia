@@ -1,0 +1,353 @@
+/* Reaction Timer Game Styles */
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Game Container */
+.game-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Screen Base Styles */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+    padding: 20px;
+}
+
+.screen.active {
+    display: flex;
+}
+
+.screen .content {
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+/* Start Screen */
+#start-screen {
+    background-color: var(--bg-color);
+}
+
+#start-screen h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--text-color);
+}
+
+.subtitle {
+    font-size: 20px;
+    color: var(--text-muted-color);
+    margin-bottom: 32px;
+}
+
+/* Instructions */
+.instructions {
+    background: var(--primary-accent-color);
+    border-radius: var(--border-radius);
+    padding: 24px;
+    margin-bottom: 32px;
+    text-align: left;
+}
+
+.instructions h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+    color: var(--text-color);
+}
+
+.instructions ol {
+    margin-left: 20px;
+    margin-bottom: 16px;
+}
+
+.instructions li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.warning {
+    color: var(--secondary-accent-color);
+    font-weight: 600;
+    margin-top: 16px;
+}
+
+.red-text {
+    color: #ff4444;
+    font-weight: 700;
+}
+
+.green-text {
+    color: #44ff44;
+    font-weight: 700;
+}
+
+/* Best Time Display */
+.best-time {
+    background: rgba(15, 52, 96, 0.5);
+    border-radius: var(--border-radius);
+    padding: 16px;
+    margin-bottom: 24px;
+    display: inline-block;
+}
+
+.best-time .label {
+    color: var(--text-muted-color);
+    font-size: 14px;
+    margin-right: 8px;
+}
+
+.best-time .value {
+    color: var(--secondary-accent-color);
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* Waiting Screen (Red) */
+.waiting-screen {
+    background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+    cursor: pointer;
+}
+
+.waiting-screen .status-text {
+    font-size: 64px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.waiting-screen .hint {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 16px;
+}
+
+/* Go Screen (Green) */
+.go-screen {
+    background: linear-gradient(135deg, #44ff44 0%, #00cc00 100%);
+    cursor: pointer;
+}
+
+.go-screen .status-text {
+    font-size: 72px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    animation: flash 0.5s ease-in-out;
+}
+
+/* Result Screen */
+#result-screen {
+    background-color: var(--bg-color);
+}
+
+.result-display {
+    margin: 32px 0;
+}
+
+.time-value {
+    font-size: 80px;
+    font-weight: 700;
+    color: var(--secondary-accent-color);
+    line-height: 1;
+}
+
+.time-unit {
+    font-size: 20px;
+    color: var(--text-muted-color);
+    margin-top: 8px;
+}
+
+.result-message {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    min-height: 32px;
+}
+
+.result-message.excellent {
+    color: #44ff44;
+}
+
+.result-message.good {
+    color: #ffaa44;
+}
+
+.result-message.average {
+    color: #ffff44;
+}
+
+.result-message.slow {
+    color: #ff4444;
+}
+
+/* Too Early Screen */
+.too-early-screen {
+    background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+}
+
+.too-early-screen h1 {
+    font-size: 64px;
+    color: white;
+    margin-bottom: 16px;
+}
+
+.too-early-screen .subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 24px;
+    margin-bottom: 32px;
+}
+
+/* Buttons */
+.game-button {
+    background: var(--secondary-accent-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 16px 48px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(233, 69, 96, 0.3);
+}
+
+.game-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(233, 69, 96, 0.4);
+}
+
+.game-button:active {
+    transform: translateY(0);
+}
+
+/* Animations */
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+}
+
+@keyframes flash {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    #start-screen h1 {
+        font-size: 36px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    .instructions {
+        padding: 16px;
+    }
+
+    .instructions h2 {
+        font-size: 18px;
+    }
+
+    .instructions li {
+        font-size: 14px;
+    }
+
+    .waiting-screen .status-text,
+    .too-early-screen h1 {
+        font-size: 48px;
+    }
+
+    .go-screen .status-text {
+        font-size: 56px;
+    }
+
+    .time-value {
+        font-size: 64px;
+    }
+
+    .time-unit {
+        font-size: 16px;
+    }
+
+    .result-message {
+        font-size: 20px;
+    }
+
+    .game-button {
+        padding: 14px 32px;
+        font-size: 18px;
+    }
+
+    .best-time .value {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    #start-screen h1 {
+        font-size: 28px;
+    }
+
+    .waiting-screen .status-text,
+    .too-early-screen h1 {
+        font-size: 36px;
+    }
+
+    .go-screen .status-text {
+        font-size: 42px;
+    }
+
+    .time-value {
+        font-size: 48px;
+    }
+}
