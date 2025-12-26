@@ -242,7 +242,7 @@ var Game = /** @class */ (function () {
     Game.prototype.startGame = function () {
         if (this.state != this.STATES.PLAYING) {
             // this.scoreContainer.innerHTML = '0'; // Removed
-            this.gameManager.updateScore(0);
+            this.gameManager.setScore(0);
             this.updateState(this.STATES.PLAYING);
             this.addBlock();
         }
@@ -267,7 +267,7 @@ var Game = /** @class */ (function () {
         TweenLite.to(countdown, cameraMoveSpeed, {
             value: 0, onUpdate: function () {
                 // _this.scoreContainer.innerHTML = String(Math.round(countdown.value)); 
-                _this.gameManager.updateScore(Math.round(countdown.value));
+                _this.gameManager.setScore(Math.round(countdown.value));
             }
         });
         this.blocks = this.blocks.slice(0, 1);
@@ -309,7 +309,7 @@ var Game = /** @class */ (function () {
             return this.endGame();
         }
         // this.scoreContainer.innerHTML = String(this.blocks.length - 1); // Removed
-        this.gameManager.updateScore(this.blocks.length - 1);
+        this.gameManager.setScore(this.blocks.length - 1);
         var newKidOnTheBlock = new Block(lastBlock);
         this.newBlocks.add(newKidOnTheBlock.mesh);
         this.blocks.push(newKidOnTheBlock);
@@ -334,4 +334,39 @@ var Game = /** @class */ (function () {
     };
     return Game;
 }());
-var game = new Game();
+
+// Wait for DOM and all scripts to be ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGame);
+} else {
+    initGame();
+}
+
+function initGame() {
+    try {
+        console.log('Initializing TowerBlock game...');
+
+        // Check if required dependencies are loaded
+        if (typeof THREE === 'undefined') {
+            console.error('THREE.js not loaded!');
+            alert('Failed to load 3D library. Please refresh the page.');
+            return;
+        }
+
+        if (typeof TweenLite === 'undefined') {
+            console.error('GSAP/TweenLite not loaded!');
+            alert('Failed to load animation library. Please refresh the page.');
+            return;
+        }
+
+        if (typeof GameManager === 'undefined') {
+            console.warn('GameManager not loaded - game will work but without home button');
+        }
+
+        var game = new Game();
+        console.log('Game initialized successfully!');
+    } catch (error) {
+        console.error('Failed to initialize game:', error);
+        alert('Failed to start game: ' + error.message + '\n\nPlease check the browser console for details.');
+    }
+}

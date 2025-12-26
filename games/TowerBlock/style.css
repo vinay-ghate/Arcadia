@@ -1,7 +1,7 @@
-
 /* Tower Block Game Specific Styles */
 
-html, body {
+html,
+body {
     margin: 0;
     overflow: hidden;
     height: 100%;
@@ -96,11 +96,12 @@ html, body {
     font-weight: 600;
 }
 
-/* Hide elements by default */
-.game-over-overlay,
-.start-screen-overlay {
+/* Hide elements by default - use higher specificity to override common.css */
+#container .game-over-overlay,
+#container .start-screen-overlay {
     opacity: 0;
     visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .instructions-overlay {
@@ -113,12 +114,12 @@ html, body {
     .start-screen-overlay h1 {
         font-size: 42px;
     }
-    
+
     .start-screen-overlay .subtitle {
         font-size: 16px;
         padding: 0 20px;
     }
-    
+
     .instructions-overlay {
         font-size: 14px;
         padding: 12px 20px;
