@@ -27,40 +27,75 @@ games/
 
 ## 🎨 UI & Styling - Your Choice!
 
-### Option 1: Vanilla CSS (Minimalistic)
-Use our `common.css` for a consistent dark theme:
+### Arcadia's New Theme
+
+The main Arcadia site now uses a **modern neon/arcade aesthetic** with:
+- **Tailwind CSS** for utility-first styling
+- **Neon colors**: Cyan (#00f5ff), Pink (#ff00ff), Purple (#8b5cf6), Green (#00ff88)
+- **Dark theme**: Arcade dark (#0a0a0f), Card (#12121a)
+- **Fonts**: Orbitron (display), Inter (body)
+
+### For Your Game - Choose Your Approach!
+
+**Option 1: Match Arcadia's Neon Theme (Recommended)**
+
+Use Tailwind CSS with the neon color palette:
+```html
+<!-- Include Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Configure Arcadia theme -->
+<script>
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                neon: {
+                    cyan: '#00f5ff',
+                    pink: '#ff00ff',
+                    purple: '#8b5cf6',
+                    green: '#00ff88',
+                },
+                arcade: {
+                    dark: '#0a0a0f',
+                    card: '#12121a',
+                }
+            }
+        }
+    }
+}
+</script>
+```
+
+**Option 2: Use Classic Dark Theme**
+
+Use `common.css` for the original dark theme:
 ```html
 <link rel="stylesheet" href="../../common.css">
-<link rel="stylesheet" href="style.css">
 ```
 
-### Option 2: UI Libraries (Recommended for Complex Games)
-Use **any** UI library you prefer:
-- **Tailwind CSS** - Utility-first CSS
-- **Bootstrap** - Component library
-- **Material UI** - Google's design system
-- **Chakra UI** - Accessible components
-- **Any other library** - Your choice!
-
-**Example with Tailwind:**
-```html
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="../../common.css"> <!-- For theme variables -->
-```
-
-### Theme Integration (Optional but Recommended)
-
-If you want to match Arcadia's dark theme:
+Available CSS variables:
 ```css
-/* Available CSS variables from common.css */
 --bg-color: #1a1a2e
 --primary-accent-color: #0f3460
 --secondary-accent-color: #e94560
 --text-color: #ffffff
 --text-muted-color: #a7a9be
+--border-radius: 16px
 ```
 
-**But feel free to use your own color scheme!**
+**Option 3: Use Any UI Library**
+
+Complete freedom to use:
+- **Bootstrap** - Component library
+- **Material UI** - Google's design system
+- **Chakra UI** - Accessible components
+- **Your own CSS** - Custom styling
+- **Any other library** - Your choice!
+
+**Option 4: Mix and Match**
+
+Combine Tailwind with common.css or create your own unique style!
 
 ---
 
@@ -337,6 +372,7 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for:
 
 ## ⚡ Quick Start Template
 
+**Option 1: With Tailwind CSS (Neon Theme)**
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -345,16 +381,54 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for:
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Game - Arcadia</title>
     
-    <!-- Optional: Use common.css for theme -->
-    <link rel="stylesheet" href="../../common.css">
-    
-    <!-- Optional: Use any UI library -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    neon: {
+                        cyan: '#00f5ff',
+                        pink: '#ff00ff',
+                        purple: '#8b5cf6',
+                        green: '#00ff88',
+                    },
+                    arcade: {
+                        dark: '#0a0a0f',
+                        card: '#12121a',
+                    }
+                }
+            }
+        }
+    }
+    </script>
     
-    <!-- Your styles -->
+    <!-- GameManager for home button & score -->
+    <script src="../../game-manager.js"></script>
+</head>
+<body class="bg-arcade-dark text-white">
+    <!-- Your game content -->
+    
+    <script src="script.js"></script>
+</body>
+</html>
+```
+
+**Option 2: With Classic Dark Theme**
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Game - Arcadia</title>
+    
+    <!-- Classic theme -->
+    <link rel="stylesheet" href="../../common.css">
     <link rel="stylesheet" href="style.css">
     
-    <!-- Optional: GameManager for home button & score -->
+    <!-- GameManager for home button & score -->
     <script src="../../game-manager.js"></script>
 </head>
 <body>

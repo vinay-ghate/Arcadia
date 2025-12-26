@@ -68,23 +68,45 @@ gameManager.showGameOver();
 
 ### 4. Styling - Your Choice!
 
-**Option A: Use Arcadia Theme (Recommended)**
+**Arcadia's Main Site Theme:**
+The main Arcadia site now uses **Tailwind CSS** with a modern **neon/arcade aesthetic**:
+- Neon colors: Cyan, Pink, Purple, Green
+- Dark arcade theme
+- Orbitron & Inter fonts
+
+**For Your Game - Choose Your Approach:**
+
+**Option A: Match Arcadia's Neon Theme (Recommended)**
+```html
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                neon: { cyan: '#00f5ff', pink: '#ff00ff', purple: '#8b5cf6', green: '#00ff88' },
+                arcade: { dark: '#0a0a0f', card: '#12121a' }
+            }
+        }
+    }
+}
+</script>
+```
+
+**Option B: Use Classic Dark Theme**
 ```html
 <link rel="stylesheet" href="../../common.css">
 ```
 
-**Option B: Use Any UI Library**
+**Option C: Use Any UI Library**
 ```html
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com"></script>
-
 <!-- Bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- Material UI, Chakra UI, or any other library! -->
 ```
 
-**See [docs/RULE.md](docs/RULE.md) for theming guidelines and examples.**
+**See [docs/RULE.md](docs/RULE.md) for complete theming guidelines and examples.**
 
 ## 🚀 Getting Started
 

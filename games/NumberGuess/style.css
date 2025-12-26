@@ -1,0 +1,480 @@
+/* Number Guess Game Custom Styles */
+
+/* Base styles - CRITICAL: Override common.css to allow scrolling */
+html,
+body {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+    min-height: 100vh;
+}
+
+/* GameManager home button - ensure it's always visible */
+#back-button,
+.back-button {
+    position: fixed !important;
+    top: 20px !important;
+    left: 20px !important;
+    z-index: 9999 !important;
+    background: #0f3460 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 16px !important;
+    padding: 12px 16px !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+#back-button:hover,
+.back-button:hover {
+    background: #1a4a7a !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* GameManager score display - complete styling */
+#score-display,
+.score-display {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    z-index: 9999 !important;
+    background: rgba(15, 52, 96, 0.9) !important;
+    backdrop-filter: blur(10px) !important;
+    border-radius: 16px !important;
+    padding: 16px 20px !important;
+    text-align: center !important;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    font-size: 18px !important;
+    display: block !important;
+}
+
+#score-value {
+    color: #e94560 !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    margin-left: 8px !important;
+}
+
+
+
+/* Game Board */
+#game-board {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    gap: 5px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+}
+
+.tile {
+    width: 62px;
+    height: 62px;
+    border: 2px solid #3a3a3c;
+    display: flex;
+    align-items: center;
+    justify-center;
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.tile.filled {
+    border-color: #565758;
+    animation: pop 0.1s ease-in-out;
+}
+
+.tile.correct {
+    background-color: #6aaa64;
+    border-color: #6aaa64;
+    color: white;
+}
+
+.tile.present {
+    background-color: #c9b458;
+    border-color: #c9b458;
+    color: white;
+}
+
+.tile.absent {
+    background-color: #787c7e;
+    border-color: #787c7e;
+    color: white;
+}
+
+.tile.flip {
+    animation: flip 0.6s ease-in-out;
+}
+
+/* Numpad Keyboard */
+.numpad {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 280px;
+    width: 100%;
+}
+
+.numpad-row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.key {
+    width: 80px;
+    height: 80px;
+    background-color: #818384;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 1.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+.key:hover {
+    background-color: #9a9b9c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.key:active {
+    transform: scale(0.95) translateY(0);
+}
+
+.key-num {
+    /* Number keys - standard styling */
+}
+
+.key-action {
+    /* Action keys (Enter, Backspace) */
+    background: linear-gradient(135deg, #6aaa64 0%, #5a9a54 100%);
+    font-size: 1rem;
+}
+
+.key-action:hover {
+    background: linear-gradient(135deg, #7bc275 0%, #6aaa64 100%);
+}
+
+.key.correct {
+    background-color: #6aaa64;
+}
+
+.key.present {
+    background-color: #c9b458;
+}
+
+.key.absent {
+    background-color: #3a3a3c;
+}
+
+/* Animations */
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes flip {
+    0% {
+        transform: rotateX(0);
+    }
+
+    50% {
+        transform: rotateX(90deg);
+    }
+
+    100% {
+        transform: rotateX(0);
+    }
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-5px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(5px);
+    }
+}
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Message */
+#message {
+    transition: opacity 0.3s ease;
+}
+
+#message.show {
+    opacity: 1;
+}
+
+#message.hide {
+    opacity: 0;
+}
+
+/* Stats Modal */
+#stats-modal.flex {
+    display: flex;
+}
+
+.distribution-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bar-number {
+    width: 16px;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #d1d5db;
+}
+
+.bar-container {
+    flex: 1;
+    height: 24px;
+    background: linear-gradient(to right, #8b5cf6, #00f5ff);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    min-width: 24px;
+}
+
+.bar-value {
+    font-size: 0.875rem;
+    font-weight: bold;
+    color: white;
+}
+
+/* Mobile Responsiveness - Dynamic Scaling */
+
+/* Large tablets and small laptops */
+@media (max-width: 1024px) {
+    .tile {
+        width: 58px;
+        height: 58px;
+        font-size: 1.875rem;
+    }
+
+    .key {
+        width: 75px;
+        height: 75px;
+        font-size: 1.625rem;
+    }
+
+    .numpad {
+        max-width: 260px;
+    }
+}
+
+/* Tablets portrait */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5rem !important;
+    }
+
+    .tile {
+        width: 54px;
+        height: 54px;
+        font-size: 1.75rem;
+    }
+
+    .key {
+        width: 70px;
+        height: 70px;
+        font-size: 1.5rem;
+    }
+
+    .numpad {
+        max-width: 240px;
+        gap: 6px;
+    }
+
+    .numpad-row {
+        gap: 6px;
+    }
+}
+
+/* Mobile landscape and small tablets */
+@media (max-width: 640px) {
+    h1 {
+        font-size: 2rem !important;
+    }
+
+    p {
+        font-size: 0.875rem;
+    }
+
+    .tile {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+        border-width: 2px;
+    }
+
+    .key {
+        width: 65px;
+        height: 65px;
+        font-size: 1.375rem;
+    }
+
+    .numpad {
+        max-width: 220px;
+        gap: 5px;
+    }
+
+    .numpad-row {
+        gap: 5px;
+    }
+
+    #game-board {
+        gap: 4px;
+    }
+
+    .row {
+        gap: 4px;
+    }
+}
+
+/* Mobile portrait */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.75rem !important;
+    }
+
+    .tile {
+        width: 48px;
+        height: 48px;
+        font-size: 1.375rem;
+    }
+
+    .key {
+        width: 60px;
+        height: 60px;
+        font-size: 1.25rem;
+    }
+
+    .key-action svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .numpad {
+        max-width: 200px;
+        gap: 4px;
+    }
+
+    .numpad-row {
+        gap: 4px;
+    }
+
+    #game-board {
+        gap: 3px;
+    }
+
+    .row {
+        gap: 3px;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 380px) {
+    h1 {
+        font-size: 1.5rem !important;
+    }
+
+    .tile {
+        width: 44px;
+        height: 44px;
+        font-size: 1.25rem;
+    }
+
+    .key {
+        width: 55px;
+        height: 55px;
+        font-size: 1.125rem;
+    }
+
+    .numpad {
+        max-width: 180px;
+    }
+}
+
+/* Very small devices */
+@media (max-width: 320px) {
+    h1 {
+        font-size: 1.25rem !important;
+    }
+
+    .tile {
+        width: 40px;
+        height: 40px;
+        font-size: 1.125rem;
+    }
+
+    .key {
+        width: 50px;
+        height: 50px;
+        font-size: 1rem;
+    }
+
+    .key-action svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .numpad {
+        max-width: 165px;
+        gap: 3px;
+    }
+
+    .numpad-row {
+        gap: 3px;
+    }
+}

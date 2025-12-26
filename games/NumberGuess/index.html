@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guess - Guess the Number | Arcadia Games</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Play Number Guess! Guess the 5-digit number in 6 tries. Color-coded hints help you solve the puzzle. Free number puzzle game.">
+    <meta name="keywords"
+        content="number guess, number game, puzzle game, guess the number, 5 digit numbers, brain game, free game">
+    <meta name="author" content="Arcadia Games">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Number Guess - Guess the Number">
+    <meta property="og:description" content="Guess the 5-digit number in 6 tries with color-coded hints!">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Arcadia Games">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Number Guess - Guess the Number">
+    <meta name="twitter:description" content="Guess the 5-digit number in 6 tries with color-coded hints!">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neon: {
+                            cyan: '#00f5ff',
+                            pink: '#ff00ff',
+                            purple: '#8b5cf6',
+                            green: '#00ff88',
+                        },
+                        arcade: {
+                            dark: '#0a0a0f',
+                            darker: '#050508',
+                            card: '#12121a',
+                            border: '#1f1f2e',
+                        },
+                        wordle: {
+                            correct: '#6aaa64',
+                            present: '#c9b458',
+                            absent: '#787c7e',
+                            empty: '#3a3a3c',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- GameManager -->
+    <script src="../../game-manager.js"></script>
+</head>
+
+<body class="bg-arcade-dark text-white min-h-screen flex flex-col">
+
+    <!-- Game Container -->
+    <div class="flex-1 flex flex-col items-center justify-center p-4">
+
+        <!-- Title -->
+        <h1
+            class="text-4xl md:text-5xl font-bold mb-2 bg-gradient-to-r from-neon-cyan to-neon-purple bg-clip-text text-transparent">
+            NUMBER GUESS
+        </h1>
+        <p class="text-gray-400 mb-2">Guess the 5-digit number in 6 tries</p>
+        <p class="text-sm text-gray-500 mb-6">🟩 Correct | 🟨 Wrong position | ⬜ Not in number</p>
+
+        <!-- Game Board -->
+        <div id="game-board" class="mb-8">
+            <!-- 6 rows of 5 tiles each -->
+        </div>
+
+        <!-- Message -->
+        <div id="message" class="h-8 mb-4 text-center font-semibold"></div>
+
+        <!-- Number Keyboard (Numpad style - like calculator/phone) -->
+        <div id="keyboard" class="numpad">
+            <!-- Row 1: 7, 8, 9 -->
+            <div class="numpad-row">
+                <button class="key key-num" data-key="7">7</button>
+                <button class="key key-num" data-key="8">8</button>
+                <button class="key key-num" data-key="9">9</button>
+            </div>
+            <!-- Row 2: 4, 5, 6 -->
+            <div class="numpad-row">
+                <button class="key key-num" data-key="4">4</button>
+                <button class="key key-num" data-key="5">5</button>
+                <button class="key key-num" data-key="6">6</button>
+            </div>
+            <!-- Row 3: 1, 2, 3 -->
+            <div class="numpad-row">
+                <button class="key key-num" data-key="1">1</button>
+                <button class="key key-num" data-key="2">2</button>
+                <button class="key key-num" data-key="3">3</button>
+            </div>
+            <!-- Row 4: Backspace, 0, Enter -->
+            <div class="numpad-row">
+                <button class="key key-action" data-key="BACKSPACE" title="Backspace">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6.414 6.414a2 2 0 001.414.586H19a2 2 0 002-2V7a2 2 0 00-2-2h-8.172a2 2 0 00-1.414.586L3 12z">
+                        </path>
+                    </svg>
+                </button>
+                <button class="key key-num" data-key="0">0</button>
+                <button class="key key-action" data-key="ENTER" title="Enter">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Button -->
+        <button id="stats-button"
+            class="mt-6 px-6 py-2 bg-neon-purple hover:bg-neon-purple/80 rounded-lg font-semibold transition-colors">
+            View Statistics
+        </button>
+    </div>
+
+    <!-- Stats Modal -->
+    <div id="stats-modal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 p-4">
+        <div class="bg-arcade-card border border-arcade-border rounded-2xl p-6 max-w-md w-full">
+            <div class="flex justify-between items-center mb-6">
+                <h2
+                    class="text-2xl font-bold bg-gradient-to-r from-neon-cyan to-neon-purple bg-clip-text text-transparent">
+                    STATISTICS
+                </h2>
+                <button id="close-stats" class="text-gray-400 hover:text-white text-2xl">&times;</button>
+            </div>
+
+            <div class="grid grid-cols-4 gap-4 mb-6">
+                <div class="text-center">
+                    <div id="stat-played" class="text-3xl font-bold text-neon-cyan">0</div>
+                    <div class="text-xs text-gray-400">Played</div>
+                </div>
+                <div class="text-center">
+                    <div id="stat-win-rate" class="text-3xl font-bold text-neon-green">0</div>
+                    <div class="text-xs text-gray-400">Win %</div>
+                </div>
+                <div class="text-center">
+                    <div id="stat-current-streak" class="text-3xl font-bold text-neon-pink">0</div>
+                    <div class="text-xs text-gray-400">Current</div>
+                </div>
+                <div class="text-center">
+                    <div id="stat-max-streak" class="text-3xl font-bold text-neon-purple">0</div>
+                    <div class="text-xs text-gray-400">Max</div>
+                </div>
+            </div>
+
+            <h3 class="text-sm font-semibold mb-3 text-gray-300">GUESS DISTRIBUTION</h3>
+            <div id="guess-distribution" class="space-y-1">
+                <!-- Distribution bars will be inserted here -->
+            </div>
+
+            <button id="new-game-button"
+                class="w-full mt-6 px-6 py-3 bg-gradient-to-r from-neon-cyan to-neon-purple text-arcade-dark font-bold rounded-lg hover:shadow-lg hover:shadow-neon-cyan/50 transition-all">
+                NEW GAME
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
