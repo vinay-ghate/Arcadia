@@ -119,7 +119,7 @@
   {
     "id": 14,
     "description": "Guess the 5-lenght number in 6 tries with color-coded hints!",
-    "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/wordle.png",
+    "imageUrl": "http://vinay-ghate.github.io/mediaAssets/images/Arcadia/gameLogo/NumberGuess.png",
     "featured": true,
     "category": "Puzzle",
     "title": "CodeGuess",
