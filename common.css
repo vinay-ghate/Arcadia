@@ -2,21 +2,16 @@
 
 /* CSS Variables for consistent theming */
 :root {
-    --bg-color: #0f0f1a;
-    /* Darker, richer background */
-    --primary-accent-color: #00d4ff;
-    /* Cyan neon */
-    --secondary-accent-color: #ff0055;
-    /* Pink neon */
+    --bg-color: #1a1a2e;
+    --primary-accent-color: #0f3460;
+    --secondary-accent-color: #e94560;
     --text-color: #ffffff;
-    --text-muted-color: #8b9bb4;
-    --block-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    --border-radius: 12px;
-    --button-bg: linear-gradient(135deg, #00d4ff 0%, #005bea 100%);
-    --button-hover-bg: linear-gradient(135deg, #005bea 0%, #00d4ff 100%);
+    --text-muted-color: #a7a9be;
+    --block-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    --border-radius: 16px;
+    --button-bg: #0f3460;
+    --button-hover-bg: #1a4a7a;
     --button-text: #ffffff;
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Basic Reset */
@@ -32,8 +27,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-color);
     line-height: 1.6;
-    overflow-y: auto;
-    /* Enable vertical scrolling */
+    overflow: hidden;
 }
 
 /* Back button component */
@@ -42,34 +36,29 @@ body {
     top: 20px;
     left: 20px;
     z-index: 1000;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: var(--glass-border);
-    color: var(--text-color);
+    background: var(--button-bg);
+    color: var(--button-text);
+    border: none;
     border-radius: var(--border-radius);
-    padding: 10px 16px;
+    padding: 12px 16px;
     cursor: pointer;
     text-decoration: none;
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 600;
     transition: all 0.3s ease;
+    box-shadow: var(--block-shadow);
 }
 
 .back-button:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--button-hover-bg);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
 }
 
-.back-button::before {
-    content: '←';
-    font-size: 18px;
-    font-weight: bold;
-}
+
 
 /* Common button styles */
 .game-button {
@@ -80,22 +69,18 @@ body {
     padding: 12px 24px;
     cursor: pointer;
     font-size: 16px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    font-weight: 600;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
-    position: relative;
-    overflow: hidden;
+    box-shadow: var(--block-shadow);
 }
 
 .game-button:hover {
+    background: var(--button-hover-bg);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 212, 255, 0.5);
 }
 
 .game-button:active {
-    transform: translateY(1px);
+    transform: translateY(0);
 }
 
 /* Score display component */
@@ -110,7 +95,6 @@ body {
     padding: 16px 20px;
     text-align: center;
     box-shadow: var(--block-shadow);
-    border: var(--glass-border);
 }
 
 .score-display .label {
@@ -126,7 +110,6 @@ body {
     font-size: 24px;
     font-weight: 700;
     color: var(--text-color);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 /* Game over overlay */
@@ -136,7 +119,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(15, 15, 26, 0.95);
+    background: rgba(26, 26, 46, 0.95);
     backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
@@ -159,7 +142,6 @@ body {
     color: var(--secondary-accent-color);
     margin-bottom: 16px;
     text-align: center;
-    text-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
 }
 
 .game-over-overlay p {
@@ -190,7 +172,6 @@ body {
     text-align: center;
     box-shadow: var(--block-shadow);
     transition: all 0.3s ease;
-    border: var(--glass-border);
 }
 
 .instructions-overlay.hide {
@@ -205,7 +186,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(15, 15, 26, 0.95);
+    background: rgba(26, 26, 46, 0.95);
     backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
@@ -221,7 +202,6 @@ body {
     color: var(--text-color);
     margin-bottom: 24px;
     text-align: center;
-    text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
 }
 
 .start-screen-overlay .subtitle {
@@ -247,49 +227,32 @@ body {
 
 /* Responsive design */
 @media (max-width: 768px) {
-
     .back-button,
     .score-display {
         position: fixed;
         top: 10px;
     }
-
+    
     .back-button {
         left: 10px;
         padding: 10px 12px;
         font-size: 14px;
     }
-
+    
     .score-display {
         right: 10px;
         padding: 12px 16px;
     }
-
+    
     .score-display .value {
         font-size: 20px;
     }
-
+    
     .game-over-overlay h2 {
         font-size: 36px;
     }
-
+    
     .start-screen-overlay h1 {
         font-size: 48px;
     }
-}
-
-#game-ui-layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    /* Let clicks pass through to the game canvas */
-    z-index: 999;
-}
-
-#game-ui-layer>* {
-    pointer-events: auto;
-    /* Re-enable clicks for UI elements */
 }

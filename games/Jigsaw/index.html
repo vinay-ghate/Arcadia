@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Sliding Puzzle - Classic Image Puzzle Game | Arcadia Games</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Play Sliding Puzzle! Unscramble images by sliding tiles into place. Choose difficulty (3x3 to 5x5) and different images. Classic puzzle game!">
+    <meta name="keywords"
+        content="sliding puzzle, jigsaw puzzle, tile puzzle, image puzzle, brain game, logic game, puzzle game, free game, browser game">
+    <meta name="author" content="Arcadia Games">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Sliding Puzzle - Classic Image Puzzle Game">
+    <meta property="og:description"
+        content="Unscramble images by sliding tiles! Multiple difficulty levels and images to choose from.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Arcadia Games">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Sliding Puzzle - Classic Image Puzzle Game">
+    <meta name="twitter:description"
+        content="Unscramble images by sliding tiles! Multiple difficulty levels and images.">
+
+    <link rel="stylesheet" href="../../common.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <script src="../../game-manager.js"></script>
+</head>
+
+<body>
+    <div class="game-container">
+        <header>
+            <h1>Sliding Puzzle</h1>
+            <p class="theme-name">Unscramble the Image</p>
+        </header>
+
+        <div class="actions-bar">
+            <!-- Back button handled by GameManager -->
+            <button id="fullscreen-button" class="game-button">Fullscreen</button>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="image-select">Choose Image:</label>
+                <select id="image-select">
+                    <option value="http://vinay-ghate.github.io/mediaAssets/images/Arcadia/assets/jigsaw/puzzle1.jpg">Niji</option>
+                    <option value="http://vinay-ghate.github.io/mediaAssets/images/Arcadia/assets/jigsaw/puzzle2.jpg">Mob</option>
+                    <option value="http://vinay-ghate.github.io/mediaAssets/images/Arcadia/assets/jigsaw/puzzle3.jpg">Zoro</option>
+                    <option value="http://vinay-ghate.github.io/mediaAssets/images/Arcadia/assets/jigsaw/puzzle4.gif">IndiaMap</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="difficulty-select">Difficulty:</label>
+                <select id="difficulty-select">
+                    <option value="3">Easy (3x3)</option>
+                    <option value="4" selected>Medium (4x4)</option>
+                    <option value="5">Hard (5x5)</option>
+                </select>
+            </div>
+            <button id="start-button" class="game-button">Scramble</button>
+        </div>
+
+        <div class="game-area">
+            <div class="puzzle-wrapper">
+                <div class="stats">
+                    <div>Moves: <span id="move-counter">0</span></div>
+                    <!-- Time handled by GameManager, but we keep this for local display if needed, or remove it? -->
+                    <!-- GameManager shows time in top right. We can remove this local timer or keep it synced. -->
+                    <!-- Let's remove local timer to avoid duplication. -->
+                </div>
+                <div class="board-wrapper">
+                    <div id="board-container">
+                    </div>
+                    <div id="loading-overlay" class="loading-overlay">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Modal handled by GameManager -->
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>

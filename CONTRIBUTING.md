@@ -27,83 +27,86 @@ YourGameName/
 
 ### 2. Game Requirements
 
-- **Theme Consistency**: Use our common CSS variables for main background and key UI elements
-- **Back Button**: Always include `<a href="../" class="back-button">Back to Menu</a>` in your HTML
-- **Common CSS**: Include `<link rel="stylesheet" href="../common.css">` before your game's CSS
-- **Responsive Design**: Games should work on both desktop and mobile
-- **Performance**: Keep it lightweight and fast
-- **Accessibility**: Consider users with different abilities
-- **External Assets**: External fonts, icons, images, and libraries are welcome! Just ensure the main background uses our theme variables
+**See [docs/RULE.md](docs/RULE.md) for complete development guidelines.**
 
-### 3. Using Common Components
+**Core Requirements:**
+- **Navigation**: Must have a way to return to main menu (use GameManager or manual back button)
+- **Responsive**: Should work on desktop and mobile devices
+- **Quality**: No console errors, smooth performance
 
-We provide `common.css` with reusable components:
+**Flexible Choices:**
+- **UI Libraries**: Use any library you want (Tailwind, Bootstrap, Material UI, or vanilla CSS)
+- **Frameworks**: React, Vue, Svelte, or plain JavaScript - your choice!
+- **Styling**: Match Arcadia theme or create your own unique style
+- **Tools**: Use build tools or keep it simple with plain HTML/CSS/JS
+
+**Recommended (but optional):**
+- Use `common.css` for consistent dark theme
+- Use `GameManager` for automatic home button and score display
+- Follow accessibility best practices
+
+### 3. Using GameManager (Recommended)
+
+GameManager provides automatic home button, score display, and game over overlay:
 
 ```html
-<!-- Back button -->
-<a href="../" class="back-button">Back to Menu</a>
-
-<!-- Score display -->
-<div class="score-display">
-    <div class="label">Score</div>
-    <div class="value">0</div>
-</div>
-
-<!-- Game buttons -->
-<button class="game-button">Start Game</button>
-
-<!-- Game over overlay -->
-<div class="game-over-overlay">
-    <h2>Game Over!</h2>
-    <!-- content -->
-</div>
+<script src="../../game-manager.js"></script>
 ```
 
-### 4. CSS Variables & Theming
+```javascript
+const gameManager = new GameManager({
+    gameId: 'your-game',
+    title: 'Your Game'
+});
 
-Use our theme variables for main background and key UI elements:
-
-```css
-:root {
-    --bg-color: #1a1a2e;           /* Main background - MUST use this */
-    --primary-accent-color: #0f3460;
-    --secondary-accent-color: #e94560;
-    --text-color: #ffffff;
-    --text-muted-color: #a7a9be;
-    --border-radius: 16px;
-    --block-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    /* ... more variables in common.css */
-}
+// Use these methods:
+gameManager.setScore(100);
+gameManager.showGameOver();
 ```
 
-**Theming Guidelines**:
-- **REQUIRED**: Main background must use `background-color: var(--bg-color)`
-- **RECOMMENDED**: Use our accent colors for primary UI elements
-- **FLEXIBLE**: Game-specific colors, fonts, icons, and images are encouraged!
-- **EXAMPLE**: A Tetris game can have colorful blocks but should use our dark background
+**See [docs/RULE.md](docs/RULE.md) for complete API documentation.**
 
-**How to integrate**:
-```css
-/* In your game's CSS file */
-:root {
-    /* Use Arcadia theme for main elements */
-    --game-bg: var(--bg-color, #1a1a2e);
-    --game-ui: var(--primary-accent-color, #0f3460);
-    
-    /* Your custom game colors */
-    --tetris-red: #ff4444;
-    --tetris-blue: #4444ff;
-    /* etc... */
-}
+### 4. Styling - Your Choice!
 
-body {
-    background-color: var(--game-bg); /* Uses Arcadia theme */
-}
+**Arcadia's Main Site Theme:**
+The main Arcadia site now uses **Tailwind CSS** with a modern **neon/arcade aesthetic**:
+- Neon colors: Cyan, Pink, Purple, Green
+- Dark arcade theme
+- Orbitron & Inter fonts
 
-.game-piece {
-    background-color: var(--tetris-red); /* Your custom color */
+**For Your Game - Choose Your Approach:**
+
+**Option A: Match Arcadia's Neon Theme (Recommended)**
+```html
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                neon: { cyan: '#00f5ff', pink: '#ff00ff', purple: '#8b5cf6', green: '#00ff88' },
+                arcade: { dark: '#0a0a0f', card: '#12121a' }
+            }
+        }
+    }
 }
+</script>
 ```
+
+**Option B: Use Classic Dark Theme**
+```html
+<link rel="stylesheet" href="../../common.css">
+```
+
+**Option C: Use Any UI Library**
+```html
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Material UI, Chakra UI, or any other library! -->
+```
+
+**See [docs/RULE.md](docs/RULE.md) for complete theming guidelines and examples.**
 
 ## 🚀 Getting Started
 
@@ -167,6 +170,7 @@ Have a cool idea? We'd love to hear it! Open an issue with:
 
 ## 📚 Resources
 
+- **[docs/RULE.md](docs/RULE.md)** - Complete game development guidelines
 - [MDN Web Docs](https://developer.mozilla.org/) - Web development reference
 - [CSS-Tricks](https://css-tricks.com/) - CSS tips and techniques
 - [JavaScript.info](https://javascript.info/) - Modern JavaScript tutorial

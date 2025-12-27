@@ -1,31 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arcadia Only</title>
-    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arcadia - Retro Arcade Game Collection</title>
+    <meta name="description"
+        content="Play classic retro arcade games like Tetris, Snake, Pac-Man and more. Free to play, no downloads required!" />
+    <meta name="keywords" content="arcade games, retro games, free games, tetris, snake, pac-man, browser games" />
+
+    <meta property="og:title" content="Arcadia - Retro Arcade Game Collection" />
+    <meta property="og:description" content="Play classic retro arcade games. Free, instant, no downloads required!" />
+    <meta property="og:type" content="website" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="style.css">
-    
-    <script src="script.js" defer></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        display: ['Orbitron', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        neon: {
+                            cyan: '#00f5ff',
+                            pink: '#ff00ff',
+                            purple: '#8b5cf6',
+                            green: '#00ff88',
+                        },
+                        arcade: {
+                            dark: '#0a0a0f',
+                            darker: '#050508',
+                            card: '#12121a',
+                            border: '#1f1f2e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <header>
-        <h1>🎮 Arcadia</h1>
-        <p>Your portal to a world of games.</p>
+
+<body class="text-gray-100">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 backdrop-blur-xl bg-arcade-darker/80 border-b border-arcade-border">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between gap-4 flex-wrap">
+                <a href="index.html" class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 rounded-lg bg-gradient-to-br from-neon-cyan to-neon-purple flex items-center justify-center pulse-glow">
+                        <span class="font-display font-bold text-arcade-dark text-lg">A</span>
+                    </div>
+                    <span class="font-display text-2xl font-bold gradient-text">ARCADIA</span>
+                </a>
+
+                <nav class="hidden md:flex items-center gap-6">
+                    <a href="index.html"
+                        class="text-gray-300 hover:text-neon-cyan transition-colors font-medium">Home</a>
+                    <a href="#about" class="text-gray-300 hover:text-neon-cyan transition-colors font-medium">About</a>
+                </nav>
+
+                <div class="relative flex-1 max-w-md">
+                    <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="Search games..."
+                        class="search-input w-full pl-10 pr-4 py-2.5 rounded-xl text-gray-100 placeholder-gray-500" />
+                </div>
+            </div>
+        </div>
     </header>
 
-    <main>
-        <div id="game-container" class="game-grid">
-            </div>
-    </main>
+    <!-- Hero Section -->
+    <section class="relative py-20 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-neon-purple/10 via-transparent to-transparent"></div>
+        <div class="absolute top-20 left-10 w-72 h-72 bg-neon-cyan/20 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-neon-purple/20 rounded-full blur-3xl"></div>
 
-    <footer>
-    <p>A "vibe coding" project, lovingly curated by <a href="https://www.linkedin.com/in/vinay-ghate/">Vinay</a> .</p>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <h1 class="font-display text-5xl md:text-7xl font-bold mb-6 fade-in">
+                <span class="gradient-text">RETRO ARCADE</span>
+                <br>
+                <span class="text-gray-100">COLLECTION</span>
+            </h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-8 fade-in">
+                Play classic arcade games directly in your browser. No downloads, no installs – just pure retro gaming
+                fun!
+            </p>
+            <a href="#games"
+                class="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-display font-semibold bg-gradient-to-r from-neon-cyan to-neon-purple text-arcade-dark hover:shadow-lg hover:shadow-neon-cyan/50 transition-all duration-300 float">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                START PLAYING
+            </a>
+        </div>
+    </section>
+
+    <!-- Featured Section -->
+    <section class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center gap-3 mb-8">
+                <svg class="w-6 h-6 text-neon-cyan" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                        d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+                <h2 class="font-display text-2xl font-bold text-gray-100">FEATURED GAMES</h2>
+            </div>
+            <div id="featuredGames" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Featured games will be injected here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Filter -->
+    <section id="games" class="py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center gap-3 mb-6">
+                <svg class="w-6 h-6 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <h2 class="font-display text-2xl font-bold text-gray-100">ALL GAMES</h2>
+            </div>
+            <div id="categoryFilters" class="flex flex-wrap gap-3 mb-8">
+                <!-- Category buttons will be injected here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Grid -->
+    <section class="pb-20">
+        <div class="container mx-auto px-4">
+            <div id="gamesGrid"
+                class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                <!-- Games will be injected here -->
+            </div>
+            <p id="noResults" class="text-center text-gray-500 py-12 hidden">No games found matching your search.</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-neon-purple/5 via-neon-cyan/5 to-neon-purple/5"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="flex items-center justify-center gap-3 mb-6">
+                    <svg class="w-8 h-8 text-neon-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <h2 class="font-display text-3xl font-bold gradient-text">ABOUT ARCADIA</h2>
+                </div>
+                <p class="text-xl text-gray-300 mb-6 leading-relaxed">
+                    Arcadia is your portal to the golden age of gaming. We've carefully curated a collection of classic
+                    arcade games that defined a generation, all playable directly in your browser.
+                </p>
+                <p class="text-gray-400 mb-8">
+                    No downloads, no installs, no ads – just pure, unadulterated retro gaming nostalgia. Whether you're
+                    reliving childhood memories or discovering these timeless classics for the first time, Arcadia has
+                    something for everyone.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+                    <div class="game-card rounded-xl p-6 text-center">
+                        <div
+                            class="w-14 h-14 mx-auto mb-4 rounded-full bg-neon-cyan/20 flex items-center justify-center">
+                            <svg class="w-7 h-7 text-neon-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                        <h3 class="font-display text-lg font-bold text-gray-100 mb-2">Instant Play</h3>
+                        <p class="text-gray-400 text-sm">Jump right into any game with zero loading time or setup
+                            required.</p>
+                    </div>
+                    <div class="game-card rounded-xl p-6 text-center">
+                        <div
+                            class="w-14 h-14 mx-auto mb-4 rounded-full bg-neon-purple/20 flex items-center justify-center">
+                            <svg class="w-7 h-7 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="font-display text-lg font-bold text-gray-100 mb-2">Mobile Ready</h3>
+                        <p class="text-gray-400 text-sm">Play on any device – desktop, tablet, or mobile phone.</p>
+                    </div>
+                    <div class="game-card rounded-xl p-6 text-center">
+                        <div
+                            class="w-14 h-14 mx-auto mb-4 rounded-full bg-neon-green/20 flex items-center justify-center">
+                            <svg class="w-7 h-7 text-neon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </div>
+                        <h3 class="font-display text-lg font-bold text-gray-100 mb-2">100% Free</h3>
+                        <p class="text-gray-400 text-sm">All games are completely free to play, forever.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-arcade-border bg-arcade-darker/50 py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-8 h-8 rounded-lg bg-gradient-to-br from-neon-cyan to-neon-purple flex items-center justify-center">
+                        <span class="font-display font-bold text-arcade-dark text-sm">A</span>
+                    </div>
+                    <span class="font-display text-xl font-bold gradient-text">ARCADIA</span>
+                </div>
+                <p class="text-gray-500 text-sm">© 2025 Arcadia. All games are property of their respective owners.</p>
+                <div class="flex gap-4">
+                    <a href="#about" class="text-gray-400 hover:text-neon-cyan transition-colors">About</a>
+                    <a href="#privacy" class="text-gray-400 hover:text-neon-cyan transition-colors">Privacy</a>
+                </div>
+            </div>
+        </div>
     </footer>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
