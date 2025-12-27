@@ -1,0 +1,128 @@
+/* Tower Block Game Specific Styles */
+
+html,
+body {
+    margin: 0;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+}
+
+#container #game {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+/* Game state transitions */
+#container.playing .instructions-overlay {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+#container.ready .start-screen-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+#container.ready .start-screen-overlay * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#container.ended .game-over-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+#container.ended .game-over-overlay * {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Start screen animations */
+.start-screen-overlay * {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    opacity: 0;
+    transform: translateY(-30px);
+}
+
+.start-screen-overlay h1 {
+    transition-delay: 0.1s;
+}
+
+.start-screen-overlay .subtitle {
+    transition-delay: 0.2s;
+}
+
+.start-screen-overlay .game-button {
+    transition-delay: 0.3s;
+}
+
+/* Game over animations */
+.game-over-overlay * {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    opacity: 0;
+    transform: translateY(-30px);
+}
+
+.game-over-overlay h2 {
+    transition-delay: 0.1s;
+}
+
+.game-over-overlay p {
+    transition-delay: 0.2s;
+}
+
+.game-over-overlay .final-score {
+    transition-delay: 0.3s;
+}
+
+.game-over-overlay .game-button {
+    transition-delay: 0.4s;
+}
+
+/* Instructions specific styling */
+.instructions-overlay {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Hide elements by default - use higher specificity to override common.css */
+#container .game-over-overlay,
+#container .start-screen-overlay {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.instructions-overlay {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .start-screen-overlay h1 {
+        font-size: 42px;
+    }
+
+    .start-screen-overlay .subtitle {
+        font-size: 16px;
+        padding: 0 20px;
+    }
+
+    .instructions-overlay {
+        font-size: 14px;
+        padding: 12px 20px;
+        bottom: 10px;
+    }
+}
